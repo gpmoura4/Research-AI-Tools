@@ -1,0 +1,24 @@
+# Configuração do research workspace.
+# Consumido por scripts/config.py — ver CLAUDE.md para o significado de cada guardrail.
+
+# G5 — máximo de papers processados por execução.
+max_papers_per_run: 30
+
+# Polite pool das APIs (Crossref, OpenAlex, Unpaywall).
+# Enviado no User-Agent/mailto para obter rate limits melhores.
+polite_pool_email: gpcmoura@gmail.com
+
+# G6 — idioma padrão dos resumos. Português apenas quando o paper original for em pt.
+default_summary_language: en
+
+# Convenção de renomeação: truncamento do título no nome do arquivo.
+title_max_chars: 80
+
+# Crossref
+crossref:
+  base_url: https://api.crossref.org
+  timeout_seconds: 30
+  max_retries: 3
+  # Similaridade mínima (0-1) entre o título do PDF e o título retornado pela busca
+  # sem DOI. Abaixo disso a correspondência é rejeitada e a entrada vira INCOMPLETE (G1).
+  title_match_threshold: 0.85
