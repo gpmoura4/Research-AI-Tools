@@ -4,5 +4,19 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
-# Manifests intermediários do pipeline (etapa extract -> commit)
+# --- Artefatos intermediários do pipeline --------------------------------
+# Estado de execução, recriável a qualquer momento pelos comandos.
 .process-manifest.json
+.search-manifest.json
+.downloads/
+.extracted-text/
+
+# --- Conteúdo dos papers --------------------------------------------------
+# PDFs não vão para o repositório: são pesados, redistribuí-los pode violar
+# a licença do editor, e são sempre recuperáveis pelo DOI no references.bib.
+*.pdf
+*.epub
+*.docx
+
+# Mantém a estrutura de diretórios visível mesmo sem os arquivos.
+!.gitkeep

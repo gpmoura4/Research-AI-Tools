@@ -46,11 +46,27 @@ class BibEntry:
         return self.fields.get("title", "").strip()
 
 
+# Transliteração mínima do cirílico. Sem ela, um sobrenome inteiro vira string
+# vazia e a citation key perde o autor.
+_CYRILLIC_MAP = {
+    "а": "a", "б": "b", "в": "v", "г": "h", "ґ": "g", "д": "d", "е": "e",
+    "є": "ie", "ж": "zh", "з": "z", "и": "y", "і": "i", "ї": "i", "й": "i",
+    "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r",
+    "с": "s", "т": "t", "у": "u", "ф": "f", "х": "kh", "ц": "ts", "ч": "ch",
+    "ш": "sh", "щ": "shch", "ь": "", "ю": "iu", "я": "ia", "ы": "y", "э": "e",
+    "ё": "e", "ъ": "",
+}
+
+
+def _transliterate(text: str) -> str:
+    return "".join(_CYRILLIC_MAP.get(c, _CYRILLIC_MAP.get(c.lower(), c)) for c in text)
+
+
 def _ascii_slug(text: str) -> str:
     """Reduz a ASCII alfanumérico — citation keys precisam ser seguras no LaTeX."""
     normalized = unicodedata.normalize("NFKD", text or "")
     stripped = "".join(c for c in normalized if not unicodedata.combining(c))
-    return re.sub(r"[^A-Za-z0-9]", "", stripped)
+    return re.sub(r"[^A-Za-z0-9]", "", _transliterate(stripped))
 
 
 def make_citation_key(
@@ -85,6 +101,18 @@ def make_citation_key(
     return f"{base}{counter}"
 
 
+# Valores sem chaves são interpretados como macros. O Crossref emite month por
+# extenso ("month=July"), que não é macro padrão do BibTeX e faz o parser lançar
+# UndefinedString — descartando a entrada inteira.
+_BARE_VALUE_RE = re.compile(
+    r"(\b(?:month|year)\s*=\s*)([A-Za-z][A-Za-z0-9]*)\s*(?=[,}])", re.IGNORECASE
+)
+
+
+def _quote_bare_values(raw: str) -> str:
+    return _BARE_VALUE_RE.sub(lambda m: f"{m.group(1)}{{{m.group(2)}}}", raw)
+
+
 def parse_bibtex_string(raw: str) -> BibEntry | None:
     """Converte um BibTeX bruto (ex.: vindo do Crossref) em BibEntry."""
     if not raw or not raw.strip().startswith("@"):
@@ -92,7 +120,7 @@ def parse_bibtex_string(raw: str) -> BibEntry | None:
     parser = BibTexParser(common_strings=True)
     parser.ignore_nonstandard_types = False
     try:
-        db = bibtexparser.loads(raw, parser=parser)
+        db = bibtexparser.loads(_quote_bare_values(raw), parser=parser)
     except Exception:
         return None
     if not db.entries:

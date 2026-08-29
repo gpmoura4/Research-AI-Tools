@@ -49,6 +49,7 @@ class PaperPlan:
     """Plano de processamento de um PDF, produzido por `extract`."""
 
     source_file: str
+    source_rel: str
     target_filename: str
     citation_key: str
     title: str
@@ -216,6 +217,10 @@ def _plan_paper(
 
     return PaperPlan(
         source_file=pdf_path.name,
+        # Caminho relativo ao tema: o PDF pode vir de materials/ (depósito manual)
+        # ou de .downloads/ (baixado pela revisão de literatura). Guardar só o nome
+        # faria o commit procurar sempre em materials/ e não achar os baixados.
+        source_rel=str(pdf_path.resolve().relative_to(location.path.resolve())),
         target_filename=filename,
         citation_key=citation_key,
         title=title,
@@ -234,20 +239,15 @@ def _plan_paper(
     )
 
 
-def cmd_extract(location: Location) -> int:
-    config = load_config()
-    ensure_location(location)
+def build_manifest(
+    location: Location, pdfs: list[Path], config, skipped: list[Path] | None = None
+) -> Path:
+    """Planeja o processamento de uma lista de PDFs e grava o manifest.
 
-    pdfs = sorted(p for p in location.materials_dir.glob("*.pdf") if p.is_file())
-    if not pdfs:
-        print(f"Nenhum PDF em {location.materials_dir}")
-        return 1
-
-    # G5 — limite por passada.
-    limit = config.max_papers_per_run
-    skipped = pdfs[limit:]
-    pdfs = pdfs[:limit]
-
+    Compartilhada pelo /process-materials (PDFs de materials/) e pelo
+    /literature-review (PDFs recém-baixados), para que ambos passem exatamente
+    pelo mesmo pipeline de metadados, nomenclatura e dedupe.
+    """
     existing_entries = bib.load_bib_file(location.references_bib)
     used_keys = {e.key for e in existing_entries}
     used_filenames: set[str] = set()
@@ -280,17 +280,36 @@ def cmd_extract(location: Location) -> int:
     manifest = {
         "location": str(location),
         "papers": [asdict(p) for p in plans],
-        "skipped_over_limit": [p.name for p in skipped],
-        "max_papers_per_run": limit,
+        "skipped_over_limit": [p.name for p in (skipped or [])],
+        "max_papers_per_run": config.max_papers_per_run,
     }
     manifest_path = location.path / MANIFEST_NAME
     manifest_path.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
     )
+    return manifest_path
 
-    new_count = sum(1 for p in plans if p.status == "planned")
+
+def cmd_extract(location: Location) -> int:
+    config = load_config()
+    ensure_location(location)
+
+    pdfs = sorted(p for p in location.materials_dir.glob("*.pdf") if p.is_file())
+    if not pdfs:
+        print(f"Nenhum PDF em {location.materials_dir}")
+        return 1
+
+    # G5 — limite por passada.
+    limit = config.max_papers_per_run
+    skipped = pdfs[limit:]
+    pdfs = pdfs[:limit]
+
+    manifest_path = build_manifest(location, pdfs, config, skipped)
+    papers = json.loads(manifest_path.read_text(encoding="utf-8"))["papers"]
+
+    new_count = sum(1 for p in papers if p["status"] == "planned")
     print(f"\nManifest: {manifest_path}")
-    print(f"Papers planejados: {new_count} | duplicados: {len(plans) - new_count}")
+    print(f"Papers planejados: {new_count} | duplicados: {len(papers) - new_count}")
     if skipped:
         print(f"Fora do limite de {limit} nesta passada: {len(skipped)}")
     return 0
@@ -325,6 +344,13 @@ def cmd_commit(location: Location) -> int:
             entry = bib.parse_bibtex_string(record["bibtex_raw"])
             if entry:
                 entry.key = record["citation_key"]
+            else:
+                # Degradar para INCOMPLETE em silêncio esconde uma entrada boa que
+                # se perdeu por falha de parsing — o usuário precisa saber.
+                print(
+                    f"  ! BibTeX do Crossref não pôde ser interpretado para "
+                    f"'{target_name[:50]}'; entrada gravada como INCOMPLETE."
+                )
         if entry is None:
             entry = bib.make_incomplete_entry(
                 key=record["citation_key"],
@@ -338,7 +364,10 @@ def cmd_commit(location: Location) -> int:
         if added:
             bib_added += 1
 
-        source = location.materials_dir / record["source_file"]
+        # Manifests antigos não têm source_rel; materials/ é o fallback.
+        source = location.path / record.get(
+            "source_rel", f"materials/{record['source_file']}"
+        )
         destination = location.papers_dir / target_name
         if source.exists() and not destination.exists():
             shutil.move(str(source), str(destination))
@@ -356,6 +385,12 @@ def cmd_commit(location: Location) -> int:
     text_dir = location.path / EXTRACTED_TEXT_DIR
     if text_dir.exists():
         shutil.rmtree(text_dir)
+
+    # Área de staging da revisão de literatura: depois que os PDFs foram movidos
+    # para papers/, o que sobra ali é lixo de execução.
+    downloads_dir = location.path / ".downloads"
+    if downloads_dir.exists() and not any(downloads_dir.iterdir()):
+        downloads_dir.rmdir()
     return 0
 
 

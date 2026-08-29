@@ -224,10 +224,35 @@ def _title_from_layout(page: "pymupdf.Page") -> str | None:
     return title
 
 
-# Nome próprio: "Ashish Vaswani", "Ming-Wei Chang", "J. R. Silva", "Kristina Toutanova".
-_AUTHOR_LINE_RE = re.compile(
-    r"^[A-ZÀ-Þ][\w'’.-]*(?:\s+[A-ZÀ-Þ][\w'’.-]*){1,4}$", re.UNICODE
-)
+def _looks_like_person_name(text: str) -> bool:
+    """Reconhece um nome próprio em qualquer alfabeto.
+
+    Uma classe como [A-ZÀ-Þ] cobre apenas o latino e faz nomes cirílicos, gregos
+    ou de outros alfabetos serem descartados — enquanto cabeçalhos em CAIXA ALTA
+    passam. Aqui usamos as propriedades Unicode de cada caractere.
+    """
+    tokens = text.split()
+    if not 2 <= len(tokens) <= 5:
+        return False
+
+    has_lowercase = False
+    for token in tokens:
+        letters = [c for c in token if c.isalpha()]
+        if not letters:
+            return False
+        if not letters[0].isupper():
+            return False
+        # Permite iniciais ("С.", "J. R.") e exige minúsculas em algum token:
+        # sem isso, cabeçalhos como "ENGINE DIFFUSION" passariam por nome.
+        if any(c.islower() for c in letters[1:]):
+            has_lowercase = True
+        elif len(letters) > 2:
+            # Token todo em caixa alta e longo demais para ser inicial.
+            return False
+        if not all(c.isalpha() or c in "'’.-" for c in token):
+            return False
+
+    return has_lowercase
 _AFFILIATION_HINTS = (
     "university",
     "universidade",
@@ -274,24 +299,40 @@ def _authors_from_text(head: str, title: str | None) -> list[str]:
                 # Primeira linha de conteúdo após o título: daqui vêm os autores.
                 break
 
-    surnames: list[str] = []
-    for line in lines[start : start + 25]:
-        lowered = line.lower()
-        if lowered.startswith(("abstract", "resumo", "keywords", "palavras")):
-            break
-        if not line or "@" in line or any(h in lowered for h in _AFFILIATION_HINTS):
-            continue
+    def scan(window: list[str]) -> list[str]:
+        found: list[str] = []
+        for line in window:
+            lowered = line.lower()
+            if lowered.startswith(("abstract", "resumo", "keywords", "palavras")):
+                break
+            # Linha longa é prosa do corpo, não lista de autores. Sem esta parada,
+            # a varredura entra no texto e pesca palavras capitalizadas soltas.
+            if len(line) > 90:
+                break
+            if not line or "@" in line or any(h in lowered for h in _AFFILIATION_HINTS):
+                continue
 
-        # Marcas de nota de rodapé grudadas no nome.
-        cleaned = re.sub(r"[∗*†‡§¶0-9]+", "", line).strip().rstrip(",;")
-        # Uma linha pode listar vários autores separados por vírgula ou "and".
-        for chunk in re.split(r",| and | e ", cleaned):
-            name = chunk.strip()
-            if _AUTHOR_LINE_RE.match(name):
-                surnames.append(name.split()[-1])
+            # Marcas de nota de rodapé grudadas no nome. Só no fim de palavra:
+            # remover dígitos no meio transformaria "3D-модель" em "D-модель",
+            # que passaria por sobrenome.
+            cleaned = re.sub(r"(?<=\w)[∗*†‡§¶]+|(?<=[^\W\d])\d+\b", "", line)
+            cleaned = cleaned.strip().rstrip(",;")
+            # Uma linha pode listar vários autores separados por vírgula ou "and".
+            for chunk in re.split(r",| and | e ", cleaned):
+                name = chunk.strip()
+                if _looks_like_person_name(name):
+                    found.append(name.split()[-1])
 
-        if len(surnames) >= 12:
-            break
+            if len(found) >= 12:
+                break
+        return found
+
+    surnames = scan(lines[start : start + 25])
+
+    # Alguns periódicos (comuns fora do padrão anglo-saxão) imprimem os autores
+    # ACIMA do título. Se nada foi achado depois, procuramos antes.
+    if not surnames and start > 0:
+        surnames = scan(lines[:start])
 
     # Preserva a ordem, removendo repetições.
     return list(dict.fromkeys(surnames))

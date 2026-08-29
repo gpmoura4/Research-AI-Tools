@@ -11,6 +11,12 @@ polite_pool_email: gpcmoura@gmail.com
 # G6 — idioma padrão dos resumos. Português apenas quando o paper original for em pt.
 default_summary_language: en
 
+# G7 — idiomas aceitos na busca e no download. Papers em outros idiomas são
+# descartados dos candidatos (o usuário lê apenas estes).
+accepted_languages:
+  - en
+  - pt
+
 # Convenção de renomeação: truncamento do título no nome do arquivo.
 title_max_chars: 80
 
@@ -22,3 +28,23 @@ crossref:
   # Similaridade mínima (0-1) entre o título do PDF e o título retornado pela busca
   # sem DOI. Abaixo disso a correspondência é rejeitada e a entrada vira INCOMPLETE (G1).
   title_match_threshold: 0.85
+
+# OpenAlex — busca principal de candidatos.
+openalex:
+  base_url: https://api.openalex.org
+  timeout_seconds: 30
+  max_retries: 3
+  # Quantos resultados buscar por string antes de deduplicar e cortar em G5.
+  results_per_query: 50
+
+# Unpaywall — fallback para localizar PDF open access quando o OpenAlex não traz.
+unpaywall:
+  base_url: https://api.unpaywall.org/v2
+  timeout_seconds: 30
+
+# Download de PDFs open access.
+download:
+  timeout_seconds: 120
+  # Pausa entre downloads, para não sobrecarregar os servidores de origem.
+  delay_between_seconds: 1.5
+  max_size_mb: 80

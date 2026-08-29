@@ -104,3 +104,43 @@ def test_citation_key_strips_accents():
 
 def test_empty_file_loads_as_empty_list(tmp_path: Path):
     assert bib.load_bib_file(tmp_path / "missing.bib") == []
+
+
+# --- Regressão: month sem chaves quebrava o parse -------------------------
+
+CONFERENCE_SAMPLE = (
+    "@inproceedings{Zhen_2024, title={LLM-Project: Automated Engineering Task "
+    "Planning via Generative AI and WBS Integration}, "
+    "DOI={10.1109/cyber63482.2024.10749328}, "
+    "booktitle={2024 IEEE 14th International Conference on CYBER Technology}, "
+    "publisher={IEEE}, author={Zhen, Yue and Bi, Sheng}, year={2024}, "
+    "month=July, pages={605-610} }"
+)
+
+
+def test_conference_entry_with_bare_month_parses():
+    # O Crossref emite "month=July" sem chaves; o parser tratava como macro
+    # indefinida e descartava a entrada inteira, degradando-a para INCOMPLETE.
+    entry = bib.parse_bibtex_string(CONFERENCE_SAMPLE)
+    assert entry is not None
+    assert entry.entry_type == "inproceedings"
+    assert entry.fields["publisher"] == "IEEE"
+    assert "booktitle" in entry.fields
+    assert entry.incomplete is False
+
+
+def test_abbreviated_month_still_parses():
+    entry = bib.parse_bibtex_string("@article{K, title={T}, year={2009}, month=Jan }")
+    assert entry is not None
+
+
+def test_braced_month_unchanged():
+    entry = bib.parse_bibtex_string("@article{K, title={T}, year={2020}, month={March} }")
+    assert entry is not None
+    assert entry.fields["month"] == "March"
+
+
+def test_conference_entry_is_not_marked_incomplete(bib_path: Path):
+    entry = bib.parse_bibtex_string(CONFERENCE_SAMPLE)
+    bib.upsert_entry(bib_path, entry)
+    assert bib.INCOMPLETE_MARKER not in bib_path.read_text(encoding="utf-8")

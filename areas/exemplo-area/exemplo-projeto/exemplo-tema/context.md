@@ -1,4 +1,5 @@
 # Contexto do tema: Exemplo de Tema
+LLMs para a produção de WBS (Work Breakdown Structures)
 
 > Preencha este arquivo. Ele orienta os resumos (campo "Relevance to theme")
 > e, mais adiante, as buscas de literatura.

@@ -12,6 +12,13 @@ estruturados e atualiza o `references.bib`.
 
 Argumento recebido: `$1`
 
+> **Este documento é o roteiro do AGENTE, não do usuário.** Os passos abaixo são
+> executados numa única invocação do comando, sem parar entre eles. O passo 3
+> (escrever os resumos) é leitura, não script: nenhum comando o faz. Portanto,
+> ao invocar `/process-materials`, execute os passos 2, 3 e 4 em sequência e só
+> devolva o controle ao usuário no passo 5 — ou antes, se precisar perguntar a
+> localização (passo 1) ou relatar um bloqueio.
+
 ---
 
 ## Passo 1 — Resolver a localização

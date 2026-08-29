@@ -88,6 +88,12 @@ research-workspace/
   config.yaml, mas o padrão é 30).
 - G6 — Idioma dos resumos: inglês por padrão; português apenas se o paper original
   for em português.
+- G7 — Idioma dos papers: buscar e baixar APENAS textos em inglês ou português
+  (configurável em `accepted_languages`, no config.yaml). Papers em outros idiomas
+  são descartados dos candidatos e nunca baixados. O filtro atua em três camadas:
+  na consulta ao OpenAlex, na revalidação do título+abstract (para registros sem
+  metadado de idioma) e no texto do PDF já baixado. Os descartes devem ser
+  SEMPRE reportados ao usuário — nunca silenciosamente.
 
 ## Convenção de renomeação de arquivos
 Formato: "<Autores> - <Ano> - <Título>.pdf"
