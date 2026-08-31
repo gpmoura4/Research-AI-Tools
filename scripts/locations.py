@@ -56,6 +56,14 @@ class Location:
         return self.path / "context.md"
 
     @property
+    def search_protocol(self) -> Path:
+        return self.path / "search-protocol.md"
+
+    @property
+    def screening_protocol(self) -> Path:
+        return self.path / "screening-protocol.md"
+
+    @property
     def materials_dir(self) -> Path:
         return self.path / "materials"
 

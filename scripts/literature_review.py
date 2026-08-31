@@ -269,6 +269,12 @@ def cmd_status(location: Location) -> int:
     if total:
         print(f"  candidates.md           : {total} itens ({approved} aprovados)")
 
+    for label, path in (
+        ("search-protocol.md", location.search_protocol),
+        ("screening-protocol.md", location.screening_protocol),
+    ):
+        print(f"  {label:24}: {'presente' if path.exists() else '—'}")
+
     if (location.path / SEARCH_MANIFEST).exists():
         print("  * busca pendente de download (rode 'fetch')")
     if (location.path / ".process-manifest.json").exists():

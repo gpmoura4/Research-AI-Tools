@@ -22,6 +22,7 @@ research-workspace/
 │           └── <slug-do-tema>/
 │               ├── context.md          # contexto do tema (escrito pelo usuário)
 │               ├── search-protocol.md  # apenas p/ revisão semi-sistemática
+│               ├── screening-protocol.md # perguntas de triagem + prompt p/ outra IA
 │               ├── materials/          # PDFs/refs fornecidos manualmente pelo usuário
 │               └── deliverables/
 │                   ├── papers/         # PDFs renomeados: "Autores - Ano - Título.pdf"
@@ -59,6 +60,12 @@ research-workspace/
    >> Se o tipo NÃO for informado, o agente DEVE perguntar antes de iniciar. <<
    Se semi-sistemática: gerar/validar `search-protocol.md` (strings de busca,
    critérios de inclusão/exclusão, log de decisões) antes de buscar.
+2b. Em qualquer tipo de revisão, gerar `screening-protocol.md` a partir do
+   context.md: perguntas de investigação objetivas, regras de veredito
+   (INCLUIR/TALVEZ/EXCLUIR), score de aderência e um prompt pronto para colar em
+   outro assistente de IA. Serve para triar os PDFs obtidos — a busca filtra por
+   termos, mas não distingue quem FAZ o que o tema investiga de quem apenas
+   menciona os mesmos assuntos.
 3. Agente busca candidatos e grava `candidates.md` com: título, autores, ano, venue,
    abstract, score de relevância (0-10) justificado em 1 linha, DOI/link.
 4. Usuário aprova itens da lista (aprovação por item, não em bloco).

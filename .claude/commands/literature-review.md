@@ -69,6 +69,32 @@ Só para o tipo (b). Escreva `<tema>/search-protocol.md`:
 
 **Apresente o protocolo e aguarde a validação explícita do usuário antes de buscar.**
 
+## Passo 4b — Protocolo de triagem (todos os tipos de revisão)
+
+Escreva `<tema>/screening-protocol.md`, derivado do `context.md`. Ele serve para
+triar os PDFs obtidos — em outro assistente de IA ou na leitura do próprio usuário
+— decidindo se cada paper realmente pertence ao corpus.
+
+A busca filtra por termos; ela não distingue um paper que **faz** o que o tema
+investiga de um que apenas menciona os mesmos assuntos. Esta triagem faz esse corte
+lendo o texto completo.
+
+Estrutura obrigatória:
+
+1. **O que esta triagem decide** — o critério discriminante do tema, em uma tabela
+   curta. Quando o tema tiver uma direção de relação (X produz Y vs. Y alimenta X),
+   ela é o critério central.
+2. **Perguntas de investigação** — 4-8 perguntas objetivas derivadas do
+   `context.md`, cada uma testando um aspecto do escopo declarado.
+3. **Regras de veredito** — INCLUIR / TALVEZ / EXCLUIR, ancoradas nas perguntas e
+   nos critérios de exclusão do `search-protocol.md` quando ele existir.
+4. **Score de aderência 0-10** — faixas com significado explícito.
+5. **Prompt pronto para colar** — bloco ```text autônomo, que o usuário envia junto
+   com o PDF a qualquer IA. Deve exigir: responder só a partir do texto fornecido,
+   citação literal sustentando cada afirmação, "não encontrado no texto" quando não
+   houver evidência, e formato de saída fixo. Isso é o G3 aplicado à triagem.
+6. **Registro das triagens** — tabela para o usuário acumular os vereditos.
+
 ## Passo 5 — Buscar
 
 Derive 2-5 strings do `context.md` (termos em inglês tendem a render mais no OpenAlex;
