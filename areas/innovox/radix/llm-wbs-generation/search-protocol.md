@@ -2,88 +2,100 @@
 
 - **Localização**: innovox/radix/llm-wbs-generation
 - **Tipo**: revisão semi-sistemática
-- **Data de elaboração**: 2026-08-29
-- **Status**: aguardando validação do usuário
+- **Data**: 2026-08-29 (revisado)
+- **Escopo**: estrito — **apenas** WBS/EAP × LLM
 
 ## Pergunta de pesquisa
 
 Como Large Language Models vêm sendo aplicados à geração, decomposição e
 estruturação hierárquica de Work Breakdown Structures (WBS/EAP), e quais são o
-estado da arte, as principais abordagens, os métodos de avaliação empregados e as
-lacunas de pesquisa em aberto?
+estado da arte, as abordagens, os métodos de avaliação e as lacunas em aberto?
+
+## Delimitação em relação ao tema irmão
+
+Este tema é **estrito**: exige a presença de WBS/EAP como objeto. Planejamento de
+projeto, metodologias ágeis e gestão com LLM em geral pertencem a
+`llm-project-management`.
+
+O teste é duplo:
+1. O trabalho trata de **WBS/EAP** (ou estrutura hierárquica de decomposição de
+   escopo explicitamente equiparada a WBS)?
+2. O **LLM produz ou apoia a produção** dessa estrutura (direção LLM → estrutura)?
+
+Falhar em qualquer um exclui — o segundo tema recolhe o que for pertinente a ele.
 
 ## Bases consultadas
 
 | Base | Papel |
 |---|---|
-| OpenAlex | Busca principal (índice agregador: cobre IEEE, ACM, Elsevier, Springer, arXiv) |
-| Crossref | Metadados e BibTeX oficial por DOI |
+| OpenAlex | Busca principal |
+| Crossref | Metadados e BibTeX por DOI |
 | Unpaywall / arXiv | Localização de PDF open access |
 
 ## Strings de busca
 
-Buscas em título + abstract (`title_and_abstract.search`), com operadores
-booleanos e frases exatas.
+Todas exigem **WBS/EAP explícito**. Nenhuma string genérica de gestão de projetos.
 
 | # | String | Alvo |
 |---|---|---|
-| S1 | `"work breakdown structure" AND (LLM OR "large language model" OR "generative AI")` | Núcleo: WBS + LLM |
-| S2 | `("work breakdown structure" OR WBS OR "estrutura analítica de projeto") AND (generation OR automated OR automatic)` | Geração automática de WBS, incluindo termo em português |
-| S3 | `"task decomposition" AND ("large language model" OR LLM) AND (hierarchical OR hierarchy)` | Decomposição hierárquica de tarefas por LLM |
-| S4 | `("project planning" OR "project management") AND ("large language model" OR LLM OR "generative AI")` | GenAI em gestão de projetos |
-| S5 | `("hierarchical structure" OR "hierarchical plan") AND ("large language model" OR LLM) AND (generation OR generate)` | Geração de estruturas hierárquicas |
-| S6 | `("work breakdown structure" OR "project plan" OR "task decomposition" OR "hierarchical decomposition") AND (LLM OR "large language model" OR "generative AI") AND (evaluation OR completeness OR consistency OR coverage OR quality)` | Avaliação de estruturas de escopo/plano geradas por LLM |
+| W1 | `"work breakdown structure" AND (LLM OR "large language model" OR "generative AI" OR GPT)` | Núcleo: WBS × LLM |
+| W2 | `("work breakdown structure" OR WBS) AND (generation OR generate OR automated OR automatic OR "automatic generation")` | Geração automática de WBS, com ou sem LLM nomeado |
+| W3 | `("estrutura analítica de projeto" OR EAP) AND ("modelo de linguagem" OR LLM OR "inteligência artificial generativa")` | Literatura em português (G7 aceita pt) |
+| W4 | `"work breakdown structure" AND (evaluation OR completeness OR consistency OR coverage OR quality) AND (automated OR generated OR AI)` | Avaliação de WBS gerado automaticamente |
+| W5 | `("work breakdown structure" OR WBS) AND ("natural language" OR "text-to" OR "requirements") AND (decomposition OR generation)` | Geração de WBS a partir de linguagem natural/requisitos |
+
+**Nota sobre W2 e W4**: não exigem LLM nomeado. Geração automática de WBS por
+métodos anteriores (ontologias, case-based reasoning, template matching) é
+fundamentação legítima do estado da arte — o campo pré-LLM define a linha de base
+contra a qual os LLMs devem ser comparados. Marcar esses trabalhos como
+*pré-LLM* no `candidates.md`.
 
 ## Critérios de inclusão
 
-- **I1** — Trata de geração, decomposição ou estruturação hierárquica de escopo,
-  tarefas ou planos, com uso de LLM/IA generativa.
-- **I2** — Ou propõe/aplica método de avaliação de qualidade, completude,
-  consistência ou cobertura de estruturas geradas por LLM.
-- **I3** — Ou aplica LLM/GenAI a gestão de projetos com componente de planejamento
-  ou decomposição.
-- **I4** — Texto em inglês ou português (G7).
-- **I5** — Publicado a partir de 2019 (recorte alinhado à emergência dos LLMs).
+- **I1** — Trata de WBS/EAP como objeto central ou substantivo.
+- **I2** — **E** envolve geração, decomposição ou estruturação automática/assistida
+  dessa estrutura — por LLM, IA generativa ou método automatizado anterior.
+- **I3** — Ou propõe método de avaliação de WBS gerado automaticamente.
+- **I4** — Inglês ou português (G7).
+- **I5** — Sem recorte inferior rígido para trabalhos **pré-LLM** de geração
+  automática de WBS (fundamentação); 2019+ para trabalhos com LLM.
 
 ## Critérios de exclusão
 
-- **E1** — LLM sem relação com decomposição, planejamento ou estruturação
-  hierárquica.
-- **E2** — Gestão de projetos sem componente de IA generativa.
-- **E3** — Trabalhos em que o WBS/estrutura hierárquica é **entrada** para o LLM
-  (estrutura montada por humanos que alimenta, treina ou condiciona o modelo), e
-  não **saída** produzida por ele. O teste é a direção da relação, não o domínio
-  de aplicação: o tema investiga o LLM *produzindo* a estrutura. Trabalhos assim
-  podem entrar como correlatos de baixa prioridade, nunca como estado da arte.
-- **E4** — Idioma fora de inglês/português (descarte automático por G7, sempre
-  reportado).
-- **E5** — Duplicata de item já presente no corpus do tema (dedupe por DOI e por
-  título normalizado).
+- **E1** — Não menciona WBS/EAP nem estrutura hierárquica de escopo equiparável.
+- **E2** — Menciona WBS apenas de passagem, sem que seja objeto do trabalho.
+- **E3** — O WBS é **entrada** para o LLM (montado por humanos para treinar,
+  alimentar ou condicionar o modelo), e não **saída** produzida por ele.
+- **E4** — Idioma fora de inglês/português (G7).
+- **E5** — Duplicata no corpus do tema.
+- **E6** — Planejamento/gestão de projetos com LLM **sem** WBS/EAP como objeto —
+  pertence a `llm-project-management`.
 
 ## Recorte temporal
 
-2019 até o presente. Justificativa: os LLMs de uso geral tornam-se objeto de
-pesquisa aplicada a partir desse período; trabalhos anteriores sobre WBS sem
-componente de IA generativa ficam fora por E2.
+- Trabalhos com LLM: 2019 em diante.
+- Trabalhos pré-LLM de geração automática de WBS: **sem recorte inferior**, por
+  servirem de fundamentação e linha de base.
 
 ## Tratamento de fontes não revisadas por pares
 
-Preprints (arXiv, Zenodo, SSRN), datasets e materiais preliminares são **aceitos**,
-mas devem ser marcados explicitamente como não revisados por pares no
-`candidates.md` e no resumo correspondente. A priorização recai sobre fontes
-revisadas por pares.
+Preprints aceitos, marcados explicitamente. Prioridade a revisados por pares.
+
+Dada a escassez esperada nesta interseção, teses, dissertações e relatórios
+técnicos também são aceitos, com marcação de tipo de fonte.
 
 ## Limite por passada
 
-Máximo de 30 candidatos por execução (G5). Excedentes são reportados e podem ser
-recuperados em passadas seguintes.
+30 candidatos (G5).
 
 ## Log de decisões
 
 | Data | Decisão | Justificativa |
 |---|---|---|
-| 2026-08-29 | Recorte a partir de 2019 | Alinhado à emergência dos LLMs como objeto de pesquisa aplicada |
-| 2026-08-29 | Incluir "estrutura analítica de projeto" nas strings | EAP é o termo corrente em português; G7 aceita pt |
-| 2026-08-29 | Aceitar preprints com marcação explícita | Campo recente; excluir preprints perderia estado da arte |
-| 2026-08-29 | E3 redefinido pela DIREÇÃO da relação | Zhen et al. 2024 usa WBS como *entrada* que treina o LLM; o tema investiga o LLM *produzindo* o WBS. O critério passa a ser a direção, não o domínio |
-| 2026-08-29 | S6 reformulada | Versão inicial (avaliação de LLM em geral) traria ruído; agora ancorada em WBS/plano/decomposição como objeto avaliado |
+| 2026-08-29 | Recorte a partir de 2019 (trabalhos com LLM) | Alinhado à emergência dos LLMs |
+| 2026-08-29 | Incluir termos em português (W3) | EAP é o termo corrente em pt; G7 aceita |
+| 2026-08-29 | Aceitar preprints com marcação | Campo recente; excluí-los perderia o estado da arte |
+| 2026-08-29 | E3 definido pela DIREÇÃO da relação | Zhen et al. 2024 usa WBS como entrada que treina o LLM; o tema investiga o inverso |
+| 2026-08-29 | **Strings genéricas removidas** | S4 (project management) trouxe 19 dos 30 candidatos e afogou S1 (WBS×LLM), que não colocou nenhum no top-30. Realocadas para `llm-project-management` |
+| 2026-08-29 | **W2 e W4 sem exigir LLM nomeado** | Geração automática de WBS pré-LLM é linha de base do estado da arte |
+| 2026-08-29 | Corpus anterior realocado | Os 30 candidatos e o AutoScrum eram de gestão/ágil, não de WBS |

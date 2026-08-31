@@ -13,13 +13,25 @@ A busca no OpenAlex filtra por termos; ela não distingue um paper que **usa LLM
 para produzir WBS** de um que apenas menciona LLM e gestão de projetos na mesma
 frase. Esta triagem faz esse corte, lendo o texto completo.
 
-O critério decisivo é a **direção da relação**:
+Este tema é **estrito**. São dois testes, ambos obrigatórios:
+
+**Teste 1 — o objeto é WBS/EAP?** O trabalho trata de Work Breakdown Structure,
+Estrutura Analítica de Projeto, ou estrutura hierárquica de decomposição de escopo
+explicitamente equiparada a isso. Planejamento de projeto, backlog ágil e gestão em
+geral **não bastam** — pertencem ao tema `llm-project-management`.
+
+**Teste 2 — a direção da relação.**
 
 | Direção | Veredito |
 |---|---|
-| LLM → estrutura (o modelo **produz** a decomposição) | INCLUIR |
-| estrutura → LLM (o WBS é entrada, treino ou condicionamento) | EXCLUIR |
-| LLM e gestão de projetos coexistem, sem geração de estrutura | EXCLUIR |
+| método → WBS (o sistema **produz** a estrutura) | INCLUIR |
+| WBS → método (a estrutura é entrada, treino ou insumo) | EXCLUIR |
+| WBS mencionado sem ser objeto do trabalho | EXCLUIR |
+
+**Sobre trabalhos pré-LLM**: geração automática de WBS por ontologias, case-based
+reasoning ou otimização é **INCLUIR** com marcação `[PRÉ-LLM]`. Eles são a linha de
+base contra a qual os LLMs devem ser comparados — fundamentação do estado da arte,
+não ruído.
 
 ---
 
@@ -27,9 +39,14 @@ O critério decisivo é a **direção da relação**:
 
 Cada paper deve ser respondido nestas seis perguntas.
 
-**Q1 — Geração.** O trabalho usa LLM/IA generativa para **produzir** uma estrutura
-de decomposição de escopo, trabalho ou tarefas (WBS, EAP, backlog hierárquico,
-árvore de tarefas, plano de projeto estruturado)?
+**Q0 — Objeto.** O trabalho trata de **WBS / Work Breakdown Structure / EAP /
+Estrutura Analítica de Projeto** como objeto central? Se o termo aparece apenas de
+passagem, ou se a estrutura discutida é um backlog ágil sem equiparação a WBS,
+a resposta é não — e o paper pertence ao tema irmão.
+
+**Q1 — Geração.** O trabalho **produz** a estrutura automaticamente ou de forma
+assistida (por LLM, IA generativa, ontologia, case-based reasoning, otimização), ou
+apenas usa/organiza um WBS já existente?
 
 **Q2 — Hierarquia.** A estrutura produzida é **hierárquica** (pai-filho, níveis,
 decomposição sucessiva) ou apenas uma lista plana de itens?
@@ -53,22 +70,24 @@ geração ou avaliação de estruturas hierárquicas de escopo?
 
 ## Regras de veredito
 
-- **INCLUIR** — Q1 sim **e** Q3 é escopo de projeto. Núcleo do corpus.
-- **TALVEZ** — Q1 sim, mas Q3 é outro domínio **e** o mecanismo de estruturação
-  parece transferível para escopo de projeto. Registrar como correlato.
-- **EXCLUIR** — Q1 não; ou o WBS é entrada e não saída (E3); ou não há LLM
-  envolvido na estruturação (E2); ou nada tem a ver com decomposição (E1).
+- **INCLUIR** — Q0 sim **e** Q1 produz. Núcleo do corpus. Marcar `[PRÉ-LLM]`
+  quando o método não usar LLM: esses trabalhos são a linha de base.
+- **TALVEZ** — Q0 sim, mas o trabalho apenas usa/organiza o WBS sem gerá-lo;
+  entra como fundamentação conceitual, não como estado da arte.
+- **EXCLUIR** — Q0 não (sem WBS/EAP como objeto — realocar para
+  `llm-project-management` se tratar de planejamento com LLM); ou o WBS é entrada
+  e não saída; ou o acrônimo casou por homonímia (ex.: Williams-Beuren Syndrome).
 
 ### Score de aderência (0-10)
 
 | Faixa | Significado |
 |---|---|
-| 9-10 | LLM gera WBS/EAP hierárquico de escopo de projeto, com avaliação |
-| 7-8 | LLM gera estrutura hierárquica de escopo, sem avaliação formal |
-| 5-6 | LLM gera plano/decomposição de projeto, hierarquia fraca ou implícita |
-| 3-4 | LLM decompõe tarefas em outro domínio, mecanismo transferível |
-| 1-2 | LLM em gestão de projetos sem gerar estrutura; ou WBS sem LLM |
-| 0 | Sem relação com o tema |
+| 9-10 | LLM gera WBS/EAP, **com** avaliação da estrutura produzida |
+| 7-8 | Gera WBS/EAP automaticamente, sem avaliação formal (inclui pré-LLM) |
+| 5-6 | Fundamenta WBS (framework, dicionário, métricas) sem gerá-lo |
+| 3-4 | Usa WBS como insumo de outro sistema (BIM, cronograma, banco de dados) |
+| 1-2 | WBS mencionado de passagem |
+| 0 | Falso positivo ou sem relação |
 
 ---
 
@@ -80,10 +99,19 @@ Copie o bloco abaixo e envie junto com o PDF (ou seu texto) à outra IA.
 Você vai triar um artigo científico para uma revisão de literatura.
 
 TEMA DA REVISÃO
-Uso de Large Language Models (LLMs) na geração, decomposição e estruturação
-hierárquica de Work Breakdown Structures (WBS / Estrutura Analítica de Projeto).
-Interessa o LLM PRODUZINDO a estrutura — não o WBS servindo de entrada, treino
-ou condicionamento para o modelo. A direção da relação é o critério decisivo.
+Geração, decomposição e estruturação hierárquica de Work Breakdown Structures
+(WBS / Estrutura Analítica de Projeto), com foco em Large Language Models — mas
+incluindo métodos automatizados anteriores (ontologias, case-based reasoning,
+otimização), que servem de linha de base.
+
+DOIS TESTES OBRIGATÓRIOS
+1. O WBS/EAP é objeto central do trabalho? Planejamento de projeto ou backlog
+   ágil sem equiparação explícita a WBS NÃO conta.
+2. O método PRODUZ a estrutura, ou apenas usa uma já existente? Interessa
+   produzir. WBS como entrada que alimenta o sistema é motivo de exclusão.
+
+ATENÇÃO: "WBS" também é acrônimo de Williams-Beuren Syndrome e de outros termos.
+Confirme que se trata de Work Breakdown Structure.
 
 REGRAS
 1. Responda APENAS com base no texto do artigo fornecido. Não use conhecimento
@@ -95,8 +123,11 @@ REGRAS
    válida e útil.
 
 PERGUNTAS
-Q1 GERAÇÃO: o trabalho usa LLM/IA generativa para PRODUZIR uma estrutura de
-   decomposição de escopo, trabalho ou tarefas?
+Q0 OBJETO: o artigo trata de WBS/EAP como objeto central, ou apenas menciona
+   o termo de passagem?
+Q1 GERAÇÃO: o trabalho PRODUZ a estrutura automaticamente ou de forma assistida
+   (LLM, IA generativa, ontologia, case-based reasoning, otimização), ou apenas
+   usa/organiza um WBS já existente?
 Q2 HIERARQUIA: a estrutura produzida é hierárquica (níveis, pai-filho,
    decomposição sucessiva) ou uma lista plana?
 Q3 DOMÍNIO: o objeto decomposto é escopo de projeto (entregas, pacotes de
@@ -117,7 +148,9 @@ VEREDITO: INCLUIR | TALVEZ | EXCLUIR
 SCORE: <0-10>
 JUSTIFICATIVA: <uma frase>
 
-Q1 GERAÇÃO: <Sim/Não/Parcial> — <evidência: "citação literal">
+Q0 OBJETO: <Sim/Não/De passagem> — <evidência: "citação literal">
+Q1 GERAÇÃO: <Produz/Usa existente/Não se aplica> — <evidência: "citação literal">
+MÉTODO DE GERAÇÃO: <LLM / IA generativa / ontologia / CBR / otimização / outro / nenhum>
 Q2 HIERARQUIA: <Hierárquica/Plana/Não se aplica> — <evidência>
 Q3 DOMÍNIO: <escopo de projeto / outro: qual> — <evidência>
 Q4 NOMENCLATURA: <termos usados> — <evidência>
@@ -128,19 +161,19 @@ TIPO DE FONTE: <revisado por pares / preprint / não identificado>
 DIREÇÃO DA RELAÇÃO: <LLM produz a estrutura / estrutura alimenta o LLM / ambos / nenhum>
 
 CRITÉRIO DE VEREDITO
-- INCLUIR: Q1 = Sim E Q3 = escopo de projeto.
-- TALVEZ: Q1 = Sim, Q3 = outro domínio, mas o mecanismo parece transferível
-  para escopo de projeto.
-- EXCLUIR: Q1 = Não; ou o WBS é entrada e não saída; ou não há LLM na
-  estruturação; ou o artigo não trata de decomposição.
+- INCLUIR: Q0 = Sim E Q1 = Produz. Marque [PRÉ-LLM] se o método não usa LLM.
+- TALVEZ: Q0 = Sim, mas apenas usa/organiza o WBS — fundamentação conceitual.
+- EXCLUIR: Q0 = Não (se tratar de planejamento com LLM sem WBS, indique que
+  pertence ao tema irmão llm-project-management); ou WBS é entrada e não saída;
+  ou o acrônimo casou por homonímia.
 
 CRITÉRIO DE SCORE
-9-10 gera WBS/EAP hierárquico de escopo, com avaliação
-7-8  gera estrutura hierárquica de escopo, sem avaliação formal
-5-6  gera plano/decomposição de projeto, hierarquia fraca
-3-4  decompõe tarefas em outro domínio, mecanismo transferível
-1-2  LLM em gestão de projetos sem gerar estrutura; ou WBS sem LLM
-0    sem relação
+9-10 gera WBS/EAP com avaliação da estrutura produzida
+7-8  gera WBS/EAP automaticamente, sem avaliação formal (inclui pré-LLM)
+5-6  fundamenta WBS (framework, dicionário, métricas) sem gerá-lo
+3-4  usa WBS como insumo de outro sistema (BIM, cronograma, banco)
+1-2  WBS mencionado de passagem
+0    falso positivo ou sem relação
 ```
 
 ---
@@ -150,6 +183,5 @@ CRITÉRIO DE SCORE
 Preencha conforme for triando. O que for INCLUIR ou TALVEZ segue para o pipeline
 (`materials/` → `/process-materials`).
 
-| Paper | Veredito | Score | Direção | Avalia? | Nota |
+| Paper | Veredito | Score | Método | Avalia? | Nota |
 |---|---|---|---|---|---|
-| Schröder 2023 — AutoScrum | INCLUIR | 10 | LLM produz | Não | Vocabulário Scrum, não WBS; sem avaliação da estrutura |
