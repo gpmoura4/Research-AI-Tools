@@ -185,3 +185,6 @@ Preencha conforme for triando. O que for INCLUIR ou TALVEZ segue para o pipeline
 
 | Paper | Veredito | Score | Método | Avalia? | Nota |
 |---|---|---|---|---|---|
+| Singh e Hsieh 2026 — Multi-LLM WBS-TD | INCLUIR | 9 | LLM (multi-modelo) | Sim — rubrica via SLM-as-a-judge | WBS-TD é o objeto; avalia estrutura, lógica e domínio |
+| Korba e Pawluk 2026 — AI Agents planning | INCLUIR | 8 | LLM (MAS + RAG) | Parcial — tempo e HEP, não a estrutura | 480 min → 20 min na formulação de WBS/CPM |
+| Ali e Nassar (s.d.) — Earthworks WBS | INCLUIR | 7 | Otimização [PRÉ-LLM] | Não | Linha de base pré-LLM; fonte não indexada |
