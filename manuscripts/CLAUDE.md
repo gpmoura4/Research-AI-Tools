@@ -27,7 +27,8 @@ encontrados de passagem, registrados numa seção própria do relatório).
 
 ## Regras
 1. **Não editar o manuscrito** (`paper/`) sem pedido explícito do usuário. O produto
-   são relatórios de revisão. (O `.claude/settings.json` pede confirmação antes de
+   são relatórios de revisão e, quando a tarefa pedir, arquivos de ajustes
+   (ver "Política de ajustes"). (O `.claude/settings.json` pede confirmação antes de
    qualquer edição em `manuscripts/*/paper/`.)
 2. **Localizar cada apontamento**: seção, parágrafo, tabela, figura ou página, na
    versão do manuscrito declarada no cabeçalho do relatório.
@@ -53,8 +54,9 @@ Tarefa ambígua → perguntar antes de começar.
 - **IDs de tarefa**: `T01`, `T02`… Subtarefas: `T01.1`, `T01.2`…
 - **Um relatório por tarefa**: `reviews/T01-<slug-da-tarefa>.md`. Subtarefas são
   seções do relatório da tarefa-mãe e têm linha própria no `INDEX.md`.
-- **IDs de achado**: `T01-A01`, `T01-A02`… (subtarefa: `T01.1-A01`). Achados
-  indiretos usam a mesma numeração, com prefixo `I`: `T01-I01`.
+- **IDs de achado**: `T01-F01`, `T01-F02`… (subtarefa: `T01.1-F01`). Achados
+  indiretos usam a mesma numeração, com prefixo `I`: `T01-I01`. O prefixo `A` é
+  reservado aos ajustes (`T01-A1`; ver "Política de ajustes").
 - **Versão do manuscrito**: o cabeçalho de cada relatório registra o arquivo de
   `paper/` revisado. Versões novas entram com data no nome (ex.:
   `v2-2026-11-03.pdf`), sem sobrescrever as anteriores.
@@ -74,11 +76,42 @@ manuscripts/<slug-do-paper>/
 ├── reference-coverage.md  # lista de referências do manuscrito × PDFs em references/
 ├── paper/          # manuscrito (fonte e/ou PDF), versões datadas
 ├── references/     # PDFs das obras citadas
-└── reviews/        # relatórios de tarefa
+├── reviews/        # relatórios de tarefa
+└── adjustments/    # ajustes propostos ao texto: T01-ajustes.md (fonte) + .docx (gerado)
 ```
 `paper/` e `references/` não vão para o Git (manuscrito inédito; PDFs de terceiros).
-Só `context.md`, `INDEX.md`, `reference-coverage.md` e `reviews/` são versionados.
+Só `context.md`, `INDEX.md`, `reference-coverage.md`, `reviews/` e as fontes `.md` de
+`adjustments/` são versionados.
 Ao depositar ou obter PDFs em `references/`, atualizar `reference-coverage.md`.
+
+## Política de ajustes
+Vale para todas as tarefas. Ajustes no paper (texto, tabela ou figura) **nunca são
+feitos no arquivo original**: ficam num arquivo externo, **um por tarefa**, que o
+usuário aplica manualmente no original (.docx/Google Docs).
+
+- **Arquivos**: `adjustments/<ID>-ajustes.md` é a fonte (versionada); dele se gera
+  `adjustments/<ID>-ajustes.docx` para copiar e colar (preserva itálico, negrito e
+  tabelas; fora do Git, recriável). Geração:
+  `uv run python -m scripts.render_docx manuscripts/<slug>/adjustments/<ID>-ajustes.md`.
+- **Aprovação**: antes de gerar o arquivo, apresentar a lista de ajustes planejados
+  (ID, localização, ação, objetivo em uma linha) e aguardar aprovação do usuário.
+- **Estrutura de cada ajuste**:
+  - **ID** (`T01-A1`, `T01-A2`…) e o achado do relatório que o motiva (`T01-F03`).
+  - **Localização exata no original**: seção, número do parágrafo dentro da seção e
+    as **primeiras palavras do parágrafo** como âncora (o .docx não tem números de
+    linha estáveis). Tabelas: número, linha e coluna. Figuras: número e elemento.
+  - **Ação**: substituir, inserir antes/depois, ou remover.
+  - **Texto original exato**, quando for substituição ou remoção.
+  - **Novo texto**, em inglês, pronto para colar.
+  - **Justificativa** curta, em português.
+- **Regras para o novo texto**:
+  - Apenas referências já presentes na lista do paper, citadas com a numeração da
+    lista. Se a numeração no texto divergir da lista no trecho afetado, sinalizar.
+  - **Não inventar fatos metodológicos.** O que só os autores sabem entra como
+    placeholder explícito: `[AUTORES: confirmar se houve forward snowballing]`.
+  - Manter o tom e o estilo do restante do paper.
+  - Preferir ajustes cirúrgicos a reescritas amplas; se um parágrafo inteiro precisar
+    mudar, explicar por quê.
 
 ## Guardrails do modo revisão de literatura aplicados aqui
 | Guardrail | Neste modo |

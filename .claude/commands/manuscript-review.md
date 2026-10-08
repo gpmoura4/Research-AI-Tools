@@ -80,6 +80,15 @@ Leia, nesta ordem:
 `reviews/<ID>-<slug-da-tarefa>.md`, com o template abaixo. Subtarefa: acrescente uma
 seção `## <ID> — <título>` ao relatório da tarefa-mãe, com as mesmas seis subseções.
 
+## Passo 6b — (Se a tarefa pedir ajustes) Arquivo de ajustes
+
+Siga a "Política de ajustes" de `manuscripts/CLAUDE.md`:
+
+1. Apresente a lista de ajustes planejados (ID, localização, ação, objetivo em uma
+   linha) e **aguarde aprovação**.
+2. Escreva `adjustments/<ID>-ajustes.md` com o template abaixo.
+3. Gere o .docx: `uv run python -m scripts.render_docx manuscripts/<slug>/adjustments/<ID>-ajustes.md`.
+
 ## Passo 7 — Atualizar o INDEX.md
 
 - Linha da tarefa (ID, título, status, data, versão revisada, link).
@@ -113,11 +122,11 @@ fundamenta (referências, dados, figuras).>
 
 ## 3. Avaliação
 
-### <ID>-A01 — <título curto> · **<Crítico|Importante|Menor>**
+### <ID>-F01 — <título curto> · **<Crítico|Importante|Menor>**
 - **Localização**: <seção, parágrafo, tabela, figura ou página>
 - **Fato**: <o que o texto diz; citação literal no idioma original quando couber>
 - **Julgamento**: <avaliação e justificativa>
-- **Relação com revisões anteriores**: <"nova" | "confirma T01-A02" | "corrige T01-A03: …">
+- **Relação com revisões anteriores**: <"nova" | "confirma T01-F02" | "corrige T01-F03: …">
 
 ## 4. Achados indiretos
 
@@ -133,6 +142,33 @@ sugeridas de memória levam [conferir dados bibliográficos].>
 ## 6. Pendências
 | # | Item [a verificar] | Achado | O que falta |
 |---|---|---|---|
+```
+
+## Template — ajustes (`adjustments/<ID>-ajustes.md`)
+
+```markdown
+# Ajustes <ID> — <Título da tarefa>
+
+- **Manuscrito**: <slug> · **Versão de referência**: `paper/<arquivo>`
+- **Relatório**: `reviews/<ID>-<slug>.md`
+
+## <ID>-A1 — <objetivo em poucas palavras>
+
+| Campo | Valor |
+|---|---|
+| Achado | <ID>-F03 |
+| Localização | Seção 4.1, parágrafo 1, começa com "This article does not conduct…" |
+| Ação | Substituir |
+
+**Texto original**
+
+> <texto exato>
+
+**Novo texto**
+
+<texto em inglês, pronto para colar; placeholders [AUTORES: …]>
+
+**Justificativa**: <pt-BR, curta>
 ```
 
 ## Template — `INDEX.md`
