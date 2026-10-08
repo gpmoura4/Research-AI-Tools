@@ -51,7 +51,9 @@ Leia, nesta ordem:
 2. `INDEX.md` — tarefas anteriores e pendências abertas.
 3. Todos os relatórios em `reviews/` relevantes para a tarefa (na dúvida, todos).
    Anote os IDs de achados que a tarefa atual pode confirmar, corrigir ou retirar.
-4. A versão vigente do manuscrito em `paper/`.
+4. `reference-coverage.md` — quais obras citadas têm PDF. Se houver PDFs novos em
+   `references/` que não constam dele, atualize-o antes de começar.
+5. A versão vigente do manuscrito em `paper/`.
 
 ## Passo 4 — Definir a tarefa
 

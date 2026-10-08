@@ -71,12 +71,14 @@ Tarefa ambígua → perguntar antes de começar.
 manuscripts/<slug-do-paper>/
 ├── context.md      # journal-alvo, versão vigente, escopo, tema(s) de literatura vinculados
 ├── INDEX.md        # índice de tarefas + pendências abertas consolidadas
+├── reference-coverage.md  # lista de referências do manuscrito × PDFs em references/
 ├── paper/          # manuscrito (fonte e/ou PDF), versões datadas
 ├── references/     # PDFs das obras citadas
 └── reviews/        # relatórios de tarefa
 ```
 `paper/` e `references/` não vão para o Git (manuscrito inédito; PDFs de terceiros).
-Só `context.md`, `INDEX.md` e `reviews/` são versionados.
+Só `context.md`, `INDEX.md`, `reference-coverage.md` e `reviews/` são versionados.
+Ao depositar ou obter PDFs em `references/`, atualizar `reference-coverage.md`.
 
 ## Guardrails do modo revisão de literatura aplicados aqui
 | Guardrail | Neste modo |

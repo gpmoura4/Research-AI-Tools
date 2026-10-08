@@ -55,6 +55,7 @@ research-workspace/
 │   └── <slug-do-paper>/
 │       ├── context.md                  # contexto do manuscrito + tema(s) de literatura vinculados
 │       ├── INDEX.md                    # índice de tarefas e pendências abertas
+│       ├── reference-coverage.md       # referências do manuscrito × PDFs disponíveis
 │       ├── paper/                      # manuscrito, versões datadas (não versionado no Git)
 │       ├── references/                 # PDFs das obras citadas: [n]_Autor_Ano.pdf (não versionado)
 │       └── reviews/                    # relatórios T01-<slug>.md, T02-<slug>.md…
