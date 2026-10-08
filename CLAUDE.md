@@ -5,7 +5,23 @@ Você é o agente de desenvolvimento e operação de um repositório que funcion
 ferramenta de pesquisa acadêmica. O repositório é operado via Claude Code: o agente
 lê e escreve arquivos localmente, sem application standalone e sem frontend.
 
-## Objetivo
+## Modos de trabalho
+O repositório opera em dois modos, que coexistem sem se misturar. Identifique o
+modo antes de agir; na dúvida, pergunte.
+
+| Modo | Quando | Onde | Regras |
+|---|---|---|---|
+| **Revisão de literatura** | busca, triagem e síntese de papers sobre um tema | `areas/<area>/<projeto>/<tema>/` | este arquivo (seções marcadas "modo revisão de literatura") + `/literature-review`, `/process-materials` |
+| **Revisão de manuscrito** | revisão crítica de um artigo do usuário antes da submissão; tarefas `T01`, `T02`… | `manuscripts/<slug-do-paper>/` | `manuscripts/CLAUDE.md` + `/manuscript-review` |
+
+>> Ao receber uma tarefa de revisão de manuscrito (inclusive mencionada só pelo ID,
+ex.: "T03"), LEIA `manuscripts/CLAUDE.md` e siga o roteiro de
+`.claude/commands/manuscript-review.md` antes de qualquer outra ação. <<
+
+Regras específicas de um modo não valem no outro. As seções "Regras comuns" e
+"Stack e convenções técnicas" valem nos dois.
+
+## Objetivo (modo revisão de literatura)
 Dado um TEMA (contexto) e uma TAREFA (ex.: revisão de literatura), o agente executa
 um pipeline que produz entregáveis organizados por tema: papers baixados e renomeados,
 resumos estruturados, arquivo BibTeX consolidado, lista de pendências e diagramas
@@ -34,8 +50,17 @@ research-workspace/
 │                       ├── keywords-clusters.mmd
 │                       ├── citation-graph.mmd
 │                       └── thematic-taxonomy.mmd
+├── manuscripts/                        # modo revisão de manuscrito (ver manuscripts/CLAUDE.md)
+│   ├── CLAUDE.md                       # regras do modo
+│   └── <slug-do-paper>/
+│       ├── context.md                  # contexto do manuscrito + tema(s) de literatura vinculados
+│       ├── INDEX.md                    # índice de tarefas e pendências abertas
+│       ├── paper/                      # manuscrito, versões datadas (não versionado no Git)
+│       ├── references/                 # PDFs das obras citadas: [n]_Autor_Ano.pdf (não versionado)
+│       └── reviews/                    # relatórios T01-<slug>.md, T02-<slug>.md…
 ├── .claude/
-│   └── commands/                   # comandos: /literature-review, /process-materials, /map, /status
+│   ├── settings.json                   # pede confirmação antes de editar manuscripts/*/paper/
+│   └── commands/                   # comandos: /literature-review, /process-materials, /manuscript-review, /map, /status
 ├── scripts/                        # scripts Python do pipeline
 ├── config.yaml                     # limites, APIs, convenções
 └── CLAUDE.md                       # este arquivo
@@ -47,7 +72,15 @@ research-workspace/
   Semantic Scholar (grafo de citações), Unpaywall/arXiv (localização de PDF open access).
   Respeitar rate limits e usar polite pool (e-mail no header) quando aplicável.
 
-## Fluxo de operação (visão geral)
+## Regras comuns (valem nos dois modos)
+- BibTeX: toda entrada BibTeX gravada no repositório, em qualquer modo, segue o G1
+  (Crossref via DOI ou metadados verificáveis; nunca de memória).
+- Busca de literatura nova, em qualquer modo, roda pelo fluxo do modo revisão de
+  literatura, num tema de `areas/`, com aprovação humana por item (G4).
+- Os guardrails G2–G7 abaixo são do modo revisão de literatura. A forma como se
+  aplicam (ou não) ao modo de manuscrito está em `manuscripts/CLAUDE.md`.
+
+## Fluxo de operação — modo revisão de literatura (visão geral)
 1. Ao iniciar qualquer pesquisa/revisão, o agente resolve a LOCALIZAÇÃO do trabalho:
    área → projeto → tema (ex.: "trabalho, projeto A, tema X" ou
    "mestrado, dissertação, debates improdutivos").
@@ -78,7 +111,7 @@ research-workspace/
    de renomeação, resumo e BibTeX).
 7. Agente gera/atualiza os três diagramas em `maps/`.
 
-## Guardrails (invioláveis)
+## Guardrails do modo revisão de literatura (invioláveis)
 - G1 — BibTeX: NUNCA gerar entradas BibTeX de memória do modelo. Toda entrada deve
   vir do Crossref (via DOI) ou de metadados extraídos verificáveis. Se não houver DOI
   nem metadados confiáveis, criar entrada mínima com campos vazios e marcar com
@@ -102,7 +135,7 @@ research-workspace/
   metadado de idioma) e no texto do PDF já baixado. Os descartes devem ser
   SEMPRE reportados ao usuário — nunca silenciosamente.
 
-## Convenção de renomeação de arquivos
+## Convenção de renomeação de arquivos (modo revisão de literatura)
 Formato: "<Autores> - <Ano> - <Título>.pdf"
 - 1 autor: "Sobrenome"
 - 2 autores: "Sobrenome1 e Sobrenome2"
@@ -113,7 +146,7 @@ Formato: "<Autores> - <Ano> - <Título>.pdf"
   (/ \ : * ? " < > |), normalizar Unicode, colapsar espaços múltiplos.
 - Colisão de nome: sufixar " (2)", " (3)" etc.
 
-## Template de resumo (summaries/<mesmo-nome-do-pdf>.md)
+## Template de resumo — modo revisão de literatura (summaries/<mesmo-nome-do-pdf>.md)
 Curto e estruturado — alvo de 150-250 palavras no total:
 - **Citation key**: (a mesma do references.bib)
 - **Objective**: 1-2 frases
@@ -122,7 +155,7 @@ Curto e estruturado — alvo de 150-250 palavras no total:
 - **Relevance to theme**: 1-2 frases conectando ao context.md do tema
 - **Keywords**: 3-6, extraídas do paper (ou inferidas, marcadas como [inferred])
 
-## Deduplicação e re-execução
+## Deduplicação e re-execução (modo revisão de literatura)
 - Dedupe por DOI (primário) e por título normalizado (fallback).
 - Paper presente em dois temas (mesmo entre áreas/projetos diferentes): manter o
   PDF no tema onde foi processado primeiro e referenciar no outro (link relativo
