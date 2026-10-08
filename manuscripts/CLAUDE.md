@@ -93,6 +93,10 @@ usuário aplica manualmente no original (.docx/Google Docs).
   `adjustments/<ID>-ajustes.docx` para copiar e colar (preserva itálico, negrito e
   tabelas; fora do Git, recriável). Geração:
   `uv run python -m scripts.render_docx manuscripts/<slug>/adjustments/<ID>-ajustes.md`.
+- **Cor no .docx**: o **novo texto** de cada ajuste (o trecho a copiar e colar, incluindo
+  tabelas novas) sai em **verde-escuro (#006400)**. Metadados, texto original e
+  justificativa ficam na cor padrão. Assim o trecho colado no original fica visível
+  até ser revisado.
 - **Aprovação**: antes de gerar o arquivo, apresentar a lista de ajustes planejados
   (ID, localização, ação, objetivo em uma linha) e aguardar aprovação do usuário.
 - **Estrutura de cada ajuste**:
