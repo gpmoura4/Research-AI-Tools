@@ -18,5 +18,11 @@ __pycache__/
 *.epub
 *.docx
 
+# --- Modo revisão de manuscrito -------------------------------------------
+# Manuscrito inédito e PDFs de terceiros: nunca vão para o repositório.
+# Só context.md, INDEX.md e reviews/ são versionados.
+manuscripts/*/paper/
+manuscripts/*/references/
+
 # Mantém a estrutura de diretórios visível mesmo sem os arquivos.
 !.gitkeep
