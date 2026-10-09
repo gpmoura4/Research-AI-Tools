@@ -305,3 +305,26 @@ autores sabem saem como [AUTORES: …].
 2. A7: tabela no corpo com renumeração (**recomendado**) ou no Apêndice A.
 3. A15: gerar já o esqueleto da Table S1 com a numeração da lista marcada como provisória (**recomendado**), ou adiar até a tarefa de verificação de referências.
 4. Formato: `pypandoc-binary` no grupo `docs` do uv + `scripts/render_docx.py`.
+
+---
+
+## 9. Decisões do usuário (2026-10-09)
+
+| # | Tema | Decisão | Efeito nos ajustes |
+|---|---|---|---|
+| D1a | Posicionamento frente a Paré | *Theoretical review* com **desvio declarado** na dimensão busca | Base do texto de A1, A3, A5, A6, A13, A14 |
+| D1b | SPIR como precedente na 4.1 | **Sai** | A6 |
+| D1c | Redundância frente a [3]/[4] | Vira **razão secundária e restrita** (amplitude empírica × profundidade definicional) | A6 |
+| D2 | Perguntas aos autores sobre o processo (P6) | **Pausada** | A10 e a parte "iteração/critério de parada" de A11 ficam bloqueados |
+| D3 | Conteúdo da tabela de diferenciação (Seção 4.2) | **Aprovado** | A7 |
+| D3-local | Local da tabela | **Corpo da 4.1**, com renumeração das tabelas seguintes | A7 = Table 3; A8 ativo |
+| D-overlap | "considerable corpus overlap" (4.1) | **Remover** | A6 |
+| D-S1 | Table S1 (trilha de auditoria) | **Sai da T01**; tarefa própria, após D2 e a verificação de referências | A12 e A15 retirados da T01 |
+| D-formato | Geração do .docx | **Aprovado**: `pypandoc-binary` no grupo `docs` do uv + `scripts/render_docx.py`; novo texto em verde-escuro (#006400) | Infraestrutura |
+| D-lotes | Ordem de geração | Lote 1: **A6, A3, A5, A1** → depois A13–A14 → A7/A4/A8 → simples (A2, A9, A11-rótulo) | — |
+| D-simples | Ajustes sem dependência | **Seguir** (A1, A2, A9, A11-rótulo) | — |
+
+**Situação dos ajustes após as decisões:**
+- **Ativos**: A1, A2, A3, A4, A5, A6, A7, A8, A9, A11 (só o rótulo), A13, A14.
+- **Bloqueados por D2**: A10, A11 (iteração e critério de parada).
+- **Retirados da T01** (tarefa futura): A12, A15.
