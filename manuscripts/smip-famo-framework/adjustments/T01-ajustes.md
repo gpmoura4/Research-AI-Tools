@@ -12,7 +12,7 @@
 |---|---|---|
 | 1 | A6, A3, A5, A1 | **aplicado** em 2026-10-10; A6 e A5 revisados (A6v2, A5v2) no mesmo dia |
 | 1b | A16, A17 (F12, PRISMA de [3]) | **aplicado** em 2026-10-10 |
-| 2 | A13, A14 | redigido, aguardando revisão do usuário |
+| 2 | A13, A14 | **aplicado** em 2026-10-10 |
 | 3 | A7, A4, A8 | a redigir |
 | 4 | A2, A9, A11 (rótulo) | a redigir |
 | — | A10, A11 (iteração) | bloqueados (T01-D2) |
@@ -150,6 +150,8 @@ Methodologically, the article is a theoretical review built through citation cha
 (p. 191). Com 15 palavras, o Abstract vai de 184 para 199 palavras. O limite da
 *Journalism and Media* parece ser de cerca de 200 palavras **[a verificar]**.
 
+---
+
 ## T01-A16 — Seção 3.2: método de Arora et al. [3] sem PRISMA
 
 | Campo | Valor |
@@ -217,7 +219,7 @@ review, 58 articles") está correta e não muda ([4], p. 4).
 | Decisões | D1a |
 | Localização | Seção 9.2 (Limitations), parágrafo 1, começa com "Four limitations merit explicit acknowledgment", da 2ª frase ("The first limitation is methodological…") até o fim do parágrafo |
 | Ação | substituir |
-| Estado | planejado |
+| Estado | aplicado em 2026-10-10 |
 
 **Texto original**
 
@@ -248,7 +250,7 @@ primeira frase do parágrafo ("Four limitations merit…") fica como está.
 | Decisões | D1a |
 | Localização | Seção 11 (Conclusions and Future Directions), lista da agenda, item 1, começa com "Formal systematic validation." (rótulo em negrito) |
 | Ação | substituir |
-| Estado | planejado |
+| Estado | aplicado em 2026-10-10 |
 
 **Texto original**
 
@@ -268,8 +270,6 @@ cobertura, a busca sistemática complementa a revisão teórica sem substituí-l
 muda junto ("Formal systematic validation." → "Systematic test of coverage.") e continua
 em negrito. A referência a [3] e [4] como precedentes de busca sistemática no domínio se
 mantém, agora sem atribuir PRISMA.
-
----
 
 ---
 
@@ -333,3 +333,4 @@ Arora et al. [3] and Tölle and Trier [4] conduct systematic reviews based on st
 | 2026-10-10 11:20 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A6, T01-A3, T01-A5, T01-A1 | — | `AHj4eMQ9wf7l6Q2m_ZVSivmfxg23sKiv9KcIQry1stnxu9MPI5pgfiVVlwTkfkcvievzihbiq5QR_z2a5vlGVK3fuEZXItsAkbrQObyjZ064_u0` | `AHj4eMTTF0khdOen6ip2PRfxSnWYJ6ga5URX_v3nk4n73Ks-DGIXfHlylKQ9Z7_8kRDQ5gJpIgvtXt8J2BGOjuNikk_PFjg6B2LNyRS2iyBg7xk` |
 | 2026-10-10 14:51 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A6v2, T01-A5v2 | — | `AHj4eMSCH5Pzf_VTyMBlZ3XjiOlRWD_OlqdTPohvIZPaHO6wAvU45sHPt4dltWz5qQi_nfzg-9TGurizKg_3FfJaU2UWfGVuXT6qfcoy6RvhWnY` | `AHj4eMRY_btVvB5Z-JV-E-9_yHGU2m8xSIwOXA2uObIe7j8I0LbpCfOLyDG2KXn1kZiVRde1lUX_tmugyhZ4wdnWnRRv6Z97i9ZuxOWv3K3lVzs` |
 | 2026-10-10 15:01 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A16, T01-A17 | — | `AHj4eMRY_btVvB5Z-JV-E-9_yHGU2m8xSIwOXA2uObIe7j8I0LbpCfOLyDG2KXn1kZiVRde1lUX_tmugyhZ4wdnWnRRv6Z97i9ZuxOWv3K3lVzs` | `AHj4eMT-SjvGNehyv4m0dt3UQR1pcE_LM-MtWDCAJEIs6gnVoaiNgZ4FccX8VxFiIXp3vtVUcj6BHRFEb7MWYXwEMsm3YsLqzo_KUoKv_cFDO1k` |
+| 2026-10-10 16:08 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A13, T01-A14 | — | `AHj4eMSZWqLHZaq74aRQd1yZpRTvVawN1kJV7ii_K_mxsLYY0p2F8-l9_OSzt6r2QX0Bwvzb0c_ru3mHVmRHQRQIvoeotdau6hfUccQ3aBe1cPw` | `AHj4eMQD3Ma7n3oLbD25yY-ng3d9kQj8N6kEWyNfpgdHYhUH3jf_6TeMmIUV6PtnlBDSg0l55dP-4B9CRt6eGLQkfxleVxnIR46k6WFJDeIVoCo` |
