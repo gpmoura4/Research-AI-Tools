@@ -100,4 +100,4 @@ Registradas em 2026-10-08, na leitura de `v1-2026-10-08.pdf`. Não são avaliaç
 ## Notas
 - O original continua em `areas/mestrado/research/papers/journal/docs/`, que não é um
   tema de literatura padrão (sem `context.md`). Não foi movido.
-- 2026-10-10: teste de escrita na cópia de revisão — " TESTE" inserido no fim do título (2ª linha), em preto com marca-texto amarelo. Funcionou; remover após conferência do usuário.
+- 2026-10-10: teste de escrita na cópia de revisão — " TESTE" inserido no fim do título (2ª linha), em preto com marca-texto amarelo. Funcionou. Removido: o trecho já não está no documento (conferido em 2026-10-10, após o lote 4).

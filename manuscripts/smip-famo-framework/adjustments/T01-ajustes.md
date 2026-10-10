@@ -14,7 +14,7 @@
 | 1b | A16, A17 (F12, PRISMA de [3]) | **aplicado** em 2026-10-10 |
 | 2 | A13, A14 | **aplicado** em 2026-10-10 |
 | 3 | A7, A4, A8 | **aplicado** em 2026-10-10 (A4 e A8.1–A8.18; depois A7, testado antes em documento de teste) |
-| 4 | A2, A9, A11 (rótulo) | a redigir |
+| 4 | A2, A9, A11 (rótulo) | **aplicado** em 2026-10-10 |
 | — | A10, A11 (iteração) | bloqueados (T01-D2) |
 | — | A12, A15 | retirados → `backlog.md` B01 |
 
@@ -646,6 +646,92 @@ the affordance matrix in Table {{5}}
 the affordance matrix in Table {{6}}
 ```
 
+## T01-A2 — Keywords: acrescentar "theoretical review"
+
+| Campo | Valor |
+|---|---|
+| Lote | 4 |
+| Achados | T01-F09 |
+| Decisões | D-simples |
+| Localização | Keywords (após o Abstract), fim da lista: "social media induced polarization; SMIP." |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 4) |
+
+```original
+social media induced polarization{{; SMIP}}.
+```
+
+```novo
+social media induced polarization{{(SMIP); theoretical review}}.
+```
+
+**Justificativa**: Paré recomenda declarar o tipo de revisão no título ou no Abstract para
+melhorar a indexação (p. 191). O A1 já o declarou no Abstract, e a keyword completa a
+indexação. A lista já tem 10 termos, e o template MDPI pede de 3 a 10 **[a verificar]**,
+P5. Para não passar de 10, "SMIP" vira sigla do termo anterior em vez de keyword separada.
+O resultado fica "social media induced polarization (SMIP); theoretical review." O ponto e
+vírgula é o separador de keywords do template, por isso é indispensável aqui.
+Alternativa, se o limite não valer: só acrescentar "; theoretical review" (11 termos).
+
+**Correção na aplicação (2026-10-10)**: a primeira versão do bloco ```novo``` tinha um
+espaço dentro de `{{…}}`, e o documento ficou com dois espaços antes de "(SMIP)". O espaço
+excedente, destacado e inserido pelo agente, foi apagado logo após a conferência (revisão
+`AHj4eMQb9U…` → `AHj4eMQuw-…`). O bloco acima já está corrigido.
+
+---
+
+## T01-A9 — Seção 4.2: intervalo de publicação das obras comparadas
+
+| Campo | Valor |
+|---|---|
+| Lote | 4 |
+| Achados | T01-F10 |
+| Decisões | D-simples; P4 resolvida (§10.1) |
+| Localização | Seção 4.2, §1, começa com "Given that this article does not conduct a systematic database sweep", critério "First, recency" |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 4) |
+
+```original
+the three works were published between {{2021}} and 2023
+```
+
+```novo
+the three works were published between {{2022}} and 2023
+```
+
+**Justificativa**: pela lista, as três obras comparadas são de 2022–2023 (Arora et al. [3],
+online em 2022-08-09; Harris et al. [2], 2023; Tölle e Trier [4], ECIS 2023). A única
+âncora de 2021 é Tanyel e Windeler [5], que a própria 4.2 exclui da comparação. [2] foi
+submetido em 2021, mas o texto fala em publicação. Conferido nos PDFs (§10.1, P4), por
+isso o placeholder [AUTORES] previsto na Seção 8 do relatório não é mais necessário.
+
+---
+
+## T01-A11 — Figura 1: nota sobre o rótulo da primeira caixa
+
+| Campo | Valor |
+|---|---|
+| Lote | 4 |
+| Achados | T01-F11 |
+| Decisões | D-simples (só o rótulo); a parte de iteração e critério de parada segue bloqueada (D2) |
+| Localização | Figura 1 (Seção 4.3), legenda "Figure 1. Literature identification process used in this article." |
+| Ação | inserir-apos |
+| Estado | aplicado em 2026-10-10 (lote 4) |
+
+```original
+Literature identification process used in this article.
+```
+
+```novo
+[AJUSTE T01-A11: in the first box, replace "4 anchor frameworks" and "SPIR, Arora, Tölle&Trier" with "4 anchor works" and "SPIR, Arora et al., Tölle & Trier, Tanyel & Windeler", as described in Section 4.3.]
+```
+
+**Justificativa**: a figura é uma imagem e não pode ser editada pela API. Por isso o ajuste
+entra como nota junto à legenda, conforme a política de ajustes. A caixa anuncia quatro
+âncoras, mas lista três (conferido no PDF, p. 9), e chama de "frameworks" um conjunto que
+inclui um estudo empírico (Tanyel e Windeler [5]). A 4.3 já usa "four anchor works", e a
+nota alinha a figura ao texto. A nota está em inglês, como o resto do texto novo.
+
 ---
 
 ---
@@ -713,3 +799,4 @@ Arora et al. [3] and Tölle and Trier [4] conduct systematic reviews based on st
 | 2026-10-10 16:08 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A13, T01-A14 | — | `AHj4eMSZWqLHZaq74aRQd1yZpRTvVawN1kJV7ii_K_mxsLYY0p2F8-l9_OSzt6r2QX0Bwvzb0c_ru3mHVmRHQRQIvoeotdau6hfUccQ3aBe1cPw` | `AHj4eMQD3Ma7n3oLbD25yY-ng3d9kQj8N6kEWyNfpgdHYhUH3jf_6TeMmIUV6PtnlBDSg0l55dP-4B9CRt6eGLQkfxleVxnIR46k6WFJDeIVoCo` |
 | 2026-10-10 16:26 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A4, T01-A8.1, T01-A8.2, T01-A8.3, T01-A8.4, T01-A8.5, T01-A8.6, T01-A8.7, T01-A8.8, T01-A8.9, T01-A8.10, T01-A8.11, T01-A8.12, T01-A8.13, T01-A8.14, T01-A8.15, T01-A8.16, T01-A8.17, T01-A8.18 | — | `AHj4eMQD3Ma7n3oLbD25yY-ng3d9kQj8N6kEWyNfpgdHYhUH3jf_6TeMmIUV6PtnlBDSg0l55dP-4B9CRt6eGLQkfxleVxnIR46k6WFJDeIVoCo` | `AHj4eMS-CewG3JcSXoShY9JHYb5Jo_bWmqtM5Cfb2J4x1qNFlcmuCmJPV1EixNT8AuGAGOimzGdEOKEunPLO94XEAxlx0tQ_Fl_2sCHnZa5ZRlY` |
 | 2026-10-10 16:29 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A7 | — | `AHj4eMS-CewG3JcSXoShY9JHYb5Jo_bWmqtM5Cfb2J4x1qNFlcmuCmJPV1EixNT8AuGAGOimzGdEOKEunPLO94XEAxlx0tQ_Fl_2sCHnZa5ZRlY` | `AHj4eMT6PYKl6owI1MVvVy4AxWl7PN9Fpws6L-Vt6KDnYiFEO1WZAeSlD5oR0eL4ae1Dl928-EHTdSk4fAChRvBJUKZ3kSFuPHmr___78A9T_4U` |
+| 2026-10-10 16:37 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A2, T01-A9, T01-A11 | — | `AHj4eMTeNCJUf_Jq1LhRaCdSLJWC2A2GapOho6mvPDaeQH3CyQjjC9PJx4Ujve_Jvu22gw-Otw5lMpBGSSIUbMs2dPIY4S-bel_1PBmpMpLOtW0` | `AHj4eMQpvOxc43QBAjx7Og1afwiXi6e87Ld3c0lQqTGwm1NaW1_4LU65CDYseciivVlgAXKJBtK7H0m9eeT8NhHrbeMdnJ0FYnFInvUv0LI7ccY` |

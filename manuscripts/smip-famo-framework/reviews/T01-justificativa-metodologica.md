@@ -385,3 +385,59 @@ afirmações que o manuscrito faz sobre elas. Páginas pela paginação de cada 
 | T01-A17 | Tabela 2, linha "Base methodology", coluna "Arora et al. [3]" | Substituir célula | "PRISMA systematic review, 264 articles" → "Systematic review, 264 articles" | F12 |
 
 Nota para o lote 3: o texto planejado para A4 ("Theoretical review [15]; directed citation chaining…") contém ponto e vírgula e será redigido sem ele.
+
+---
+
+## 11. Fechamento (2026-10-10)
+
+Todos os ajustes ativos (Seção 9) foram aplicados na cópia de revisão em Google Docs, com
+texto antigo riscado e texto novo em amarelo. Fonte, texto de cada ajuste e log com as
+revisões do documento estão em
+[`adjustments/T01-ajustes.md`](../adjustments/T01-ajustes.md).
+
+### 11.1 Ajustes aplicados
+
+| Lote | Ajustes | Observação |
+|---|---|---|
+| 1 | A6, A3, A5, A1 | A6 e A5 revisados como A6v2 e A5v2 (estilo e PRISMA de [3]) |
+| 1b | A16, A17 | F12 |
+| 2 | A13, A14 | |
+| 3 | A7 (nova Table 3), A4, A8.1–A8.18 | renumeração das tabelas 3→4, 4→5, 5→6 |
+| 4 | A2, A9, A11 (só o rótulo) | A11 entra como nota junto à legenda da Figura 1, que é imagem |
+
+### 11.2 Achados × situação
+
+| Achado | Severidade | Situação |
+|---|---|---|
+| F01, F02 | Importante | resolvidos: o SPIR sai como precedente (A6) |
+| F03 | Crítico | resolvido no argumento: *theoretical review* com desvio declarado na busca (A6, A3, A5, A4, A7). A exigência de documentação de Paré (p. 192) depende de F07 |
+| F04 | Importante | resolvido: "considerable corpus overlap" removido (A6) |
+| F05 | Importante | resolvido: a redundância vira razão secundária e restrita (A6) |
+| F06 | Importante | **aberto**: janela temporal e entrada das obras de 2023–2025 dependem de A10 (bloqueado, D2) |
+| F07 | Crítico | **parcial**: a regra de seleção por item foi nomeada (A7) e o desvio na busca declarado. A documentação do processo na 4.3 (direção do *chaining*, iterações, parada, exclusões, fusões) continua faltando: A10 e A11 (iteração) bloqueados por D2, e a Table S1 está no backlog (B01) |
+| F08 | Importante | resolvido: limitação de cobertura (A13) e RS como teste de cobertura (A14) |
+| F09 | Menor | resolvido (A1, A2) |
+| F10 | Menor | resolvido (A9) |
+| F11 | Menor | resolvido como nota na figura (A11). A troca na imagem cabe aos autores |
+| F12 | Importante | resolvido (A16, A17, A13) |
+| I04 | Menor | resolvido (A8.1, A8.16, A8.17) |
+| I01, I02, I03, I05, I06 | — | fora do escopo da T01, sem ajuste |
+
+**Risco remanescente**: F07 continua sendo o ponto mais vulnerável do método. O texto
+agora declara o desvio e remete à 4.3, mas a 4.3 ainda não responde "how was the
+literature identified?" com os itens mínimos de Paré. Isso depende dos autores (P6).
+
+### 11.3 Pendências que seguem abertas
+
+- **P5**: instruções da *Journalism and Media* para artigos de revisão. Afeta também o
+  limite de keywords assumido no A2 (3 a 10, **[a verificar]**).
+- **P6**: fatos metodológicos dos autores, pausada (D2). Destrava A10 e A11 (iteração).
+- **B01** (`backlog.md`): Table S1, trilha de auditoria.
+
+### 11.4 Infraestrutura
+
+`scripts/gdocs_apply.py` ganhou as ações `substituir-parcial` (risca só o trecho marcado
+com `{{…}}`) e `inserir-tabela-apos` (legenda + tabela no estilo da Table 2), IDs
+desdobrados (`A8.n`) e a seleção `--ids A8`. A fórmula de índices da tabela foi conferida
+na API num documento de teste antes da aplicação.
+
