@@ -12,7 +12,7 @@
 |---|---|---|
 | 1 | A6, A3, A5, A1 | **aplicado** em 2026-10-10; A6 e A5 revisados (A6v2, A5v2) no mesmo dia |
 | 1b | A16, A17 (F12, PRISMA de [3]) | **aplicado** em 2026-10-10 |
-| 2 | A13, A14 | a redigir |
+| 2 | A13, A14 | redigido, aguardando revisão do usuário |
 | 3 | A7, A4, A8 | a redigir |
 | 4 | A2, A9, A11 (rótulo) | a redigir |
 | — | A10, A11 (iteração) | bloqueados (T01-D2) |
@@ -205,6 +205,69 @@ Systematic review, 264 articles
 
 **Justificativa**: mesma razão de A16. A célula de Tölle e Trier [4] ("PRISMA systematic
 review, 58 articles") está correta e não muda ([4], p. 4).
+
+---
+
+## T01-A13 — Seção 9.2: primeira limitação como limitação de cobertura
+
+| Campo | Valor |
+|---|---|
+| Lote | 2 |
+| Achados | T01-F08, T01-F12 |
+| Decisões | D1a |
+| Localização | Seção 9.2 (Limitations), parágrafo 1, começa com "Four limitations merit explicit acknowledgment", da 2ª frase ("The first limitation is methodological…") até o fim do parágrafo |
+| Ação | substituir |
+| Estado | planejado |
+
+**Texto original**
+
+```original
+The first limitation is methodological and was anticipated in Section 4.1: the literature identification process (Figure 1) is neither a systematic review nor reproducible by third parties in the strict sense of the PRISMA protocols employed by Arora et al. [3] and Tölle and Trier [4]. Consequently, the absence of a mechanism from this taxonomy should not be interpreted as evidence that the literature lacks discussion of it, but rather that the citation-chaining strategy applied here did not capture it. Section 11 identifies formal systematic validation as a primary goal for future research.
+```
+
+**Novo texto**
+
+```novo
+The first limitation concerns coverage and follows from the deviation declared in Section 4.1. Because the literature was identified through citation chaining from four anchor works (Figure 1) rather than through a comprehensive search, the taxonomy does not claim exhaustiveness. The absence of a mechanism from it should therefore not be interpreted as evidence that the literature lacks discussion of that mechanism, but only that the citation-chaining strategy applied here did not capture it. This limitation is stated against the quality criteria that Paré et al. [15] propose for any review, which emphasize the documentation of the process rather than its exhaustiveness, and not against the protocols of systematic reviews, whose objectives differ. Section 11 identifies a systematic test of the coverage of the taxonomy as a priority for future research.
+```
+
+**Justificativa**: a limitação deixa de ser "não é revisão sistemática nem segue PRISMA",
+que mede o artigo pela régua que a 4.1 rejeita (F08), e passa a ser o que de fato é: um
+limite de cobertura. Também sai a atribuição de PRISMA a Arora et al. [3] (F12). "Rigor
+não se confunde com exaustividade" e "documentação do processo" vêm de Paré, p. 192. A
+primeira frase do parágrafo ("Four limitations merit…") fica como está.
+
+---
+
+## T01-A14 — Seção 11, item 1: revisão sistemática como teste de cobertura
+
+| Campo | Valor |
+|---|---|
+| Lote | 2 |
+| Achados | T01-F08 |
+| Decisões | D1a |
+| Localização | Seção 11 (Conclusions and Future Directions), lista da agenda, item 1, começa com "Formal systematic validation." (rótulo em negrito) |
+| Ação | substituir |
+| Estado | planejado |
+
+**Texto original**
+
+```original
+Formal systematic validation. As noted in Section 9.2, the taxonomy presented here does not derive from a systematic literature review, representing a deliberate and justified methodological strategy (Section 4.1). A natural next step is validating this taxonomy through a formal systematic review with a documented, reproducible search protocol. This effort would test whether the 41 mechanisms and 11 affordances comprehensively capture the broader literature corpus, following the precedent established by Arora et al. [3] and Tölle and Trier [4] for earlier conceptualizations.
+```
+
+**Novo texto**
+
+```novo
+**Systematic test of coverage.** As discussed in Sections 4.1 and 9.2, the taxonomy derives from a theoretical review with a directed search, not from a systematic review. A natural next step is a systematic search with a documented and reproducible protocol, designed to test whether the 41 mechanisms and 11 affordances cover the literature beyond the sources reached by citation chaining. Such a search would complement the theoretical structure proposed here rather than validate it: it can reveal mechanisms or affordances that are missing, while the definitions and relations of the framework remain open to conceptual and empirical testing. Arora et al. [3] and Tölle and Trier [4] provide precedents for systematic searches in this domain.
+```
+
+**Justificativa**: chamar a revisão sistemática de "validação" admite que ela é o padrão
+pelo qual a taxonomia deveria ser julgada, o que contradiz a 4.1 (F08). Como teste de
+cobertura, a busca sistemática complementa a revisão teórica sem substituí-la. O rótulo
+muda junto ("Formal systematic validation." → "Systematic test of coverage.") e continua
+em negrito. A referência a [3] e [4] como precedentes de busca sistemática no domínio se
+mantém, agora sem atribuir PRISMA.
 
 ---
 
