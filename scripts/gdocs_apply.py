@@ -20,8 +20,12 @@ dois blocos cercados: ```original``` e ```novo```. Ações:
 No bloco ```novo```, *itálico* e **negrito** viram formatação; linhas separadas por
 uma linha em branco viram parágrafos distintos.
 
+Credencial: conta de serviço via --credentials <json> (antes do subcomando) ou
+GOOGLE_APPLICATION_CREDENTIALS; sem ela, OAuth de usuário. O documento precisa estar
+compartilhado como Editor com o e-mail da conta de serviço.
+
 Uso:
-  uv run python -m scripts.gdocs_apply check <doc-id|url>
+  uv run python -m scripts.gdocs_apply [--credentials <json>] check <doc-id|url>
   uv run python -m scripts.gdocs_apply find  <doc-id|url> "trecho"
   uv run python -m scripts.gdocs_apply apply <doc-id|url> <ajustes.md> --ids A6,A3 [--apply]
 
@@ -31,6 +35,7 @@ Sem --apply, apply apenas simula e mostra o que faria.
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import sys
 from dataclasses import dataclass, field
@@ -381,11 +386,24 @@ def doc_id_from(raw: str) -> str:
     return m.group(1) if m else raw.strip()
 
 
-def docs_service():
+def docs_service(credentials_file: Path | None = None):
+    """Cliente da API. Conta de serviço (--credentials ou GOOGLE_APPLICATION_CREDENTIALS)
+    tem precedência; sem ela, usa OAuth de usuário com token em ~/.config."""
+    from googleapiclient.discovery import build
+
+    sa_file = credentials_file or (
+        Path(os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") else None
+    )
+    if sa_file:
+        from google.oauth2 import service_account
+
+        creds = service_account.Credentials.from_service_account_file(str(sa_file), scopes=SCOPES)
+        return build("docs", "v1", credentials=creds, cache_discovery=False)
+
     from google.auth.transport.requests import Request
     from google.oauth2.credentials import Credentials
     from google_auth_oauthlib.flow import InstalledAppFlow
-    from googleapiclient.discovery import build
 
     creds = None
     if TOKEN_FILE.exists():
@@ -408,17 +426,27 @@ def fetch(service, doc_id: str) -> dict:
     return service.documents().get(documentId=doc_id).execute()
 
 
-def cmd_check(doc_id: str) -> int:
-    document = fetch(docs_service(), doc_id)
+def cmd_check(doc_id: str, creds: Path | None, head: int) -> int:
+    document = fetch(docs_service(creds), doc_id)
     doc = DocText.from_document(document)
-    print(f"Título: {document.get('title')}")
+    print(f"Arquivo: {document.get('title')}")
     print(f"Revisão: {doc.revision_id}")
     print(f"Parágrafos: {len(doc.paragraphs)} · caracteres: {len(doc.norm)}")
+    shown = 0
+    for element in document.get("body", {}).get("content", []):
+        if shown >= head or "paragraph" not in element:
+            continue
+        text = "".join(el.get("textRun", {}).get("content", "")
+                       for el in element["paragraph"].get("elements", [])).strip()
+        if text:
+            style = element["paragraph"].get("paragraphStyle", {}).get("namedStyleType", "")
+            print(f"  [{element['startIndex']}] {style}: {text[:110]}")
+            shown += 1
     return 0
 
 
-def cmd_find(doc_id: str, text: str) -> int:
-    doc = DocText.from_document(fetch(docs_service(), doc_id))
+def cmd_find(doc_id: str, text: str, creds: Path | None) -> int:
+    doc = DocText.from_document(fetch(docs_service(creds), doc_id))
     hits = doc.find_all(text)
     print(f"{len(hits)} ocorrência(s)")
     for start, end in hits:
@@ -426,9 +454,10 @@ def cmd_find(doc_id: str, text: str) -> int:
     return 0 if hits else 1
 
 
-def cmd_apply(doc_id: str, md_path: Path, ids: list[str], really: bool) -> int:
+def cmd_apply(doc_id: str, md_path: Path, ids: list[str], really: bool,
+              creds: Path | None) -> int:
     adjustments = select(parse_adjustments(md_path.read_text(encoding="utf-8")), ids)
-    service = docs_service()
+    service = docs_service(creds)
     doc = DocText.from_document(fetch(service, doc_id))
     planned = plan(doc, adjustments)
 
@@ -461,9 +490,12 @@ def cmd_apply(doc_id: str, md_path: Path, ids: list[str], really: bool) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--credentials", type=Path,
+                        help="JSON da conta de serviço (senão: GOOGLE_APPLICATION_CREDENTIALS ou OAuth)")
     sub = parser.add_subparsers(dest="cmd", required=True)
     p_check = sub.add_parser("check", help="testa o acesso ao documento")
     p_check.add_argument("doc")
+    p_check.add_argument("--head", type=int, default=5, help="parágrafos iniciais a mostrar")
     p_find = sub.add_parser("find", help="procura um trecho no documento")
     p_find.add_argument("doc")
     p_find.add_argument("text")
@@ -476,11 +508,11 @@ def main(argv: list[str] | None = None) -> int:
 
     doc_id = doc_id_from(args.doc)
     if args.cmd == "check":
-        return cmd_check(doc_id)
+        return cmd_check(doc_id, args.credentials, args.head)
     if args.cmd == "find":
-        return cmd_find(doc_id, args.text)
+        return cmd_find(doc_id, args.text, args.credentials)
     ids = [i.strip() for i in args.ids.split(",") if i.strip()]
-    return cmd_apply(doc_id, args.md, ids, args.apply)
+    return cmd_apply(doc_id, args.md, ids, args.apply, args.credentials)
 
 
 if __name__ == "__main__":

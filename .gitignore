@@ -26,3 +26,7 @@ manuscripts/*/references/
 
 # Mantém a estrutura de diretórios visível mesmo sem os arquivos.
 !.gitkeep
+
+# --- Credenciais -----------------------------------------------------------
+# Chaves de API, contas de serviço e tokens OAuth: nunca vão para o repositório.
+credentials/
