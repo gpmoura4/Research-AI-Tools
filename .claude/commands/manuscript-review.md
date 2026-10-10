@@ -81,14 +81,16 @@ Leia, nesta ordem:
 `reviews/<ID>-<slug-da-tarefa>.md`, com o template abaixo. Subtarefa: acrescente uma
 seção `## <ID> — <título>` ao relatório da tarefa-mãe, com as mesmas seis subseções.
 
-## Passo 6b — (Se a tarefa pedir ajustes) Arquivo de ajustes
+## Passo 6b — (Se a tarefa pedir ajustes) Ajustes na cópia de revisão
 
 Siga a "Política de ajustes" de `manuscripts/CLAUDE.md`:
 
 1. Apresente a lista de ajustes planejados (ID, localização, ação, objetivo em uma
-   linha) e **aguarde aprovação**.
-2. Escreva `adjustments/<ID>-ajustes.md` com o template abaixo.
-3. Gere o .docx: `uv run python -m scripts.render_docx manuscripts/<slug>/adjustments/<ID>-ajustes.md`.
+   linha) e **aguarde aprovação**. Combine os lotes.
+2. Redija o lote em `adjustments/<ID>-ajustes.md` (template abaixo) e peça revisão.
+3. Simule: `uv run python -m scripts.gdocs_apply apply <doc> manuscripts/<slug>/adjustments/<ID>-ajustes.md --ids A6,A3`.
+   Ajuste "pulado" → investigue (`... find <doc> "trecho"`) antes de seguir.
+4. Com o lote aprovado, repita com `--apply`. O log entra no próprio .md.
 
 ## Passo 7 — Atualizar o INDEX.md
 
@@ -159,15 +161,21 @@ sugeridas de memória levam [conferir dados bibliográficos].>
 |---|---|
 | Achado | <ID>-F03 |
 | Localização | Seção 4.1, parágrafo 1, começa com "This article does not conduct…" |
-| Ação | Substituir |
+| Lote | 1 |
+| Ação | substituir · substituir-paragrafo · inserir-apos · inserir-paragrafo-apos |
+| Estado | planejado · aplicado (data) |
 
 **Texto original**
 
-> <texto exato>
+```original
+<texto exato; para inserções, a âncora>
+```
 
 **Novo texto**
 
-<texto em inglês, pronto para colar; placeholders [AUTORES: …]>
+```novo
+<texto em inglês; *itálico*, **negrito**; linha em branco = novo parágrafo; placeholders [AUTORES: …]>
+```
 
 **Justificativa**: <pt-BR, curta>
 ```

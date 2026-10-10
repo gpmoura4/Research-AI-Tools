@@ -27,8 +27,8 @@ encontrados de passagem, registrados numa seção própria do relatório).
 
 ## Regras
 1. **Não editar o manuscrito** (`paper/`) sem pedido explícito do usuário. O produto
-   são relatórios de revisão e, quando a tarefa pedir, arquivos de ajustes
-   (ver "Política de ajustes"). (O `.claude/settings.json` pede confirmação antes de
+   são relatórios de revisão e, quando a tarefa pedir, ajustes aplicados na cópia de
+   revisão em Google Docs (ver "Política de ajustes"). (O `.claude/settings.json` pede confirmação antes de
    qualquer edição em `manuscripts/*/paper/`.)
 2. **Localizar cada apontamento**: seção, parágrafo, tabela, figura ou página, na
    versão do manuscrito declarada no cabeçalho do relatório.
@@ -78,7 +78,7 @@ manuscripts/<slug-do-paper>/
 ├── paper/          # manuscrito (fonte e/ou PDF), versões datadas
 ├── references/     # PDFs das obras citadas
 ├── reviews/        # relatórios de tarefa
-└── adjustments/    # ajustes propostos ao texto: T01-ajustes.md (fonte) + .docx (gerado)
+└── adjustments/    # ajustes por tarefa: T01-ajustes.md (fonte + log de aplicação)
 ```
 `paper/` e `references/` não vão para o Git (manuscrito inédito; PDFs de terceiros).
 Só `context.md`, `INDEX.md`, `reference-coverage.md`, `backlog.md`, `reviews/` e as fontes `.md` de
@@ -87,27 +87,36 @@ Ao depositar ou obter PDFs em `references/`, atualizar `reference-coverage.md`.
 
 ## Política de ajustes
 Vale para todas as tarefas. Ajustes no paper (texto, tabela ou figura) **nunca são
-feitos no arquivo original**: ficam num arquivo externo, **um por tarefa**, que o
-usuário aplica manualmente no original (.docx/Google Docs).
+feitos no original dos autores nem no PDF em `paper/`**. São aplicados pelo agente,
+via API do Google Docs, numa **cópia de revisão** em Google Docs criada pelo usuário
+(o ID do documento fica em `context.md`), **um lote por vez**, após aprovação.
 
-- **Arquivos**: `adjustments/<ID>-ajustes.md` é a fonte (versionada); dele se gera
-  `adjustments/<ID>-ajustes.docx` para copiar e colar (preserva itálico, negrito e
-  tabelas; fora do Git, recriável). Geração:
-  `uv run python -m scripts.render_docx manuscripts/<slug>/adjustments/<ID>-ajustes.md`.
-- **Cor no .docx**: o **novo texto** de cada ajuste (o trecho a copiar e colar, incluindo
-  tabelas novas) sai em **verde-escuro (#006400)**. Metadados, texto original e
-  justificativa ficam na cor padrão. Assim o trecho colado no original fica visível
-  até ser revisado.
-- **Aprovação**: antes de gerar o arquivo, apresentar a lista de ajustes planejados
-  (ID, localização, ação, objetivo em uma linha) e aguardar aprovação do usuário.
+- **Registro**: `adjustments/<ID>-ajustes.md` é a fonte versionada de cada ajuste
+  (âncora, texto original, novo texto, justificativa) e o log do que foi aplicado,
+  quando e em qual revisão do documento. Aplicação:
+  `uv run python -m scripts.gdocs_apply <doc-id> manuscripts/<slug>/adjustments/<ID>-ajustes.md --ids A6,A3`
+  (sem `--apply` é simulação; com `--apply` grava).
+- **Marcação no documento**:
+  - o texto substituído **não é apagado**: fica **riscado** no lugar, com a formatação
+    original;
+  - o **novo texto** entra logo depois do trecho riscado, em **preto com marca-texto
+    amarelo**;
+  - ajuste de figura (imagem não editável) entra como nota em preto com marca-texto
+    amarelo junto à legenda: `[AJUSTE T01-A11: …]`.
+- **Controle**: antes de gravar, o script relê o documento, localiza cada ajuste pela
+  âncora e confere que o texto original ainda está idêntico. Se divergir ou não for
+  único, o ajuste é **pulado** e reportado. Ajuste já aplicado não é reaplicado.
+- **Aprovação**: antes de aplicar, apresentar a lista de ajustes planejados (ID,
+  localização, ação, objetivo em uma linha) e aguardar aprovação do usuário; aplicar
+  por lotes, cada lote também aprovado.
 - **Estrutura de cada ajuste**:
   - **ID** (`T01-A1`, `T01-A2`…) e o achado do relatório que o motiva (`T01-F03`).
   - **Localização exata no original**: seção, número do parágrafo dentro da seção e
-    as **primeiras palavras do parágrafo** como âncora (o .docx não tem números de
-    linha estáveis). Tabelas: número, linha e coluna. Figuras: número e elemento.
+    as **primeiras palavras do parágrafo** como âncora (o documento não tem números
+    de linha estáveis). Tabelas: número, linha e coluna. Figuras: número e elemento.
   - **Ação**: substituir, inserir antes/depois, ou remover.
   - **Texto original exato**, quando for substituição ou remoção.
-  - **Novo texto**, em inglês, pronto para colar.
+  - **Novo texto**, em inglês.
   - **Justificativa** curta, em português.
 - **Regras para o novo texto**:
   - Apenas referências já presentes na lista do paper, citadas com a numeração da
