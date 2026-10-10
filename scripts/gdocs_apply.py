@@ -16,6 +16,10 @@ dois blocos cercados: ```original``` e ```novo```. Ações:
   substituir-paragrafo    risca o parágrafo original e insere o novo como parágrafo(s) seguinte(s)
   inserir-apos            insere o novo logo após o trecho original (âncora), sem riscar
   inserir-paragrafo-apos  insere o novo como parágrafo(s) após o parágrafo que contém a âncora
+  revisar-insercao        troca um texto inserido antes pelo agente (todo com marca-texto
+                          amarelo) pela versão revisada, sem riscar; recusa texto dos autores
+
+Revisões de um ajuste usam o ID com sufixo de versão: "## T01-A6v2 — …".
 
 No bloco ```novo```, *itálico* e **negrito** viram formatação; linhas separadas por
 uma linha em branco viram parágrafos distintos.
@@ -47,7 +51,8 @@ CLIENT_SECRET = CONFIG_DIR / "google-oauth-client.json"
 TOKEN_FILE = CONFIG_DIR / "google-token.json"
 SCOPES = ["https://www.googleapis.com/auth/documents"]
 
-ACTIONS = {"substituir", "substituir-paragrafo", "inserir-apos", "inserir-paragrafo-apos"}
+ACTIONS = {"substituir", "substituir-paragrafo", "inserir-apos", "inserir-paragrafo-apos",
+           "revisar-insercao"}
 
 BLACK = {"color": {"rgbColor": {"red": 0.0, "green": 0.0, "blue": 0.0}}}
 YELLOW = {"color": {"rgbColor": {"red": 1.0, "green": 1.0, "blue": 0.0}}}
@@ -56,7 +61,7 @@ YELLOW = {"color": {"rgbColor": {"red": 1.0, "green": 1.0, "blue": 0.0}}}
 # Ajustes (parsing do .md)
 # --------------------------------------------------------------------------- #
 
-_HEADING = re.compile(r"^## ((?:T\d+(?:\.\d+)?)-A\d+)\b(.*)$", re.MULTILINE)
+_HEADING = re.compile(r"^## ((?:T\d+(?:\.\d+)?)-A\d+(?:v\d+)?)\b(.*)$", re.MULTILINE)
 _ACTION_ROW = re.compile(r"^\|\s*Ação\s*\|\s*([^|]+?)\s*\|", re.MULTILINE)
 _FENCE = re.compile(r"^```(original|novo)[ \t]*\n(.*?)\n```", re.MULTILINE | re.DOTALL)
 
@@ -194,6 +199,11 @@ def normalize(text: str) -> str:
     return _normalize_chars(chars)[0].strip()
 
 
+def _is_yellow(text_style: dict) -> bool:
+    rgb = text_style.get("backgroundColor", {}).get("color", {}).get("rgbColor", {})
+    return rgb.get("red", 0) > 0.9 and rgb.get("green", 0) > 0.9 and rgb.get("blue", 0) < 0.1
+
+
 @dataclass
 class Paragraph:
     start: int
@@ -207,11 +217,13 @@ class DocText:
     starts: list[int]
     ends: list[int]
     paragraphs: list[Paragraph] = field(default_factory=list)
+    highlighted: set[int] = field(default_factory=set)  # índices com marca-texto amarelo
 
     @classmethod
     def from_document(cls, document: dict) -> "DocText":
         chars: list[tuple[str, int, int]] = []
         paragraphs: list[Paragraph] = []
+        highlighted: set[int] = set()
 
         def walk(content: list[dict]) -> None:
             for element in content:
@@ -222,9 +234,12 @@ class DocText:
                         if not run:
                             continue
                         idx = el["startIndex"]
+                        yellow = _is_yellow(run.get("textStyle", {}))
                         for ch in run.get("content", ""):
                             width = u16(ch)
                             chars.append((ch, idx, idx + width))
+                            if yellow:
+                                highlighted.update(range(idx, idx + width))
                             idx += width
                 elif "table" in element:
                     for row in element["table"].get("tableRows", []):
@@ -235,7 +250,7 @@ class DocText:
 
         walk(document.get("body", {}).get("content", []))
         norm, starts, ends = _normalize_chars(chars)
-        return cls(document.get("revisionId", ""), norm, starts, ends, paragraphs)
+        return cls(document.get("revisionId", ""), norm, starts, ends, paragraphs, highlighted)
 
     def find_all(self, text: str) -> list[tuple[int, int]]:
         """Todas as ocorrências (início, fim) de `text` em índices do documento."""
@@ -248,6 +263,9 @@ class DocText:
             hits.append((self.starts[pos], self.ends[pos + len(needle) - 1]))
             pos = self.norm.find(needle, pos + 1)
         return hits
+
+    def is_highlighted(self, start: int, end: int) -> bool:
+        return all(i in self.highlighted for i in range(start, end))
 
     def contains(self, text: str) -> bool:
         return bool(self.find_all(text))
@@ -270,6 +288,7 @@ class Planned:
     status: str  # "ok" | "pulado"
     reason: str = ""
     strike: tuple[int, int] | None = None
+    delete: tuple[int, int] | None = None
     insert_at: int | None = None
     insert_text: str = ""
     new_offset: int = 0  # onde o novo texto começa dentro de insert_text (após separador)
@@ -292,6 +311,15 @@ def plan(doc: DocText, adjustments: list[Adjustment]) -> list[Planned]:
             continue
         start, end = hits[0]
         p = Planned(adj, "ok", spans=spans)
+        if adj.action == "revisar-insercao":
+            if not doc.is_highlighted(start, end):
+                planned.append(Planned(adj, "pulado",
+                                       "trecho não está todo com marca-texto (não é inserção do agente)"))
+                continue
+            p.delete = (start, end)
+            p.insert_at, p.insert_text, p.new_offset = start, new_plain, 0
+            planned.append(p)
+            continue
         if adj.action in {"substituir", "substituir-paragrafo"}:
             p.strike = (start, end)
         if adj.action in {"substituir", "inserir-apos"}:
@@ -303,7 +331,8 @@ def plan(doc: DocText, adjustments: list[Adjustment]) -> list[Planned]:
 
     ok = sorted((p for p in planned if p.status == "ok"), key=lambda p: p.insert_at, reverse=True)
     for a, b in zip(ok, ok[1:]):
-        if b.insert_at == a.insert_at or (a.strike and b.insert_at > a.strike[0]):
+        a_range = a.strike or a.delete
+        if b.insert_at == a.insert_at or (a_range and b.insert_at > a_range[0]):
             raise ValueError(f"{a.adjustment.id} e {b.adjustment.id} se sobrepõem no documento")
     return planned
 
@@ -318,6 +347,10 @@ def build_requests(planned: list[Planned]) -> list[dict]:
                 "range": {"startIndex": p.strike[0], "endIndex": p.strike[1]},
                 "textStyle": {"strikethrough": True},
                 "fields": "strikethrough",
+            }})
+        if p.delete:
+            requests.append({"deleteContentRange": {
+                "range": {"startIndex": p.delete[0], "endIndex": p.delete[1]},
             }})
         requests.append({"insertText": {"location": {"index": p.insert_at}, "text": p.insert_text}})
         ins_start = p.insert_at
@@ -465,7 +498,8 @@ def cmd_apply(doc_id: str, md_path: Path, ids: list[str], really: bool,
     for p in planned:
         a = p.adjustment
         if p.status == "ok":
-            where = f"risca {p.strike[0]}–{p.strike[1]}, " if p.strike else ""
+            where = (f"risca {p.strike[0]}–{p.strike[1]}, " if p.strike else
+                     f"troca inserção {p.delete[0]}–{p.delete[1]}, " if p.delete else "")
             print(f"  [ok]     {a.id} ({a.action}): {where}insere em {p.insert_at}")
         else:
             print(f"  [pulado] {a.id}: {p.reason}")

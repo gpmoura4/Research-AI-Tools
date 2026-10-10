@@ -12,20 +12,26 @@ from scripts.gdocs_apply import (
 )
 
 
-def make_document(paragraphs: list[str], revision: str = "rev1") -> dict:
-    """Documento no formato da API do Google Docs, um textRun por parágrafo."""
+YELLOW_STYLE = {"backgroundColor": {"color": {"rgbColor": {"red": 1, "green": 1}}}}
+
+
+def make_document(paragraphs: list, revision: str = "rev1") -> dict:
+    """Documento no formato da API do Google Docs. Cada parágrafo é uma string ou uma
+    lista de (texto, textStyle); o "\n" final entra no último run."""
     content = []
     index = 1
-    for text in paragraphs:
-        run = text + "\n"
-        end = index + u16(run)
-        content.append({
-            "startIndex": index,
-            "endIndex": end,
-            "paragraph": {"elements": [{"startIndex": index, "endIndex": end,
-                                        "textRun": {"content": run}}]},
-        })
-        index = end
+    for paragraph in paragraphs:
+        runs = [(paragraph, {})] if isinstance(paragraph, str) else list(paragraph)
+        runs[-1] = (runs[-1][0] + "\n", runs[-1][1])
+        start = index
+        elements = []
+        for text, style in runs:
+            end = index + u16(text)
+            elements.append({"startIndex": index, "endIndex": end,
+                             "textRun": {"content": text, "textStyle": style}})
+            index = end
+        content.append({"startIndex": start, "endIndex": index,
+                        "paragraph": {"elements": elements}})
     return {"revisionId": revision, "body": {"content": content}}
 
 
@@ -164,3 +170,44 @@ def test_doc_id_from_url():
     url = "https://docs.google.com/document/d/1AbC-dEf_123/edit?tab=t.0"
     assert doc_id_from(url) == "1AbC-dEf_123"
     assert doc_id_from("1AbC-dEf_123") == "1AbC-dEf_123"
+
+
+REVISION_MD = """## T01-A3v2 — revisão
+
+| Campo | Valor |
+|---|---|
+| Ação | revisar-insercao |
+
+```original
+It is a theoretical review [15].
+```
+
+```novo
+It is a *theoretical review* in the sense of Paré [15].
+```
+"""
+
+
+def test_revisar_insercao_replaces_highlighted_agent_text():
+    doc = DocText.from_document(make_document([[
+        ("Old authors text. ", {"strikethrough": True}),
+        ("It is a theoretical review [15].", YELLOW_STYLE),
+    ]]))
+    [adj] = select(parse_adjustments(REVISION_MD), ["A3v2"])
+    [p] = plan(doc, [adj])
+    start = 1 + len("Old authors text. ")
+    assert p.status == "ok"
+    assert p.delete == (start, start + len("It is a theoretical review [15]."))
+    assert p.strike is None and p.insert_at == start
+    requests = build_requests([p])
+    assert next(iter(requests[0])) == "deleteContentRange"
+    assert requests[1]["insertText"] == {"location": {"index": start},
+                                         "text": "It is a theoretical review in the sense of Paré [15]."}
+    highlight = requests[3]["updateTextStyle"]
+    assert highlight["range"]["startIndex"] == start  # sem separador: tudo destacado
+
+
+def test_revisar_insercao_refuses_text_without_highlight():
+    doc = DocText.from_document(make_document(["It is a theoretical review [15]."]))
+    [p] = plan(doc, select(parse_adjustments(REVISION_MD), ["A3v2"]))
+    assert p.status == "pulado" and "marca-texto" in p.reason
