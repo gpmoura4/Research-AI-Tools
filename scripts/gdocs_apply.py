@@ -434,7 +434,11 @@ def plan(doc: DocText, adjustments: list[Adjustment]) -> list[Planned]:
             continue
         new_plain_md = new_text_paragraphs(adj.new)
         new_plain, spans = parse_inline(new_plain_md)
-        if doc.contains(new_plain.split("\n")[0]):
+        # Na mesma linha, o aplicado é "original novo": procurar o par evita pular um
+        # novo texto curto que já exista em outro ponto do documento.
+        applied = (f"{adj.original} {new_plain}" if adj.action in {"substituir", "inserir-apos"}
+                   else new_plain.split("\n")[0])
+        if doc.contains(applied):
             planned.append(Planned(adj, "pulado", "novo texto já está no documento"))
             continue
         hits = doc.find_all(adj.original)
