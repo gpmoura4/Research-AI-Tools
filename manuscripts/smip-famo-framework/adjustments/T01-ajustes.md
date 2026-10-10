@@ -10,7 +10,7 @@
 
 | Lote | Ajustes | Estado |
 |---|---|---|
-| 1 | A6, A3, A5, A1 | redigido, aguardando revisão do usuário |
+| 1 | A6, A3, A5, A1 | **aplicado** em 2026-10-10 |
 | 2 | A13, A14 | a redigir |
 | 3 | A7, A4, A8 | a redigir |
 | 4 | A2, A9, A11 (rótulo) | a redigir |
@@ -32,7 +32,7 @@ referências a "Table 3" com sentidos diferentes.
 | Decisões | D1a, D1b, D1c, D-overlap |
 | Localização | Seção 4.1 (Methodological Positioning), parágrafo 1 (único), começa com "This article does not conduct a new systematic review of the literature." |
 | Ação | substituir-paragrafo |
-| Estado | planejado |
+| Estado | aplicado em 2026-10-10 (lote 1) |
 
 **Texto original**
 
@@ -72,7 +72,7 @@ vêm da p. 192–193.
 | Decisões | D1a |
 | Localização | Introdução, parágrafo 8, começa com "A methodological note is warranted at this point." — da 2ª frase até o fim do parágrafo |
 | Ação | substituir |
-| Estado | planejado |
+| Estado | aplicado em 2026-10-10 (lote 1) |
 
 **Texto original**
 
@@ -102,7 +102,7 @@ fica como está.
 | Decisões | D1a |
 | Localização | Seção 3.4, último parágrafo, começa com "Base methodology." — a frase após o rótulo em negrito |
 | Ação | substituir |
-| Estado | planejado |
+| Estado | aplicado em 2026-10-10 (lote 1) |
 
 **Texto original**
 
@@ -131,7 +131,7 @@ rigor" (F03, F08). O rótulo "Base methodology." em negrito fica como está.
 | Decisões | D-simples |
 | Localização | Abstract, logo após a frase que termina em "incorporating contextual moderators and an explicit feedback loop." |
 | Ação | inserir-apos |
-| Estado | planejado |
+| Estado | aplicado em 2026-10-10 (lote 1) |
 
 **Texto original** (âncora)
 
@@ -148,3 +148,9 @@ Methodologically, the article is a theoretical review built through citation cha
 **Justificativa**: Paré recomenda declarar o tipo de revisão no título ou no Abstract
 (p. 191). Com 15 palavras, o Abstract vai de 184 para 199 palavras. O limite da
 *Journalism and Media* parece ser de cerca de 200 palavras **[a verificar]**.
+
+## Log de aplicação
+
+| Data | Documento | Aplicados | Pulados | Revisão antes | Revisão depois |
+|---|---|---|---|---|---|
+| 2026-10-10 11:20 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A6, T01-A3, T01-A5, T01-A1 | — | `AHj4eMQ9wf7l6Q2m_ZVSivmfxg23sKiv9KcIQry1stnxu9MPI5pgfiVVlwTkfkcvievzihbiq5QR_z2a5vlGVK3fuEZXItsAkbrQObyjZ064_u0` | `AHj4eMTTF0khdOen6ip2PRfxSnWYJ6ga5URX_v3nk4n73Ks-DGIXfHlylKQ9Z7_8kRDQ5gJpIgvtXt8J2BGOjuNikk_PFjg6B2LNyRS2iyBg7xk` |
