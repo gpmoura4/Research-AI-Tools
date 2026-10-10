@@ -377,7 +377,7 @@ afirmações que o manuscrito faz sobre elas. Páginas pela paginação de cada 
 - **A6v2** e **A5v2**: retiram travessões e ponto e vírgula (nova premissa de estilo), corrigem a atribuição de PRISMA a [3] e trocam "empirical breadth" e "aggregated synthesis" por formulações fiéis a [3] e [4]. A edição humana encontrada no documento ("As previously introduced, in the typology…") foi preservada.
 - A1 e A3 não continham travessão nem ponto e vírgula e não precisaram de revisão.
 
-### 10.6 Ajustes novos propostos (aguardam aprovação)
+### 10.6 Ajustes novos (aprovados e aplicados em 2026-10-10)
 
 | ID | Localização | Ação | Objetivo | Achado |
 |---|---|---|---|---|

@@ -2,7 +2,7 @@
 
 | ID | Título | Status | Data | Versão revisada | Relatório |
 |---|---|---|---|---|---|
-| T01 | Fortalecer a justificativa metodológica para não realizar uma revisão sistemática | em andamento (lote 1 aplicado na cópia de revisão em 2026-10-10; próximo: lote 2 — A13, A14; ver [adjustments/T01-ajustes.md](adjustments/T01-ajustes.md)) | 2026-10-08 | `paper/v1-2026-10-08.pdf` | [T01-justificativa-metodologica.md](reviews/T01-justificativa-metodologica.md) |
+| T01 | Fortalecer a justificativa metodológica para não realizar uma revisão sistemática | em andamento (lotes 1 e 1b aplicados na cópia de revisão em 2026-10-10; próximo: lote 2, A13 e A14; ver [adjustments/T01-ajustes.md](adjustments/T01-ajustes.md)) | 2026-10-08 | `paper/v1-2026-10-08.pdf` | [T01-justificativa-metodologica.md](reviews/T01-justificativa-metodologica.md) |
 
 Status: em andamento · concluída · aguardando usuário · substituída
 
@@ -16,7 +16,7 @@ Status: em andamento · concluída · aguardando usuário · substituída
 | Anos de publicação de [2]–[4] | T01 (P4) | resolvida: 2022–2023 confirmado — T01 §10 |
 | Instruções da *Journalism and Media* para artigos de revisão | T01 (P5) | aberta |
 | Fatos metodológicos só dos autores (chaining, iterações, parada, exclusões, fusões) | T01 (P6) | pausada pelo usuário (D2) |
-| Aprovação dos ajustes novos A16 e A17 (PRISMA atribuído a [3]) | T01 (F12) | aguardando usuário |
+| Ajustes A16 e A17 (PRISMA atribuído a [3]) | T01 (F12) | resolvida: aplicados em 2026-10-10; a menção na 9.2 sai no A13 (lote 2) |
 | Table S1 — trilha de auditoria item → fonte → caminho (A12, A15 retirados da T01) | T01 (D-S1) | adiada → [backlog.md](backlog.md) B01 |
 
 ## Correções entre revisões

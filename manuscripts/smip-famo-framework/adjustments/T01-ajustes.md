@@ -11,6 +11,7 @@
 | Lote | Ajustes | Estado |
 |---|---|---|
 | 1 | A6, A3, A5, A1 | **aplicado** em 2026-10-10; A6 e A5 revisados (A6v2, A5v2) no mesmo dia |
+| 1b | A16, A17 (F12, PRISMA de [3]) | **aplicado** em 2026-10-10 |
 | 2 | A13, A14 | a redigir |
 | 3 | A7, A4, A8 | a redigir |
 | 4 | A2, A9, A11 (rótulo) | a redigir |
@@ -149,6 +150,64 @@ Methodologically, the article is a theoretical review built through citation cha
 (p. 191). Com 15 palavras, o Abstract vai de 184 para 199 palavras. O limite da
 *Journalism and Media* parece ser de cerca de 200 palavras **[a verificar]**.
 
+## T01-A16 — Seção 3.2: método de Arora et al. [3] sem PRISMA
+
+| Campo | Valor |
+|---|---|
+| Lote | 1b (F12) |
+| Achados | T01-F12 |
+| Decisões | aprovado pelo usuário em 2026-10-10 |
+| Localização | Seção 3.2 (Arora et al.'s Systematic Review), parágrafo 1, primeira frase, começa com "Arora et al. [3] conduct a systematic review following PRISMA guidelines" |
+| Ação | substituir |
+| Estado | aplicado em 2026-10-10 |
+
+**Texto original**
+
+```original
+Arora et al. [3] conduct a systematic review following PRISMA guidelines, selecting 264 articles from three databases (ABI/Inform, EBSCO, Web of Science).
+```
+
+**Novo texto**
+
+```novo
+Arora et al. [3] conduct a systematic review of three databases (ABI/Inform, EBSCO, Web of Science), selecting 264 articles through a documented selection process that also included ancestry mapping of the references of the selected studies.
+```
+
+**Justificativa**: [3] não menciona PRISMA. Descreve "a systematic identification
+process", um fluxograma de seleção próprio (Fig. 1) e *ancestry mapping* ("references of
+selected documents are checked for finding other relevant articles"), que respondeu por
+21 dos 264 artigos ([3], p. 3). As bases e o total conferem com o original.
+
+---
+
+## T01-A17 — Tabela 2: célula de Arora et al. [3] sem PRISMA
+
+| Campo | Valor |
+|---|---|
+| Lote | 1b (F12) |
+| Achados | T01-F12 |
+| Decisões | aprovado pelo usuário em 2026-10-10 |
+| Localização | Tabela 2, linha "Base methodology", coluna "Arora et al. [3]" |
+| Ação | substituir |
+| Estado | aplicado em 2026-10-10 |
+
+**Texto original**
+
+```original
+PRISMA systematic review, 264 articles
+```
+
+**Novo texto**
+
+```novo
+Systematic review, 264 articles
+```
+
+**Justificativa**: mesma razão de A16. A célula de Tölle e Trier [4] ("PRISMA systematic
+review, 58 articles") está correta e não muda ([4], p. 4).
+
+---
+
 ---
 
 ## Revisões de texto já inserido
@@ -210,3 +269,4 @@ Arora et al. [3] and Tölle and Trier [4] conduct systematic reviews based on st
 |---|---|---|---|---|---|
 | 2026-10-10 11:20 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A6, T01-A3, T01-A5, T01-A1 | — | `AHj4eMQ9wf7l6Q2m_ZVSivmfxg23sKiv9KcIQry1stnxu9MPI5pgfiVVlwTkfkcvievzihbiq5QR_z2a5vlGVK3fuEZXItsAkbrQObyjZ064_u0` | `AHj4eMTTF0khdOen6ip2PRfxSnWYJ6ga5URX_v3nk4n73Ks-DGIXfHlylKQ9Z7_8kRDQ5gJpIgvtXt8J2BGOjuNikk_PFjg6B2LNyRS2iyBg7xk` |
 | 2026-10-10 14:51 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A6v2, T01-A5v2 | — | `AHj4eMSCH5Pzf_VTyMBlZ3XjiOlRWD_OlqdTPohvIZPaHO6wAvU45sHPt4dltWz5qQi_nfzg-9TGurizKg_3FfJaU2UWfGVuXT6qfcoy6RvhWnY` | `AHj4eMRY_btVvB5Z-JV-E-9_yHGU2m8xSIwOXA2uObIe7j8I0LbpCfOLyDG2KXn1kZiVRde1lUX_tmugyhZ4wdnWnRRv6Z97i9ZuxOWv3K3lVzs` |
+| 2026-10-10 15:01 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A16, T01-A17 | — | `AHj4eMRY_btVvB5Z-JV-E-9_yHGU2m8xSIwOXA2uObIe7j8I0LbpCfOLyDG2KXn1kZiVRde1lUX_tmugyhZ4wdnWnRRv6Z97i9ZuxOWv3K3lVzs` | `AHj4eMT-SjvGNehyv4m0dt3UQR1pcE_LM-MtWDCAJEIs6gnVoaiNgZ4FccX8VxFiIXp3vtVUcj6BHRFEb7MWYXwEMsm3YsLqzo_KUoKv_cFDO1k` |
