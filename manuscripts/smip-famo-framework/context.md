@@ -11,7 +11,9 @@
 - **Versão vigente**: `paper/v1-2026-10-08.pdf` (37 pp.; cópia de
   `areas/mestrado/research/papers/journal/docs/paper/Paper Taking SMIP seriously [Journalism and Media] ajustes luiz e guilherme.pdf`;
   SHA-256 `3ac359c8…85828`)
-- **Cópia de revisão (Google Docs)**: ID a informar pelo usuário — cópia criada por ele (conta institucional, acesso de editor); destino dos ajustes
+- **Cópia de revisão (Google Docs)**: `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` (arquivo "Paper Taking SMIP seriously [Journalism and Media] ajustes luiz e guilherme"; cópia criada pelo usuário). Destino dos ajustes.
+- **Credencial**: conta de serviço `editor-docs@research-workspace-511213.iam.gserviceaccount.com` (Editor no documento); chave em `credentials/manuscripts/paper smip/drive/api/` (fora do Git). As edições aparecem no histórico do Docs com o nome dessa conta.
+  `uv run python -m scripts.gdocs_apply --credentials "credentials/manuscripts/paper smip/drive/api/research-workspace-511213-3d493d71fe81.json" check 13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g`
 - **Estilo de citação**: numérico (MDPI), lista com 106 referências
 - **Cobertura de referências**: ver `reference-coverage.md`
 - **Tema(s) de literatura vinculado(s)**: nenhum (a definir quando uma tarefa pedir busca)
@@ -98,3 +100,4 @@ Registradas em 2026-10-08, na leitura de `v1-2026-10-08.pdf`. Não são avaliaç
 ## Notas
 - O original continua em `areas/mestrado/research/papers/journal/docs/`, que não é um
   tema de literatura padrão (sem `context.md`). Não foi movido.
+- 2026-10-10: teste de escrita na cópia de revisão — " TESTE" inserido no fim do título (2ª linha), em preto com marca-texto amarelo. Funcionou; remover após conferência do usuário.
