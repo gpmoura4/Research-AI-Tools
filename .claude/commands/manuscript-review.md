@@ -48,7 +48,8 @@ manuscrito (em `paper/`) e o contexto (Fase 2) antes da primeira tarefa.
 Leia, nesta ordem:
 
 1. `context.md` — journal-alvo, versão vigente, escopo, tema(s) de literatura vinculados.
-2. `INDEX.md` — tarefas anteriores e pendências abertas.
+2. `INDEX.md` — tarefas anteriores e pendências abertas. `backlog.md` — propostas
+   adiadas; se a tarefa tocar um item dele, mencione-o em vez de reabri-lo sozinho.
 3. Todos os relatórios em `reviews/` relevantes para a tarefa (na dúvida, todos).
    Anote os IDs de achados que a tarefa atual pode confirmar, corrigir ou retirar.
 4. `reference-coverage.md` — quais obras citadas têm PDF. Se houver PDFs novos em

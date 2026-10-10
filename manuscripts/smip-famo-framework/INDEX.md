@@ -16,7 +16,7 @@ Status: em andamento · concluída · aguardando usuário · substituída
 | Anos de publicação de [2]–[4] | T01 (P4) | aberta |
 | Instruções da *Journalism and Media* para artigos de revisão | T01 (P5) | aberta |
 | Fatos metodológicos só dos autores (chaining, iterações, parada, exclusões, fusões) | T01 (P6) | pausada pelo usuário (D2) |
-| Table S1 — trilha de auditoria item → fonte → caminho (A12, A15 retirados da T01) | T01 (D-S1) | aberta; depende de D2 e da verificação de referências |
+| Table S1 — trilha de auditoria item → fonte → caminho (A12, A15 retirados da T01) | T01 (D-S1) | adiada → [backlog.md](backlog.md) B01 |
 
 ## Correções entre revisões
 | Achado original | Corrigido em | Natureza da correção |

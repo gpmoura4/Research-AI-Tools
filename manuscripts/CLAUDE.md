@@ -74,13 +74,14 @@ manuscripts/<slug-do-paper>/
 ├── context.md      # journal-alvo, versão vigente, escopo, tema(s) de literatura vinculados
 ├── INDEX.md        # índice de tarefas + pendências abertas consolidadas
 ├── reference-coverage.md  # lista de referências do manuscrito × PDFs em references/
+├── backlog.md      # propostas adiadas pelo usuário (B01, B02…), fora das tarefas em curso
 ├── paper/          # manuscrito (fonte e/ou PDF), versões datadas
 ├── references/     # PDFs das obras citadas
 ├── reviews/        # relatórios de tarefa
 └── adjustments/    # ajustes propostos ao texto: T01-ajustes.md (fonte) + .docx (gerado)
 ```
 `paper/` e `references/` não vão para o Git (manuscrito inédito; PDFs de terceiros).
-Só `context.md`, `INDEX.md`, `reference-coverage.md`, `reviews/` e as fontes `.md` de
+Só `context.md`, `INDEX.md`, `reference-coverage.md`, `backlog.md`, `reviews/` e as fontes `.md` de
 `adjustments/` são versionados.
 Ao depositar ou obter PDFs em `references/`, atualizar `reference-coverage.md`.
 
