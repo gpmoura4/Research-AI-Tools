@@ -106,6 +106,15 @@ via API do Google Docs, numa **cópia de revisão** em Google Docs criada pelo u
 - **Controle**: antes de gravar, o script relê o documento, localiza cada ajuste pela
   âncora e confere que o texto original ainda está idêntico. Se divergir ou não for
   único, o ajuste é **pulado** e reportado. Ajuste já aplicado não é reaplicado.
+- **Revisão de texto já inserido pelo agente**: enquanto o trecho novo ainda estiver com
+  marca-texto amarelo (proposta não incorporada pelos autores), uma revisão o substitui
+  diretamente, sem riscar, para não acumular versões. Registro no `.md` como `<ID>vN`
+  (ex.: `T01-A6v2`, ação `revisar-insercao`), e a seção do ajuste original passa a trazer
+  o texto vigente. O script recusa a troca se o trecho não estiver todo destacado, o que
+  impede apagar texto dos autores.
+- **Edições humanas sobre o texto inserido**: se o documento divergir do `.md` (alguém
+  editou o trecho destacado), a edição humana é **preservada**. Antes de revisar,
+  comparar documento × `.md`, incorporar a edição ao registro e só então trocar o texto.
 - **Aprovação**: antes de aplicar, apresentar a lista de ajustes planejados (ID,
   localização, ação, objetivo em uma linha) e aguardar aprovação do usuário; aplicar
   por lotes, cada lote também aprovado.
@@ -124,8 +133,16 @@ via API do Google Docs, numa **cópia de revisão** em Google Docs criada pelo u
   - **Não inventar fatos metodológicos.** O que só os autores sabem entra como
     placeholder explícito: `[AUTORES: confirmar se houve forward snowballing]`.
   - Manter o tom e o estilo do restante do paper.
-  - Preferir ajustes cirúrgicos a reescritas amplas; se um parágrafo inteiro precisar
+  - Preferir ajustes cirúrgicos a reescritas amplas. Se um parágrafo inteiro precisar
     mudar, explicar por quê.
+- **Estilo de redação do texto novo** (premissa do usuário, vale para todo texto escrito
+  para o paper):
+  - **Não usar travessão (—) nem ponto e vírgula (;)**, salvo quando forem de fato
+    indispensáveis. Alternativas: frases separadas, vírgulas, dois-pontos, parênteses
+    ou reestruturação da frase.
+  - O traço curto (–) em intervalos numéricos (ex.: "2022–2023", "pp. 183–199") não é
+    travessão e continua permitido.
+  - Antes de propor ou aplicar qualquer texto, conferir essa regra no lote inteiro.
 
 ## Guardrails do modo revisão de literatura aplicados aqui
 | Guardrail | Neste modo |
