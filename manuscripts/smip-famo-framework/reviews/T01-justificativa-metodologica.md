@@ -328,3 +328,11 @@ autores sabem saem como [AUTORES: …].
 - **Ativos**: A1, A2, A3, A4, A5, A6, A7, A8, A9, A11 (só o rótulo), A13, A14.
 - **Bloqueados por D2**: A10, A11 (iteração e critério de parada).
 - **Retirados da T01** (tarefa futura): A12, A15.
+
+### Atualização das decisões (2026-10-10)
+
+| # | Tema | Decisão | Efeito |
+|---|---|---|---|
+| D-gdocs | Forma de aplicar os ajustes | **Substitui D-formato**: o agente aplica os ajustes via API do Google Docs numa **cópia de revisão** criada pelo usuário (conta institucional, acesso de editor); sem .docx/pandoc | `scripts/gdocs_apply.py`; política de ajustes reescrita |
+| D-marcação | Marcação no documento | Texto substituído **riscado, não apagado**; novo texto em **preto com marca-texto amarelo** | Substitui a regra do verde-escuro |
+| D-S1 (complemento) | Table S1 | Registrada em `backlog.md` (B01); o usuário decidirá se entra no paper | — |

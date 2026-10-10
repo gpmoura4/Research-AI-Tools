@@ -11,6 +11,7 @@
 - **Versão vigente**: `paper/v1-2026-10-08.pdf` (37 pp.; cópia de
   `areas/mestrado/research/papers/journal/docs/paper/Paper Taking SMIP seriously [Journalism and Media] ajustes luiz e guilherme.pdf`;
   SHA-256 `3ac359c8…85828`)
+- **Cópia de revisão (Google Docs)**: ID a informar pelo usuário — cópia criada por ele (conta institucional, acesso de editor); destino dos ajustes
 - **Estilo de citação**: numérico (MDPI), lista com 106 referências
 - **Cobertura de referências**: ver `reference-coverage.md`
 - **Tema(s) de literatura vinculado(s)**: nenhum (a definir quando uma tarefa pedir busca)
