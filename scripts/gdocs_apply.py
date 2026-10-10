@@ -18,8 +18,16 @@ dois blocos cercados: ```original``` e ```novo```. Ações:
   inserir-paragrafo-apos  insere o novo como parágrafo(s) após o parágrafo que contém a âncora
   revisar-insercao        troca um texto inserido antes pelo agente (todo com marca-texto
                           amarelo) pela versão revisada, sem riscar; recusa texto dos autores
+  substituir-parcial      risca só o trecho marcado com {{…}} no bloco ```original``` e
+                          insere o marcado do bloco ```novo``` logo após. O contexto fora das
+                          chaves precisa ser idêntico nos dois blocos (ex.: "Table {{4}}" →
+                          "Table {{5}}"). Negrito/itálico do trecho riscado são herdados.
+  inserir-tabela-apos     insere, após o parágrafo que contém a âncora, uma legenda e uma
+                          tabela. No bloco ```novo```: a legenda (1º parágrafo) e uma tabela
+                          em markdown (linhas "| a | b |"; a 1ª linha é o cabeçalho).
 
-Revisões de um ajuste usam o ID com sufixo de versão: "## T01-A6v2 — …".
+Revisões de um ajuste usam o ID com sufixo de versão ("## T01-A6v2 — …"). Ajustes
+desdobrados usam sufixo numérico ("## T01-A8.1 — …"); --ids A8 seleciona todos os A8.n.
 
 No bloco ```novo```, *itálico* e **negrito** viram formatação; linhas separadas por
 uma linha em branco viram parágrafos distintos.
@@ -52,7 +60,16 @@ TOKEN_FILE = CONFIG_DIR / "google-token.json"
 SCOPES = ["https://www.googleapis.com/auth/documents"]
 
 ACTIONS = {"substituir", "substituir-paragrafo", "inserir-apos", "inserir-paragrafo-apos",
-           "revisar-insercao"}
+           "revisar-insercao", "substituir-parcial", "inserir-tabela-apos"}
+
+# Aparência das tabelas inseridas: replica a Table 2 do documento (cabeçalho cinza, borda
+# cinza fina, padding 2 pt, Plus Jakarta Sans 7 pt).
+TABLE_WIDTH_PT = 394.0
+TABLE_FIRST_COL_PT = 78.0
+TABLE_FONT = {"fontFamily": "Plus Jakarta Sans", "weight": 400}
+TABLE_FONT_SIZE = {"magnitude": 7, "unit": "PT"}
+TABLE_BORDER_COLOR = {"color": {"rgbColor": {"red": 0.6, "green": 0.6, "blue": 0.6}}}
+TABLE_HEADER_FILL = {"color": {"rgbColor": {"red": 0.85, "green": 0.85, "blue": 0.85}}}
 
 BLACK = {"color": {"rgbColor": {"red": 0.0, "green": 0.0, "blue": 0.0}}}
 YELLOW = {"color": {"rgbColor": {"red": 1.0, "green": 1.0, "blue": 0.0}}}
@@ -61,7 +78,9 @@ YELLOW = {"color": {"rgbColor": {"red": 1.0, "green": 1.0, "blue": 0.0}}}
 # Ajustes (parsing do .md)
 # --------------------------------------------------------------------------- #
 
-_HEADING = re.compile(r"^## ((?:T\d+(?:\.\d+)?)-A\d+(?:v\d+)?)\b(.*)$", re.MULTILINE)
+_HEADING = re.compile(r"^## ((?:T\d+(?:\.\d+)?)-A\d+(?:\.\d+)?(?:v\d+)?)(?![\w.])(.*)$",
+                      re.MULTILINE)
+_MARK = re.compile(r"\{\{(.+?)\}\}")
 _ACTION_ROW = re.compile(r"^\|\s*Ação\s*\|\s*([^|]+?)\s*\|", re.MULTILINE)
 _FENCE = re.compile(r"^```(original|novo)[ \t]*\n(.*?)\n```", re.MULTILINE | re.DOTALL)
 
@@ -105,12 +124,17 @@ def select(adjustments: list[Adjustment], ids: list[str]) -> list[Adjustment]:
     """Filtra por IDs curtos (A6) ou completos (T01-A6), preservando a ordem pedida."""
     by_short = {a.id.split("-")[-1]: a for a in adjustments}
     by_full = {a.id: a for a in adjustments}
-    chosen = []
+    chosen: list[Adjustment] = []
     for raw in ids:
         adj = by_full.get(raw) or by_short.get(raw)
-        if adj is None:
+        if adj is not None:
+            chosen.append(adj)
+            continue
+        short = raw.split("-")[-1]
+        children = [a for a in adjustments if a.id.split("-")[-1].startswith(short + ".")]
+        if not children:
             raise ValueError(f"ajuste {raw} não existe no arquivo")
-        chosen.append(adj)
+        chosen.extend(children)
     return chosen
 
 
@@ -194,9 +218,13 @@ def _normalize_chars(chars: list[tuple[str, int, int]]) -> tuple[str, list[int],
     return "".join(out), starts, ends
 
 
+def _norm_raw(text: str) -> str:
+    """Normaliza sem aparar as pontas (para medir offsets de prefixo e trecho)."""
+    return _normalize_chars([(c, 0, 0) for c in text])[0]
+
+
 def normalize(text: str) -> str:
-    chars = [(c, 0, 0) for c in text]
-    return _normalize_chars(chars)[0].strip()
+    return _norm_raw(text).strip()
 
 
 def _is_yellow(text_style: dict) -> bool:
@@ -218,12 +246,16 @@ class DocText:
     ends: list[int]
     paragraphs: list[Paragraph] = field(default_factory=list)
     highlighted: set[int] = field(default_factory=set)  # índices com marca-texto amarelo
+    bold: set[int] = field(default_factory=set)
+    italic: set[int] = field(default_factory=set)
 
     @classmethod
     def from_document(cls, document: dict) -> "DocText":
         chars: list[tuple[str, int, int]] = []
         paragraphs: list[Paragraph] = []
         highlighted: set[int] = set()
+        bold: set[int] = set()
+        italic: set[int] = set()
 
         def walk(content: list[dict]) -> None:
             for element in content:
@@ -234,12 +266,16 @@ class DocText:
                         if not run:
                             continue
                         idx = el["startIndex"]
-                        yellow = _is_yellow(run.get("textStyle", {}))
+                        style = run.get("textStyle", {})
+                        yellow = _is_yellow(style)
                         for ch in run.get("content", ""):
                             width = u16(ch)
                             chars.append((ch, idx, idx + width))
-                            if yellow:
-                                highlighted.update(range(idx, idx + width))
+                            for flag, bucket in ((yellow, highlighted),
+                                                 (style.get("bold"), bold),
+                                                 (style.get("italic"), italic)):
+                                if flag:
+                                    bucket.update(range(idx, idx + width))
                             idx += width
                 elif "table" in element:
                     for row in element["table"].get("tableRows", []):
@@ -250,7 +286,8 @@ class DocText:
 
         walk(document.get("body", {}).get("content", []))
         norm, starts, ends = _normalize_chars(chars)
-        return cls(document.get("revisionId", ""), norm, starts, ends, paragraphs, highlighted)
+        return cls(document.get("revisionId", ""), norm, starts, ends, paragraphs, highlighted,
+                   bold, italic)
 
     def find_all(self, text: str) -> list[tuple[int, int]]:
         """Todas as ocorrências (início, fim) de `text` em índices do documento."""
@@ -266,6 +303,25 @@ class DocText:
 
     def is_highlighted(self, start: int, end: int) -> bool:
         return all(i in self.highlighted for i in range(start, end))
+
+    def is_bold(self, start: int, end: int) -> bool:
+        return end > start and all(i in self.bold for i in range(start, end))
+
+    def is_italic(self, start: int, end: int) -> bool:
+        return end > start and all(i in self.italic for i in range(start, end))
+
+    def find_marked(self, prefix: str, marked: str, suffix: str) -> list[tuple[int, int]]:
+        """Ocorrências de prefix+marked+suffix; devolve o intervalo só do trecho `marked`."""
+        full = normalize(prefix + marked + suffix)
+        lead = len(_norm_raw(prefix))
+        width = len(_norm_raw(marked))
+        hits = []
+        pos = self.norm.find(full)
+        while pos != -1:
+            a, b = pos + lead, pos + lead + width - 1
+            hits.append((self.starts[a], self.ends[b]))
+            pos = self.norm.find(full, pos + 1)
+        return hits
 
     def contains(self, text: str) -> bool:
         return bool(self.find_all(text))
@@ -293,11 +349,89 @@ class Planned:
     insert_text: str = ""
     new_offset: int = 0  # onde o novo texto começa dentro de insert_text (após separador)
     spans: list[Span] = field(default_factory=list)
+    inherit_bold: bool = False
+    inherit_italic: bool = False
+    table: "TablePlan | None" = None
+
+
+@dataclass
+class TablePlan:
+    rows: list[list[tuple[str, list[Span]]]]  # (texto plano, spans) por célula; linha 0 = cabeçalho
+
+    @property
+    def cols(self) -> int:
+        return len(self.rows[0])
+
+
+def split_marked(text: str, label: str) -> tuple[str, str, str]:
+    marks = list(_MARK.finditer(text))
+    if len(marks) != 1:
+        raise ValueError(f"{label}: esperado exatamente um trecho {{{{…}}}}, achei {len(marks)}")
+    m = marks[0]
+    return text[:m.start()], m.group(1), text[m.end():]
+
+
+def parse_table(new: str) -> tuple[str, TablePlan]:
+    """Bloco ```novo``` de inserir-tabela-apos: legenda + tabela markdown."""
+    caption_lines, rows = [], []
+    for line in new.splitlines():
+        line = line.strip()
+        if line.startswith("|"):
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            if all(re.fullmatch(r":?-{2,}:?", c) for c in cells):
+                continue
+            rows.append([parse_inline(c) for c in cells])
+        elif line and not rows:
+            caption_lines.append(line)
+    if len(rows) < 2 or len({len(r) for r in rows}) != 1 or not caption_lines:
+        raise ValueError("inserir-tabela-apos: preciso de legenda, cabeçalho e linhas de mesma largura")
+    return " ".join(caption_lines), TablePlan(rows)
+
+
+def _plan_partial(doc: DocText, adj: Adjustment) -> Planned:
+    o_pre, o_mark, o_suf = split_marked(adj.original, f"{adj.id} original")
+    n_pre, n_mark, n_suf = split_marked(adj.new, f"{adj.id} novo")
+    if (o_pre, o_suf) != (n_pre, n_suf):
+        raise ValueError(f"{adj.id}: o contexto fora de {{{{…}}}} difere entre original e novo")
+    if doc.contains(f"{o_pre}{o_mark} {n_mark}{o_suf}"):
+        return Planned(adj, "pulado", "novo texto já está no documento")
+    hits = doc.find_marked(o_pre, o_mark, o_suf)
+    if len(hits) != 1:
+        reason = ("texto original não encontrado" if not hits
+                  else f"texto original aparece {len(hits)} vezes")
+        return Planned(adj, "pulado", reason)
+    start, end = hits[0]
+    return Planned(adj, "ok", strike=(start, end), insert_at=end, insert_text=" " + n_mark,
+                   new_offset=1, inherit_bold=doc.is_bold(start, end),
+                   inherit_italic=doc.is_italic(start, end))
+
+
+def _plan_table(doc: DocText, adj: Adjustment) -> Planned:
+    caption_md, table = parse_table(adj.new)
+    caption, spans = parse_inline(caption_md)
+    if doc.contains(caption):
+        return Planned(adj, "pulado", "novo texto já está no documento")
+    hits = doc.find_all(adj.original)
+    if len(hits) != 1:
+        reason = ("texto original não encontrado" if not hits
+                  else f"texto original aparece {len(hits)} vezes")
+        return Planned(adj, "pulado", reason)
+    para = doc.paragraph_at(hits[0][0])
+    # "\n\n" + legenda antes do "\n" final do parágrafo da âncora: fica um parágrafo vazio
+    # (como entre o texto e a legenda da Table 2) e a legenda herda o "\n" original.
+    return Planned(adj, "ok", insert_at=para.end - 1, insert_text="\n\n" + caption,
+                   new_offset=2, spans=spans, table=table)
 
 
 def plan(doc: DocText, adjustments: list[Adjustment]) -> list[Planned]:
     planned: list[Planned] = []
     for adj in adjustments:
+        if adj.action == "substituir-parcial":
+            planned.append(_plan_partial(doc, adj))
+            continue
+        if adj.action == "inserir-tabela-apos":
+            planned.append(_plan_table(doc, adj))
+            continue
         new_plain_md = new_text_paragraphs(adj.new)
         new_plain, spans = parse_inline(new_plain_md)
         if doc.contains(new_plain.split("\n")[0]):
@@ -368,6 +502,12 @@ def build_requests(planned: list[Planned]) -> list[dict]:
             "fields": "backgroundColor",
         }})
         new_text = p.insert_text[p.new_offset:]
+        for flag, key in ((p.inherit_bold, "bold"), (p.inherit_italic, "italic")):
+            if flag:
+                requests.append({"updateTextStyle": {
+                    "range": {"startIndex": ins_start, "endIndex": ins_end},
+                    "textStyle": {key: True}, "fields": key,
+                }})
         for span in p.spans:
             s = new_start + u16(new_text[:span.start])
             e = new_start + u16(new_text[:span.end])
@@ -380,7 +520,90 @@ def build_requests(planned: list[Planned]) -> list[dict]:
                 "range": {"startIndex": s, "endIndex": e},
                 "textStyle": style, "fields": ",".join(fields),
             }})
+        if p.table:
+            requests.extend(table_requests(p.table, ins_end))
     return requests
+
+
+def table_requests(table: TablePlan, at: int) -> list[dict]:
+    """Requisições que criam e preenchem uma tabela inserida no índice `at`.
+
+    A API insere um "\n" antes da tabela, que então começa em at+1. Numa tabela vazia
+    R×C, a célula (r, c) tem parágrafo em t + 3 + r·(1+2C) + 2c, e a tabela termina em
+    t + 2 + R·(1+2C), logo antes do "\n" original (parágrafo vazio sobrando, apagado).
+    Conferido na API em 2026-10-10.
+    As células são preenchidas da última para a primeira, para manter os índices válidos.
+    """
+    rows, cols = len(table.rows), table.cols
+    t = at + 1
+    end = t + 2 + rows * (1 + 2 * cols)
+    loc = {"index": t}
+    border = {"color": TABLE_BORDER_COLOR, "width": {"magnitude": 0.68181825, "unit": "PT"},
+              "dashStyle": "SOLID"}
+    pad = {"magnitude": 2, "unit": "PT"}
+    reqs: list[dict] = [
+        {"insertTable": {"location": {"index": at}, "rows": rows, "columns": cols}},
+        {"deleteContentRange": {"range": {"startIndex": end, "endIndex": end + 1}}},
+    ]
+    avg = [sum(len(r[c][0]) for r in table.rows[1:]) / (rows - 1) or 1 for c in range(cols)]
+    rest = TABLE_WIDTH_PT - TABLE_FIRST_COL_PT
+    widths = [TABLE_FIRST_COL_PT] + [rest * a / sum(avg[1:]) for a in avg[1:]]
+    for c, w in enumerate(widths):
+        reqs.append({"updateTableColumnProperties": {
+            "tableStartLocation": loc, "columnIndices": [c],
+            "tableColumnProperties": {"widthType": "FIXED_WIDTH",
+                                      "width": {"magnitude": round(w, 2), "unit": "PT"}},
+            "fields": "width,widthType",
+        }})
+    whole = {"tableCellLocation": {"tableStartLocation": loc, "rowIndex": 0, "columnIndex": 0},
+             "rowSpan": rows, "columnSpan": cols}
+    reqs.append({"updateTableCellStyle": {
+        "tableRange": whole,
+        "tableCellStyle": {"borderLeft": border, "borderRight": border, "borderTop": border,
+                           "borderBottom": border, "paddingLeft": pad, "paddingRight": pad,
+                           "paddingTop": pad, "paddingBottom": pad, "contentAlignment": "MIDDLE"},
+        "fields": "borderLeft,borderRight,borderTop,borderBottom,paddingLeft,paddingRight,"
+                  "paddingTop,paddingBottom,contentAlignment",
+    }})
+    reqs.append({"updateTableCellStyle": {
+        "tableRange": {"tableCellLocation": {"tableStartLocation": loc, "rowIndex": 0,
+                                             "columnIndex": 0}, "rowSpan": 1, "columnSpan": cols},
+        "tableCellStyle": {"backgroundColor": TABLE_HEADER_FILL},
+        "fields": "backgroundColor",
+    }})
+    for r in range(rows - 1, -1, -1):
+        for c in range(cols - 1, -1, -1):
+            text, spans = table.rows[r][c]
+            start = t + 3 + r * (1 + 2 * cols) + 2 * c
+            stop = start + u16(text)
+            reqs.append({"insertText": {"location": {"index": start}, "text": text}})
+            reqs.append({"updateParagraphStyle": {
+                "range": {"startIndex": start, "endIndex": stop + 1},
+                "paragraphStyle": {"alignment": "CENTER" if r == 0 else "START",
+                                   "lineSpacing": 115,
+                                   "indentStart": {"magnitude": 0, "unit": "PT"},
+                                   "indentFirstLine": {"magnitude": 0, "unit": "PT"},
+                                   "spaceAbove": {"magnitude": 0, "unit": "PT"},
+                                   "spaceBelow": {"magnitude": 0, "unit": "PT"}},
+                "fields": "alignment,lineSpacing,indentStart,indentFirstLine,spaceAbove,spaceBelow",
+            }})
+            reqs.append({"updateTextStyle": {
+                "range": {"startIndex": start, "endIndex": stop},
+                "textStyle": {"bold": r == 0, "italic": False, "strikethrough": False,
+                              "underline": False, "foregroundColor": BLACK,
+                              "backgroundColor": YELLOW, "fontSize": TABLE_FONT_SIZE,
+                              "weightedFontFamily": TABLE_FONT},
+                "fields": "bold,italic,strikethrough,underline,foregroundColor,backgroundColor,"
+                          "fontSize,weightedFontFamily",
+            }})
+            for span in spans:
+                style = {k: True for k, on in (("bold", span.bold), ("italic", span.italic)) if on}
+                reqs.append({"updateTextStyle": {
+                    "range": {"startIndex": start + u16(text[:span.start]),
+                              "endIndex": start + u16(text[:span.end])},
+                    "textStyle": style, "fields": ",".join(style),
+                }})
+    return reqs
 
 
 # --------------------------------------------------------------------------- #
@@ -500,7 +723,8 @@ def cmd_apply(doc_id: str, md_path: Path, ids: list[str], really: bool,
         if p.status == "ok":
             where = (f"risca {p.strike[0]}–{p.strike[1]}, " if p.strike else
                      f"troca inserção {p.delete[0]}–{p.delete[1]}, " if p.delete else "")
-            print(f"  [ok]     {a.id} ({a.action}): {where}insere em {p.insert_at}")
+            extra = (f" + tabela {p.table.cols}×{len(p.table.rows)}" if p.table else "")
+            print(f"  [ok]     {a.id} ({a.action}): {where}insere em {p.insert_at}{extra}")
         else:
             print(f"  [pulado] {a.id}: {p.reason}")
 

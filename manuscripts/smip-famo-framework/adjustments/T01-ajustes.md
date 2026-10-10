@@ -13,14 +13,16 @@
 | 1 | A6, A3, A5, A1 | **aplicado** em 2026-10-10; A6 e A5 revisados (A6v2, A5v2) no mesmo dia |
 | 1b | A16, A17 (F12, PRISMA de [3]) | **aplicado** em 2026-10-10 |
 | 2 | A13, A14 | **aplicado** em 2026-10-10 |
-| 3 | A7, A4, A8 | redigido, aguardando revisão do usuário |
+| 3 | A7, A4, A8 | **aplicado** em 2026-10-10 (A4 e A8.1–A8.18; depois A7, testado antes em documento de teste) |
 | 4 | A2, A9, A11 (rótulo) | a redigir |
 | — | A10, A11 (iteração) | bloqueados (T01-D2) |
 | — | A12, A15 | retirados → `backlog.md` B01 |
 
 **Nota sobre o lote 1**: A6 e A5 citam a "Table 3" (tabela de diferenciação), que só entra
 no lote 3, junto da renumeração das tabelas atuais (A8). Até lá, o documento terá duas
-referências a "Table 3" com sentidos diferentes.
+referências a "Table 3" com sentidos diferentes. Desde a aplicação do A8 (2026-10-10), a
+tabela de moderadores já é a Table 4, e, com o A7 aplicado no mesmo dia, as menções a
+"Table 3" de A5 e A6 apontam para a nova tabela. A duplicidade está resolvida.
 
 ---
 
@@ -280,7 +282,7 @@ mantém, agora sem atribuir PRISMA.
 | Decisões | D3 (conteúdo aprovado), D3-local (corpo da 4.1, com renumeração) |
 | Localização | Seção 4.1, logo após o 2º parágrafo inserido por T01-A6, que termina em "and its limitations are discussed in Section 9.2." (antes do título 4.2) |
 | Ação | inserir-tabela-apos |
-| Estado | planejado |
+| Estado | aplicado em 2026-10-10 (lote 3; testado antes em documento de teste) |
 
 **Texto original** (âncora)
 
@@ -323,7 +325,7 @@ motivo (p. 3). "Table 5" na linha de avaliação já usa a numeração nova (atu
 | Decisões | D1a |
 | Localização | Tabela 2, linha "Base methodology", coluna "Proposed framework" |
 | Ação | substituir |
-| Estado | planejado |
+| Estado | aplicado em 2026-10-10 (lote 3) |
 
 **Texto original**
 
@@ -342,44 +344,307 @@ e com a nova Table 3. Mantém o formato de citação usado na própria Tabela 2.
 
 ---
 
-## T01-A8 — Renumeração das tabelas após a nova Table 3
+## Renumeração das tabelas — T01-A8 (desdobrado em A8.1 a A8.18)
 
-| Campo | Valor |
-|---|---|
-| Lote | 3 |
-| Achados | consequência de A7; três itens corrigem o achado indireto T01-I04 |
-| Decisões | D3-local |
-| Localização | 18 menções no texto e nas legendas (lista abaixo) |
-| Ação | substituir (só o número; ou o trecho marcado, nos três itens do I04) |
-| Estado | planejado; será desdobrado em T01-A8.1 a A8.18 na aplicação |
+Consequência do A7 (nova Table 3 na Seção 4.1): as tabelas seguintes sobem um número.
+Lote 3 · achados: consequência de A7; os itens A8.1, A8.16 e A8.17 corrigem o achado
+indireto T01-I04 (a matriz de intervenções é a atual Table 5, na Seção 8, e vira Table 6).
 
 Ficam **fora**: a "Table 3" de Arora et al. ("in a footnote to their Table 3", Seção 3.2),
 que é tabela da obra citada, e as duas "Table 3" novas de A5 e A6, que já apontam para a
 tabela nova.
 
-| # | Onde | Trecho atual | Fica |
-|---|---|---|---|
-| 8.1 | 3.4, "Interventions." | "the interventions column that Table 4 (Section 7) incorporates" | **Table 6 (Section 8)** (I04: a matriz de intervenções é a atual Table 5, na Seção 8) |
-| 8.2 | 5.1, último § | "across the 41 mechanisms in Table 4" | Table 5 |
-| 8.3 | 5.2, §1 | "organized into four categories (Table 3)" | Table 4 |
-| 8.4 | 5.2, legenda | "Table 3. Moderators and contingencies" | Table 4. |
-| 8.5 | 6.1 (pt) | "das três colunas centrais da Tabela 4 (Seção 6.11)" | Tabela 5 |
-| 8.6 | 6.9 (pt) | "(Seção 3.4, Tabela 3)" | Tabela 4 (a remissão à "Seção 3.4" não muda aqui) |
-| 8.7 | 6.11, legenda | "Table 4. Complete mechanism taxonomy" | Table 5. |
-| 8.8 | 7.3, §1 | "Table 5 (Section 8) outlines the design intervention" | Table 6 |
-| 8.9 | 8, §1 | "fine-grained mappings detailed in Table 4" | Table 5 |
-| 8.10 | 8, último § | "Table 5 synthesizes the complete matrix" | Table 6 |
-| 8.11 | 8, legenda | "Table 5. Complete affordance matrix." | Table 6. |
-| 8.12 | 9.1 | "(Section 6.11, Table 4) revealed" | Table 5 |
-| 8.13 | 9.1 | "a unified, auditable table like Table 4" | Table 5 |
-| 8.14 | 9.2 | "the Evidence column in Table 4" | Table 5 |
-| 8.15 | 9.2 | "the moderating contingencies detailed in Table 3" | Table 4 |
-| 8.16 | 10.2 | "the interventions column in Table 5 (Section 7.3)" | **Table 6 (Section 8)** (I04) |
-| 8.17 | 11, item 3 | "Table 5 (Section 7.3) shows that only one" | **Table 6 (Section 8)** (I04) |
-| 8.18 | 11, item 4 | "the affordance matrix in Table 5" | Table 6 |
+**Marcação**: ação `substituir-parcial`. Só o trecho entre `{{…}}` fica riscado, e o novo
+entra logo depois ("Table ~~4~~ 5"). Nos três itens do I04, o trecho "N (Section X)" inteiro
+é riscado e substituído. Negrito das legendas é herdado.
 
-**Marcação proposta**: só o número fica riscado, com o novo logo depois ("Table ~~4~~ 5").
-Nos três itens do I04, o trecho "Table N (Section X)" inteiro é riscado e substituído.
+## T01-A8.1 — Renumeração: 3.4, "Interventions." (I04)
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+the interventions column that Table {{4 (Section 7)}} incorporates
+```
+
+```novo
+the interventions column that Table {{6 (Section 8)}} incorporates
+```
+
+## T01-A8.2 — Renumeração: 5.1, último §
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+across the 41 mechanisms in Table {{4}}
+```
+
+```novo
+across the 41 mechanisms in Table {{5}}
+```
+
+## T01-A8.3 — Renumeração: 5.2, §1
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+organized into four categories (Table {{3}})
+```
+
+```novo
+organized into four categories (Table {{4}})
+```
+
+## T01-A8.4 — Renumeração: 5.2, legenda
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+Table {{3}}. Moderators and contingencies
+```
+
+```novo
+Table {{4}}. Moderators and contingencies
+```
+
+## T01-A8.5 — Renumeração: 6.1 (pt)
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+das três colunas centrais da Tabela {{4}} (Seção 6.11)
+```
+
+```novo
+das três colunas centrais da Tabela {{5}} (Seção 6.11)
+```
+
+## T01-A8.6 — Renumeração: 6.9 (pt)
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+(Seção 3.4, Tabela {{3}})
+```
+
+```novo
+(Seção 3.4, Tabela {{4}})
+```
+
+## T01-A8.7 — Renumeração: 6.11, legenda
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+Table {{4}}. Complete mechanism taxonomy
+```
+
+```novo
+Table {{5}}. Complete mechanism taxonomy
+```
+
+## T01-A8.8 — Renumeração: 7.3, §1
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+Table {{5}} (Section 8) outlines the design intervention
+```
+
+```novo
+Table {{6}} (Section 8) outlines the design intervention
+```
+
+## T01-A8.9 — Renumeração: 8, §1
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+fine-grained mappings detailed in Table {{4}}
+```
+
+```novo
+fine-grained mappings detailed in Table {{5}}
+```
+
+## T01-A8.10 — Renumeração: 8, último §
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+Table {{5}} synthesizes the complete matrix
+```
+
+```novo
+Table {{6}} synthesizes the complete matrix
+```
+
+## T01-A8.11 — Renumeração: 8, legenda
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+Table {{5}}. Complete affordance matrix.
+```
+
+```novo
+Table {{6}}. Complete affordance matrix.
+```
+
+## T01-A8.12 — Renumeração: 9.1
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+(Section 6.11, Table {{4}}) revealed
+```
+
+```novo
+(Section 6.11, Table {{5}}) revealed
+```
+
+## T01-A8.13 — Renumeração: 9.1
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+a unified, auditable table like Table {{4}}
+```
+
+```novo
+a unified, auditable table like Table {{5}}
+```
+
+## T01-A8.14 — Renumeração: 9.2
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+the Evidence column in Table {{4}}
+```
+
+```novo
+the Evidence column in Table {{5}}
+```
+
+## T01-A8.15 — Renumeração: 9.2
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+the moderating contingencies detailed in Table {{3}}
+```
+
+```novo
+the moderating contingencies detailed in Table {{4}}
+```
+
+## T01-A8.16 — Renumeração: 10.2 (I04)
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+the interventions column in Table {{5 (Section 7.3)}}
+```
+
+```novo
+the interventions column in Table {{6 (Section 8)}}
+```
+
+## T01-A8.17 — Renumeração: 11, item 3 (I04)
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+Table {{5 (Section 7.3)}} shows that only one
+```
+
+```novo
+Table {{6 (Section 8)}} shows that only one
+```
+
+## T01-A8.18 — Renumeração: 11, item 4
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Ação | substituir-parcial |
+| Estado | aplicado em 2026-10-10 (lote 3) |
+
+```original
+the affordance matrix in Table {{5}}
+```
+
+```novo
+the affordance matrix in Table {{6}}
+```
 
 ---
 
@@ -446,3 +711,5 @@ Arora et al. [3] and Tölle and Trier [4] conduct systematic reviews based on st
 | 2026-10-10 14:51 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A6v2, T01-A5v2 | — | `AHj4eMSCH5Pzf_VTyMBlZ3XjiOlRWD_OlqdTPohvIZPaHO6wAvU45sHPt4dltWz5qQi_nfzg-9TGurizKg_3FfJaU2UWfGVuXT6qfcoy6RvhWnY` | `AHj4eMRY_btVvB5Z-JV-E-9_yHGU2m8xSIwOXA2uObIe7j8I0LbpCfOLyDG2KXn1kZiVRde1lUX_tmugyhZ4wdnWnRRv6Z97i9ZuxOWv3K3lVzs` |
 | 2026-10-10 15:01 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A16, T01-A17 | — | `AHj4eMRY_btVvB5Z-JV-E-9_yHGU2m8xSIwOXA2uObIe7j8I0LbpCfOLyDG2KXn1kZiVRde1lUX_tmugyhZ4wdnWnRRv6Z97i9ZuxOWv3K3lVzs` | `AHj4eMT-SjvGNehyv4m0dt3UQR1pcE_LM-MtWDCAJEIs6gnVoaiNgZ4FccX8VxFiIXp3vtVUcj6BHRFEb7MWYXwEMsm3YsLqzo_KUoKv_cFDO1k` |
 | 2026-10-10 16:08 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A13, T01-A14 | — | `AHj4eMSZWqLHZaq74aRQd1yZpRTvVawN1kJV7ii_K_mxsLYY0p2F8-l9_OSzt6r2QX0Bwvzb0c_ru3mHVmRHQRQIvoeotdau6hfUccQ3aBe1cPw` | `AHj4eMQD3Ma7n3oLbD25yY-ng3d9kQj8N6kEWyNfpgdHYhUH3jf_6TeMmIUV6PtnlBDSg0l55dP-4B9CRt6eGLQkfxleVxnIR46k6WFJDeIVoCo` |
+| 2026-10-10 16:26 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A4, T01-A8.1, T01-A8.2, T01-A8.3, T01-A8.4, T01-A8.5, T01-A8.6, T01-A8.7, T01-A8.8, T01-A8.9, T01-A8.10, T01-A8.11, T01-A8.12, T01-A8.13, T01-A8.14, T01-A8.15, T01-A8.16, T01-A8.17, T01-A8.18 | — | `AHj4eMQD3Ma7n3oLbD25yY-ng3d9kQj8N6kEWyNfpgdHYhUH3jf_6TeMmIUV6PtnlBDSg0l55dP-4B9CRt6eGLQkfxleVxnIR46k6WFJDeIVoCo` | `AHj4eMS-CewG3JcSXoShY9JHYb5Jo_bWmqtM5Cfb2J4x1qNFlcmuCmJPV1EixNT8AuGAGOimzGdEOKEunPLO94XEAxlx0tQ_Fl_2sCHnZa5ZRlY` |
+| 2026-10-10 16:29 | `13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g` | T01-A7 | — | `AHj4eMS-CewG3JcSXoShY9JHYb5Jo_bWmqtM5Cfb2J4x1qNFlcmuCmJPV1EixNT8AuGAGOimzGdEOKEunPLO94XEAxlx0tQ_Fl_2sCHnZa5ZRlY` | `AHj4eMT6PYKl6owI1MVvVy4AxWl7PN9Fpws6L-Vt6KDnYiFEO1WZAeSlD5oR0eL4ae1Dl928-EHTdSk4fAChRvBJUKZ3kSFuPHmr___78A9T_4U` |

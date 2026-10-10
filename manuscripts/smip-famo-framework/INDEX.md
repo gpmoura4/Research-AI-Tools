@@ -2,7 +2,7 @@
 
 | ID | Título | Status | Data | Versão revisada | Relatório |
 |---|---|---|---|---|---|
-| T01 | Fortalecer a justificativa metodológica para não realizar uma revisão sistemática | em andamento (lotes 1, 1b e 2 aplicados na cópia de revisão em 2026-10-10; próximo: lote 3, A7, A4 e A8; ver [adjustments/T01-ajustes.md](adjustments/T01-ajustes.md)) | 2026-10-08 | `paper/v1-2026-10-08.pdf` | [T01-justificativa-metodologica.md](reviews/T01-justificativa-metodologica.md) |
+| T01 | Fortalecer a justificativa metodológica para não realizar uma revisão sistemática | em andamento (lotes 1, 1b e 2 aplicados na cópia de revisão em 2026-10-10; lote 3 (A7, A4, A8) aplicado; próximo: lote 4, A2, A9 e A11 (rótulo); ver [adjustments/T01-ajustes.md](adjustments/T01-ajustes.md)) | 2026-10-08 | `paper/v1-2026-10-08.pdf` | [T01-justificativa-metodologica.md](reviews/T01-justificativa-metodologica.md) |
 
 Status: em andamento · concluída · aguardando usuário · substituída
 
