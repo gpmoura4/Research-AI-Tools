@@ -13,7 +13,7 @@
 | 1 | A6, A3, A5, A1 | **aplicado** em 2026-10-10; A6 e A5 revisados (A6v2, A5v2) no mesmo dia |
 | 1b | A16, A17 (F12, PRISMA de [3]) | **aplicado** em 2026-10-10 |
 | 2 | A13, A14 | **aplicado** em 2026-10-10 |
-| 3 | A7, A4, A8 | a redigir |
+| 3 | A7, A4, A8 | redigido, aguardando revisão do usuário |
 | 4 | A2, A9, A11 (rótulo) | a redigir |
 | — | A10, A11 (iteração) | bloqueados (T01-D2) |
 | — | A12, A15 | retirados → `backlog.md` B01 |
@@ -270,6 +270,118 @@ cobertura, a busca sistemática complementa a revisão teórica sem substituí-l
 muda junto ("Formal systematic validation." → "Systematic test of coverage.") e continua
 em negrito. A referência a [3] e [4] como precedentes de busca sistemática no domínio se
 mantém, agora sem atribuir PRISMA.
+
+## T01-A7 — Seção 4.1: nova Table 3 (revisão teórica × revisão sistemática)
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Achados | Parte 2 do relatório (Seção 4.2); T01-F03, F07 |
+| Decisões | D3 (conteúdo aprovado), D3-local (corpo da 4.1, com renumeração) |
+| Localização | Seção 4.1, logo após o 2º parágrafo inserido por T01-A6, que termina em "and its limitations are discussed in Section 9.2." (antes do título 4.2) |
+| Ação | inserir-tabela-apos |
+| Estado | planejado |
+
+**Texto original** (âncora)
+
+```original
+and its limitations are discussed in Section 9.2.
+```
+
+**Novo texto** (legenda + tabela; a chamada no texto já existe no A6: "Table 3 summarizes…")
+
+```novo
+**Table 3.** Theoretical review and systematic review compared along the dimensions of Paré et al. [15].
+
+| Dimension | Systematic review | This article (theoretical review) |
+|---|---|---|
+| Overarching goal | Aggregate or integrate evidence on the direction, size, and consistency of effects | Build and refine a theoretical structure (typology, layered model, and testable hypotheses) |
+| Scope of the question | Narrow and defined in advance | Broad and refined during the review |
+| Search strategy | Comprehensive and reproducible, defined by a protocol | Directed citation chaining from four anchor works, a declared deviation from the comprehensive search of the theoretical review profile |
+| Nature of primary sources | Empirical studies | Conceptual and empirical sources, including foundational works outside the social media literature |
+| Study selection | Predefined inclusion and exclusion criteria applied to the retrieved corpus | Each item anchored in at least one primary source with an explicit operational definition (Section 4.3) |
+| Quality appraisal | Formal appraisal of the included studies | No formal appraisal. Qualitative typing of the evidence design for each mechanism (Table 5) |
+| Synthesis | Statistical (meta-analysis) or narrative synthesis of findings | Interpretive and classificatory (taxonomy, layers, and mapping) |
+| Product | Effect estimates and maps of the evidence | Constructs, relations, and testable hypotheses |
+| Quality criteria | Exhaustiveness, reproducibility, and protection against bias | Documentation of the process, consistency between objective and method, traceability of each item to its defining source, and testability |
+```
+
+**Justificativa**: é a tabela da Seção 4.2 do relatório, em inglês, sem a coluna de
+âncoras (que ficam implícitas na legenda, com [15]). Cada linha confere com o perfil de
+Paré (Tabela 2, p. 186; pp. 188–189; pp. 192–193). "Foundational works outside the
+social media literature" tem respaldo em [3], que excluiu McPherson et al. [37] por esse
+motivo (p. 3). "Table 5" na linha de avaliação já usa a numeração nova (atual Table 4).
+
+---
+
+## T01-A4 — Tabela 2: célula "Base methodology" do framework proposto
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Achados | T01-F03, F07 |
+| Decisões | D1a |
+| Localização | Tabela 2, linha "Base methodology", coluna "Proposed framework" |
+| Ação | substituir |
+| Estado | planejado |
+
+**Texto original**
+
+```original
+Theoretical review [Paré et al., 15]
+```
+
+**Novo texto**
+
+```novo
+Theoretical review [Paré et al., 15] with directed citation chaining from four anchor works (Section 4.3)
+```
+
+**Justificativa**: a célula passa a nomear o desvio declarado na busca, coerente com A6
+e com a nova Table 3. Mantém o formato de citação usado na própria Tabela 2.
+
+---
+
+## T01-A8 — Renumeração das tabelas após a nova Table 3
+
+| Campo | Valor |
+|---|---|
+| Lote | 3 |
+| Achados | consequência de A7; três itens corrigem o achado indireto T01-I04 |
+| Decisões | D3-local |
+| Localização | 18 menções no texto e nas legendas (lista abaixo) |
+| Ação | substituir (só o número; ou o trecho marcado, nos três itens do I04) |
+| Estado | planejado; será desdobrado em T01-A8.1 a A8.18 na aplicação |
+
+Ficam **fora**: a "Table 3" de Arora et al. ("in a footnote to their Table 3", Seção 3.2),
+que é tabela da obra citada, e as duas "Table 3" novas de A5 e A6, que já apontam para a
+tabela nova.
+
+| # | Onde | Trecho atual | Fica |
+|---|---|---|---|
+| 8.1 | 3.4, "Interventions." | "the interventions column that Table 4 (Section 7) incorporates" | **Table 6 (Section 8)** (I04: a matriz de intervenções é a atual Table 5, na Seção 8) |
+| 8.2 | 5.1, último § | "across the 41 mechanisms in Table 4" | Table 5 |
+| 8.3 | 5.2, §1 | "organized into four categories (Table 3)" | Table 4 |
+| 8.4 | 5.2, legenda | "Table 3. Moderators and contingencies" | Table 4. |
+| 8.5 | 6.1 (pt) | "das três colunas centrais da Tabela 4 (Seção 6.11)" | Tabela 5 |
+| 8.6 | 6.9 (pt) | "(Seção 3.4, Tabela 3)" | Tabela 4 (a remissão à "Seção 3.4" não muda aqui) |
+| 8.7 | 6.11, legenda | "Table 4. Complete mechanism taxonomy" | Table 5. |
+| 8.8 | 7.3, §1 | "Table 5 (Section 8) outlines the design intervention" | Table 6 |
+| 8.9 | 8, §1 | "fine-grained mappings detailed in Table 4" | Table 5 |
+| 8.10 | 8, último § | "Table 5 synthesizes the complete matrix" | Table 6 |
+| 8.11 | 8, legenda | "Table 5. Complete affordance matrix." | Table 6. |
+| 8.12 | 9.1 | "(Section 6.11, Table 4) revealed" | Table 5 |
+| 8.13 | 9.1 | "a unified, auditable table like Table 4" | Table 5 |
+| 8.14 | 9.2 | "the Evidence column in Table 4" | Table 5 |
+| 8.15 | 9.2 | "the moderating contingencies detailed in Table 3" | Table 4 |
+| 8.16 | 10.2 | "the interventions column in Table 5 (Section 7.3)" | **Table 6 (Section 8)** (I04) |
+| 8.17 | 11, item 3 | "Table 5 (Section 7.3) shows that only one" | **Table 6 (Section 8)** (I04) |
+| 8.18 | 11, item 4 | "the affordance matrix in Table 5" | Table 6 |
+
+**Marcação proposta**: só o número fica riscado, com o novo logo depois ("Table ~~4~~ 5").
+Nos três itens do I04, o trecho "Table N (Section X)" inteiro é riscado e substituído.
+
+---
 
 ---
 
