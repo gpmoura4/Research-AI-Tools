@@ -336,3 +336,52 @@ autores sabem saem como [AUTORES: …].
 | D-gdocs | Forma de aplicar os ajustes | **Substitui D-formato**: o agente aplica os ajustes via API do Google Docs numa **cópia de revisão** criada pelo usuário (conta institucional, acesso de editor); sem .docx/pandoc | `scripts/gdocs_apply.py`; política de ajustes reescrita |
 | D-marcação | Marcação no documento | Texto substituído **riscado, não apagado**; novo texto em **preto com marca-texto amarelo** | Substitui a regra do verde-escuro |
 | D-S1 (complemento) | Table S1 | Registrada em `backlog.md` (B01); o usuário decidirá se entra no paper | — |
+
+---
+
+## 10. Verificação nas obras âncora (2026-10-10)
+
+PDFs de Harris et al. [2], Arora et al. [3] e Tölle e Trier [4] depositados pelo usuário e
+lidos nos trechos pertinentes à T01: método, seleção, relação entre as obras e as
+afirmações que o manuscrito faz sobre elas. Páginas pela paginação de cada PDF.
+
+### 10.1 Pendências resolvidas
+
+| # | Pendência | Resultado |
+|---|---|---|
+| P1 | Sobreposição de corpus entre [3] e [4] | **Não mensurável com o que está publicado no PDF**: a lista completa de [3] está no Apêndice C suplementar, fora do PDF. O único vínculo documentado é que [4] inclui [3] entre suas três meta-revisões ([4], p. 8). A remoção de "considerable corpus overlap" (D-overlap) se confirma correta. |
+| P2 | Bases, períodos e critérios de [3] e [4] | [3]: EBSCO, ProQuest (ABI/Inform) e Web of Science; "social media" AND "polarization" em título, resumo e palavras-chave; busca em **setembro de 2020**; 243 artigos + 21 por *ancestry mapping* = 264 (p. 3, Fig. 1 e Fig. 2). [4]: Google Scholar (cinco primeiras páginas para três termos, **2005–2022**) + AIS Basket of Eight; inglês e acesso livre; 32 artigos iniciais + 26 por busca de citações *backward* e *forward* = 58 (pp. 4–5, Fig. 1). |
+| P3 | Características do SPIR afirmadas na 3.1/4.1 | **Confirmadas**: [2] não tem seção de método, protocolo, fluxograma nem contagem de artigos. O próprio texto não se rotula como *narrative review*. Diz "we propose a framework" (p. 1) e "Our article summarizes a growing literature" (p. 11). Classificá-lo como narrativo é coerente com o perfil de Paré, mas é classificação do manuscrito. |
+| P4 | Anos de publicação de [2]–[4] | [2]: submetido em 2021-11-17, publicado em 2023. [3]: online em 2022-08-09. [4]: ECIS 2023. "Published between 2022 and 2023" está correto, e o ajuste A9 se confirma. |
+
+### 10.2 Achado novo
+
+#### T01-F12 — PRISMA atribuído a Arora et al. [3] sem respaldo na obra · **Importante** · nova
+- **Localização**: Seção 3.2, §1 ("Arora et al. [3] conduct a systematic review following PRISMA guidelines"); Tabela 2, linha "Base methodology", coluna Arora ("PRISMA systematic review, 264 articles"); Seção 9.2, §1 ("the PRISMA protocols employed by Arora et al. [3] and Tölle and Trier [4]").
+- **Fato**: o texto de [3] não menciona PRISMA. Descreve "a systematic identification process", um fluxograma de seleção próprio (Fig. 1) e critérios num Apêndice A suplementar (p. 3). Já [4] declara PRISMA explicitamente (p. 4: "in accordance with the Preferred Reporting Items for Systematic Reviews and Meta-Analyses (PRISMA) guidelines").
+- **Julgamento**: atribuição incorreta numa obra central à comparação. É o tipo de erro que um dos autores de [3], se for revisor, aponta de imediato. O texto já aplicado no lote 1 repetia o erro e foi corrigido (A5v2, A6v2). Falta corrigir os trechos originais da 3.2, da Tabela 2 e da 9.2 (esta última já coberta pelo A13, no lote 2). A ressalva **[a verificar]** vale só para o Apêndice A suplementar de [3], que não está no PDF.
+
+### 10.3 Achados anteriores reforçados
+
+- **T01-F05** (redundância × fontes definidoras): [3] **excluiu explicitamente** McPherson et al. (2001) e Stroud (2010), "due to their inquiry into polarization from an overall perspective, unrelated to SM" (p. 3). McPherson et al. [37] é a fonte definidora de B1 no manuscrito. A camada definicional fica, por desenho, fora do corpus da revisão sistemática que o paper invoca como redundante.
+- **T01-F06** (cobertura temporal): o corpus de [3] termina em setembro de 2020 e o de [4] em 2022. As obras de 2023–2025 citadas no manuscrito estão fora dos dois.
+- **T01-F07** (documentação do processo): as duas revisões sistemáticas usam *citation chaining* e o documentam: [3] por *ancestry mapping*, com 21 de 264 artigos (p. 3); [4] *backward* e *forward*, com 26 de 58 (p. 5). É um precedente que a 4.3 pode invocar (ajuste A10, bloqueado por D2). O *chaining* é componente reconhecido das próprias revisões com que o artigo se compara, mas elas o documentam.
+- **Diferenciação (Seção 4)**: os objetivos de [3] incluem "development of an integrative conceptual framework" (p. 2). A diferença com o manuscrito não é "agregar × teorizar" em termos absolutos, mas o **ponto de partida**. [3] e [4] constroem o framework sobre um corpus delimitado pela busca. O manuscrito ancora cada item em sua fonte definidora, inclusive fora desse corpus. O A6v2 já reflete isso ("bounded by the corpus its own search retrieved").
+
+### 10.4 Achado indireto
+
+- **T01-I06** · Menor: [2] cita outras revisões sistemáticas do mesmo domínio que não estão na lista do manuscrito, por exemplo Kubin e von Sikorski (2021), *Annals of the International Communication Association* 45(3), 188–206, e Lorenz-Spreen et al. (2021), preprint (dados conforme a lista de referências de [2], p. 16). O texto original da 4.1 ("conducted twice recently") era impreciso. O A6 já não afirma exclusividade. Incluir essas obras seria referência nova, fora do escopo da T01.
+
+### 10.5 Revisões aplicadas no documento (2026-10-10)
+
+- **A6v2** e **A5v2**: retiram travessões e ponto e vírgula (nova premissa de estilo), corrigem a atribuição de PRISMA a [3] e trocam "empirical breadth" e "aggregated synthesis" por formulações fiéis a [3] e [4]. A edição humana encontrada no documento ("As previously introduced, in the typology…") foi preservada.
+- A1 e A3 não continham travessão nem ponto e vírgula e não precisaram de revisão.
+
+### 10.6 Ajustes novos propostos (aguardam aprovação)
+
+| ID | Localização | Ação | Objetivo | Achado |
+|---|---|---|---|---|
+| T01-A16 | Seção 3.2, §1, "Arora et al. [3] conduct a systematic review following PRISMA guidelines…" | Substituir trecho | Retirar "following PRISMA guidelines" e descrever o processo real (três bases, fluxograma próprio, *ancestry mapping*) | F12 |
+| T01-A17 | Tabela 2, linha "Base methodology", coluna "Arora et al. [3]" | Substituir célula | "PRISMA systematic review, 264 articles" → "Systematic review, 264 articles" | F12 |
+
+Nota para o lote 3: o texto planejado para A4 ("Theoretical review [15]; directed citation chaining…") contém ponto e vírgula e será redigido sem ele.

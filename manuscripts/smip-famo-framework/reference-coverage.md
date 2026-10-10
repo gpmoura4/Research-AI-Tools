@@ -1,8 +1,8 @@
 # Cobertura de referências — smip-famo-framework
 
 - **Versão do manuscrito**: `paper/v1-2026-10-08.pdf`
-- **Atualizado em**: 2026-10-08
-- **Cobertura**: 1 de 106 obras com PDF em `references/`.
+- **Atualizado em**: 2026-10-10
+- **Cobertura**: 4 de 106 obras com PDF em `references/` ([2], [3], [4], [15]).
 
 ## Convenções
 - A numeração `[n]` segue a **lista de referências** do manuscrito (pp. 34–37), não as
@@ -25,9 +25,9 @@
 | n | Referência (como está na lista do manuscrito) | Arquivo esperado | PDF | Observações |
 |---|---|---|---|---|
 | 1 | Modgil, S.; Singh, R.K.; Gupta, S.; Dennehy, D. A Confirmation Bias View on Social Media Induced Polarisation During Covid-19. Inf. Syst. Front. 2021. [conferir volume/páginas/DOI] | `[1]_Modgil_2021.pdf` | ❌ | marcador [conferir…] no manuscrito |
-| 2 | Harris, E.A.; Rathje, S.; Robertson, C.; Van Bavel, J.J. The SPIR Framework of Social Media and Polarization: Exploring the Role of Selection, Platform Design, Incentives, and Real-World Context. Int. J. Commun. 2023, 17, 5316–5335. | `[2]_Harris_2023.pdf` | ❌ |  |
-| 3 | Arora, S.D.; Singh, G.P.; Chakraborty, A.; Maity, M. Polarization and Social Media: A Systematic Review and Research Agenda. Technol. Forecast. Soc. Change 2022, 183, 121942. | `[3]_Arora_2022.pdf` | ❌ |  |
-| 4 | Tölle, L.; Trier, M. Polarization in Online Social Networks: A Review of Mechanisms and Dimensions. In Proceedings of the 31st European Conference on Information Systems (ECIS 2023), Kristiansand, Norway, 2023. | `[4]_Tolle_2023.pdf` | ❌ |  |
+| 2 | Harris, E.A.; Rathje, S.; Robertson, C.; Van Bavel, J.J. The SPIR Framework of Social Media and Polarization: Exploring the Role of Selection, Platform Design, Incentives, and Real-World Context. Int. J. Commun. 2023, 17, 5316–5335. | `[2]_Harris_2023.pdf` | ✅ | Lido na íntegra (T01). Sem seção de método, protocolo, fluxograma ou contagem; autodescrição: "we propose a framework" e "summarizes a growing literature". Submetido em 2021-11-17, publicado em 2023. |
+| 3 | Arora, S.D.; Singh, G.P.; Chakraborty, A.; Maity, M. Polarization and Social Media: A Systematic Review and Research Agenda. Technol. Forecast. Soc. Change 2022, 183, 121942. | `[3]_Arora_2022.pdf` | ✅ | Lido (T01: método, Fig. 1, seleção). Busca em EBSCO, ProQuest (ABI/Inform) e Web of Science, termos "social media" AND "polarization", até set/2020; 243 + 21 por ancestry mapping = 264. **Não menciona PRISMA.** Exclui explicitamente McPherson et al. (2001) e Stroud (2010). Online em 2022-08-09. |
+| 4 | Tölle, L.; Trier, M. Polarization in Online Social Networks: A Review of Mechanisms and Dimensions. In Proceedings of the 31st European Conference on Information Systems (ECIS 2023), Kristiansand, Norway, 2023. | `[4]_Tolle_2023.pdf` | ✅ | Lido (T01: método e relação com [3]). PRISMA declarado (Moher 2009; Page 2020); cita Paré et al. 2015 entre as diretrizes. Google Scholar (5 páginas × 3 termos, 2005–2022) + AIS Basket of Eight; 32 iniciais + 26 por busca de citações (backward e forward) = 58 (55 empíricos + 3 meta-revisões, entre elas Arora et al. 2022). |
 | 5 | Tanyel, I.N.; Windeler, J. Divided We Stand: Polarization across Social Media Platforms and Affordances. In Proceedings of the 42nd International Conference on Information Systems (ICIS 2021), Austin, TX, USA, 2021. | `[5]_Tanyel_2021.pdf` | ❌ |  |
 | 6 | Treem, J.W.; Leonardi, P.M. Social Media Use in Organizations: Exploring the Affordances of Visibility, Persistence, Editability, and Association. Commun. Yearb. 2013, 36, 143–189. | `[6]_Treem_2013.pdf` | ❌ |  |
 | 7 | boyd, d. Social Network Sites as Networked Publics: Affordances, Dynamics, and Implications. In A Networked Self; Papacharissi, Z., Ed.; Routledge: New York, NY, USA, 2010; pp. 39–58. | `[7]_boyd_2010.pdf` | ❌ |  |
