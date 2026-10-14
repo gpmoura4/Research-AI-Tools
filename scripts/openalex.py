@@ -108,13 +108,15 @@ def _normalize_doi(raw: str | None) -> str | None:
 class OpenAlexClient:
     def __init__(self, config: Config | None = None):
         self.config = config or load_config()
+        headers = {
+            "User-Agent": USER_AGENT_TEMPLATE.format(email=self.config.polite_pool_email)
+        }
+        if self.config.openalex.api_key:
+            # No header, não na URL: assim a chave não aparece em logs nem em mensagens de erro.
+            headers["Authorization"] = f"Bearer {self.config.openalex.api_key}"
         self._client = httpx.Client(
             timeout=self.config.openalex.timeout_seconds,
-            headers={
-                "User-Agent": USER_AGENT_TEMPLATE.format(
-                    email=self.config.polite_pool_email
-                )
-            },
+            headers=headers,
             follow_redirects=True,
         )
 

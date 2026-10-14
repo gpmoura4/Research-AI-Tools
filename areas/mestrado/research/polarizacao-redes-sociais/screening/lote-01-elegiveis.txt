@@ -1,0 +1,53 @@
+# Lote 1 (artigos #1 a #200) — 51 artigos elegíveis após triagem.
+# Fornecido pelo usuário em 2026-10-13. Um título por linha; linhas com # são ignoradas.
+The grammatization of emotions on Facebook in the elections to the Parliament of Catalonia 2017
+Social media and the spread of misinformation: infectious and a threat to public health.
+Online reactions to the 2017 ‘Unite the right’ rally in Charlottesville: measuring polarization in Twitter networks using media followership
+The impact of noise and topology on opinion dynamics in social networks.
+It’s Not the Facebook Access, but the Partisan Bias which Predict Belief in Misinformation: The Case of 2019 Indonesia Presidential Election
+The dynamics of political polarization.
+An Analysis of the Formation Mechanism of Social Media Users' Opinion Polarization under the Information Cocoon Effect
+Modeling the emergence of affective polarization in the social media society.
+The spreading of misinformation online
+Research on the formation mechanism of information cocoon and individual differences among researchers based on information ecology theory.
+Homophily, Group Size, and the Diffusion of Political Information in Social Networks: Evidence from Twitter
+Tubes and bubbles topological confinement of YouTube recommendations.
+Digital media and misinformation: An outlook on multidisciplinary strategies against manipulation
+VisualBubble: Exploring How Reflection-Oriented User Experiences Affect Users' Awareness of Their Exposure to Misinformation on Social Media
+Enhancing Social Media Platforms with Machine Learning Algorithms and Neural Networks
+Synchronising institutions and value systems: A model of opinion dynamics mediated by proportional representation.
+Mechanistic interplay between information spreading and opinion polarization.
+Quantitative Agent Based Model of Opinion Dynamics: Polish Elections of 2015.
+Echo chamber and trench warfare dynamics in online debates
+HICSS - The Impact of Online Disinformation on Democracy in Taiwan
+An energy-based interaction model for population opinion dynamics with topic coupling
+Computational Modeling of Hierarchically Polarized Groups by Structured Matrix Factorization.
+Echo chambers can emerge without algorithmic personalization or a preference for homogeneity.
+Ideological variation in preferred content and source credibility on Reddit during the COVID-19 pandemic.
+Communicating with Algorithms: A Transfer Entropy Analysis of Emotions-based Escapes from Online Echo Chambers
+Augmenting polarization via social media? A comparative analysis of Trump’s and Wilders’ online populist communication and the electorate’s interpretations surrounding the elections
+Quantifying echo chamber effects in information spreading over political communication networks
+Modeling Multidimensional Public Opinion Polarization Process under the Context of Derived Topics.
+Twitter Fingers and Echo Chambers: Exploring Expressions and Experiences of Online Racism Using Twitter
+Social sampling and expressed attitudes: Authenticity preference and social extremeness aversion lead to social norm effects and polarization.
+Measuring Online Political Dialogue: Does Polarization Trigger More Deliberation?
+Mitigating infodemics: The relationship between news exposure and trust and belief in COVID-19 fake news and social media spreading.
+Emergence of Polarized Ideological Opinions in Multidimensional Topic Spaces
+Link recommendation algorithms and dynamics of polarization in online social networks.
+Testing influences of openness, conscientiousness, nationalism, media diversity, social class, and informational echo chambers on support for official responses to COVID-19 in Wuhan in November, 2020.
+Misinformation and Fact-checking on the disturbances of the Procés of Catalonia : Digital impact on Public and Media
+The 5G COVID-19 Digital Wildfire: An evolving network of Twitter contacts to explore phase transition metaphors in viral misinformation.
+Algorithmic social media use and its relationship to attitude reinforcement and issue-specific political participation – The case of the 2015 European immigration movements
+Effect of algorithmic bias and network structure on coexistence, consensus, and polarization of opinions.
+WWW - Searching for polarization in signed graphs: a local spectral approach
+The echo chamber is overstated: the moderating effect of political interest and diverse media
+Building Social Media Observatories for Monitoring Online Opinion Dynamics
+Influence of fake news in Twitter during the 2016 US presidential election
+The evolving study of political polarization.
+Mitigating opinion polarization in social networks using adversarial attacks.
+A conflict of visions in nutrition science: polarization, power, and the case of Ultra-Processed Foods.
+COVID-19 and social media: Beyond polarization.
+A theoretical framework for polarization as the gradual fragmentation of a divided society.
+Drivers of health polarization during the COVID-19 pandemic: A systematic review.
+A minimalistic model of bias, polarization and misinformation in social networks.
+Toward a Standard Approach for Echo Chamber Detection: Reddit Case Study

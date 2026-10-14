@@ -10,7 +10,7 @@ Status: em andamento · concluída · aguardando usuário · substituída
 ## Pendências abertas
 | Pendência | Origem (ID) | Status |
 |---|---|---|
-| 102 de 106 referências sem PDF em `references/` (ver `reference-coverage.md`) | Fase 2 | aberta |
+| 83 de 106 referências sem PDF em `references/` (era 102; 19 obtidas por open access em 2026-10-10). Lista de obtenção manual em `reference-coverage.md`, seção "Pendentes de obtenção manual" | Fase 2 | aberta |
 | Sobreposição de corpus entre [3] e [4] | T01 (P1) | resolvida: não mensurável (lista de [3] em apêndice suplementar); remoção mantida — ver T01 §10 |
 | Bases, períodos e critérios de inclusão de [3] e [4] | T01 (P2) | resolvida — T01 §10 |
 | Características do SPIR afirmadas na 3.1/4.1 | T01 (P3) | resolvida: confirmadas — T01 §10 |

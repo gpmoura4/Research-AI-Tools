@@ -30,6 +30,7 @@ class ResolutionResult:
     blocked_reason: str | None = None
     host: str | None = None
     link: str | None = None
+    url: str | None = None  # URL de onde o PDF foi efetivamente baixado
 
     @property
     def ok(self) -> bool:
@@ -229,6 +230,7 @@ class OpenAccessResolver:
                     source=source,
                     host=host,
                     link=link,
+                    url=url,
                 )
             errors.append(f"{source}: {error}")
             time.sleep(self.config.download.delay_between_seconds)

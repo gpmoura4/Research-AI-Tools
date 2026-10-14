@@ -36,6 +36,10 @@ openalex:
   max_retries: 3
   # Quantos resultados buscar por string antes de deduplicar e cortar em G5.
   results_per_query: 50
+  # Chave da API (gratuita, em openalex.org): orçamento diário próprio de 10.000
+  # créditos, em vez do gratuito sem chave (~1.000, dividido por IP; uma busca custa 10).
+  # A chave fica FORA do Git, neste arquivo; a variável OPENALEX_API_KEY tem precedência.
+  api_key_file: credentials/openalex/api_key.txt
 
 # Unpaywall — fallback para localizar PDF open access quando o OpenAlex não traz.
 unpaywall:

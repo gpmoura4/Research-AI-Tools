@@ -102,6 +102,20 @@ class CrossrefClient:
         text = response.text.strip()
         return text if text.startswith("@") else None
 
+    def fetch_abstract(self, doi: str) -> str | None:
+        """Abstract depositado pelo editor no Crossref, sem as tags JATS."""
+        response = self._get(f"{self.config.crossref.base_url}/works/{doi}")
+        if response is None:
+            return None
+        try:
+            raw = response.json()["message"].get("abstract") or ""
+        except (KeyError, ValueError):
+            return None
+        text = re.sub(r"<[^>]+>", " ", raw)
+        # O título "Abstract" costuma vir dentro do próprio campo.
+        text = re.sub(r"^\s*abstract\s*", "", text, flags=re.I)
+        return re.sub(r"\s+", " ", text).strip() or None
+
     def fetch_work(self, doi: str) -> CrossrefWork | None:
         """Metadados estruturados + BibTeX para um DOI conhecido."""
         url = f"{self.config.crossref.base_url}/works/{doi}"

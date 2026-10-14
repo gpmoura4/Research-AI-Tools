@@ -156,12 +156,11 @@ def ensure_location(location: Location, theme_display_name: str | None = None) -
         write_bib_file(location.references_bib, [])
 
     if not location.pending_md.exists():
-        location.pending_md.write_text(
-            "# Pendências\n\n"
-            "Papers não baixados (paywall, captcha ou erro) — cabe revisão manual.\n\n"
-            "| Paper | Link | Status |\n|---|---|---|\n",
-            encoding="utf-8",
-        )
+        # Mesmo cabeçalho que append_pending usa: as colunas precisam bater com
+        # as linhas que ele grava, senão a tabela renderiza quebrada.
+        from scripts.candidates import PENDING_HEADER
+
+        location.pending_md.write_text(PENDING_HEADER, encoding="utf-8")
 
     if not location.candidates_md.exists():
         location.candidates_md.write_text(

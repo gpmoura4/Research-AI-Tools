@@ -40,7 +40,9 @@ research-workspace/
 │               ├── search-protocol.md  # apenas p/ revisão semi-sistemática
 │               ├── screening-protocol.md # perguntas de triagem + prompt p/ outra IA
 │               ├── materials/          # PDFs/refs fornecidos manualmente pelo usuário
+│               ├── screening/          # listas de títulos triadas pelo usuário (<lote>-elegiveis.txt)
 │               └── deliverables/
+│                   ├── batches/        # <lote>-baixados.md e <lote>-nao-baixados.md (lista + abstracts)
 │                   ├── papers/         # PDFs renomeados: "Autores - Ano - Título.pdf"
 │                   ├── summaries/      # 1 arquivo .md por paper
 │                   ├── references.bib  # BibTeX consolidado do tema
@@ -108,6 +110,14 @@ research-workspace/
    - Bloqueado (paywall, captcha, erro) → registra em `pending.md` com nome do paper,
      link da plataforma onde está hospedado e status "pendente — cabe revisão manual".
      NUNCA tentar burlar paywall.
+5b. Lista de títulos já triada pelo usuário (lote de triagem feito fora do
+   repositório): a lista vale como aprovação item a item (G4). Gravar em
+   `screening/<lote>-elegiveis.txt` e rodar
+   `uv run python -m scripts.title_list fetch <area>/<proj>/<tema> --titles <arquivo> --batch <lote>`
+   (repetir até zerar a fila: até 30 downloads por execução, pelo G5; `--retry` volta a
+   tentar os itens não obtidos). Título sem correspondência verificável no
+   OpenAlex/Crossref fica como "não localizado" (G2). Saída:
+   `deliverables/batches/<lote>-baixados.md`, `<lote>-nao-baixados.md` + `pending.md`.
 6. Agente processa também PDFs que o usuário depositar em `materials/` (mesmo pipeline
    de renomeação, resumo e BibTeX).
 7. Agente gera/atualiza os três diagramas em `maps/`.

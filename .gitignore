@@ -8,6 +8,7 @@ __pycache__/
 # Estado de execução, recriável a qualquer momento pelos comandos.
 .process-manifest.json
 .search-manifest.json
+.title-list-*.json
 .downloads/
 .extracted-text/
 

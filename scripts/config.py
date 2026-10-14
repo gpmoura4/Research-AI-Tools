@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
@@ -26,6 +27,9 @@ class OpenAlexConfig:
     timeout_seconds: int
     max_retries: int
     results_per_query: int
+    # Chave da API: orçamento diário próprio, em vez do gratuito dividido por IP.
+    # Nunca vem do config.yaml (versionado): vem de OPENALEX_API_KEY ou de api_key_file.
+    api_key: str | None = None
 
 
 @dataclass(frozen=True)
@@ -52,6 +56,16 @@ class Config:
     openalex: OpenAlexConfig
     unpaywall: UnpaywallConfig
     download: DownloadConfig
+
+
+def _openalex_api_key(openalex_raw: dict) -> str | None:
+    """OPENALEX_API_KEY tem precedência; senão, o arquivo apontado no config (fora do Git)."""
+    if os.environ.get("OPENALEX_API_KEY"):
+        return os.environ["OPENALEX_API_KEY"].strip()
+    key_file = REPO_ROOT / str(openalex_raw.get("api_key_file", "credentials/openalex/api_key.txt"))
+    if key_file.exists():
+        return key_file.read_text(encoding="utf-8").strip() or None
+    return None
 
 
 @lru_cache(maxsize=1)
@@ -85,6 +99,7 @@ def load_config(path: Path | None = None) -> Config:
             timeout_seconds=int(openalex_raw.get("timeout_seconds", 30)),
             max_retries=int(openalex_raw.get("max_retries", 3)),
             results_per_query=int(openalex_raw.get("results_per_query", 50)),
+            api_key=_openalex_api_key(openalex_raw),
         ),
         unpaywall=UnpaywallConfig(
             base_url=str(unpaywall_raw.get("base_url", "https://api.unpaywall.org/v2")),
