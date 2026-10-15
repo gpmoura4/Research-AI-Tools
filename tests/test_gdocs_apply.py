@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 
 from scripts.gdocs_apply import (
@@ -211,3 +213,33 @@ def test_revisar_insercao_refuses_text_without_highlight():
     doc = DocText.from_document(make_document(["It is a theoretical review [15]."]))
     [p] = plan(doc, select(parse_adjustments(REVISION_MD), ["A3v2"]))
     assert p.status == "pulado" and "marca-texto" in p.reason
+
+
+def test_service_account_precedence_cli_env_config(monkeypatch, tmp_path):
+    from types import SimpleNamespace
+
+    import scripts.config
+    from scripts.gdocs_apply import service_account_file
+
+    configured = tmp_path / "sa.json"
+    configured.write_text("{}")
+    monkeypatch.setattr(scripts.config, "load_config",
+                        lambda: SimpleNamespace(google_service_account_file=configured))
+    monkeypatch.setenv("GOOGLE_APPLICATION_CREDENTIALS", "/env.json")
+    assert service_account_file(tmp_path / "cli.json") == tmp_path / "cli.json"
+    assert service_account_file() == Path("/env.json")
+    monkeypatch.delenv("GOOGLE_APPLICATION_CREDENTIALS")
+    assert service_account_file() == configured
+
+
+def test_service_account_configured_but_missing_exits(monkeypatch, tmp_path):
+    from types import SimpleNamespace
+
+    import scripts.config
+    from scripts.gdocs_apply import service_account_file
+
+    monkeypatch.setattr(scripts.config, "load_config",
+                        lambda: SimpleNamespace(google_service_account_file=tmp_path / "x.json"))
+    monkeypatch.delenv("GOOGLE_APPLICATION_CREDENTIALS", raising=False)
+    with pytest.raises(SystemExit):
+        service_account_file()

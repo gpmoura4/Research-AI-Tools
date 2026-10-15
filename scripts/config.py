@@ -56,6 +56,14 @@ class Config:
     openalex: OpenAlexConfig
     unpaywall: UnpaywallConfig
     download: DownloadConfig
+    # JSON da conta de serviço do Google Docs (fora do Git, em credentials/). Só o caminho.
+    google_service_account_file: Path | None = None
+
+
+def _google_service_account_file(google_docs_raw: dict) -> Path | None:
+    """Caminho do JSON da conta de serviço, relativo à raiz do workspace (se configurado)."""
+    raw_path = google_docs_raw.get("service_account_file")
+    return REPO_ROOT / str(raw_path) if raw_path else None
 
 
 def _openalex_api_key(openalex_raw: dict) -> str | None:
@@ -110,4 +118,5 @@ def load_config(path: Path | None = None) -> Config:
             delay_between_seconds=float(download_raw.get("delay_between_seconds", 1.5)),
             max_size_mb=int(download_raw.get("max_size_mb", 80)),
         ),
+        google_service_account_file=_google_service_account_file(raw.get("google_docs") or {}),
     )

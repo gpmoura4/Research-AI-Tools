@@ -1,0 +1,57 @@
+#!/bin/sh
+# Bloqueia commits que levariam segredos ou conteúdo inédito/de terceiros ao GitHub.
+# Ativado por: git config core.hooksPath .githooks
+# Pega também o que foi adicionado com `git add -f`, que o .gitignore não impede.
+# Para um falso positivo, revise com cuidado e use `git commit --no-verify`.
+
+blocked=0
+fail() {
+    echo "pre-commit: BLOQUEADO — $1" >&2
+    blocked=1
+}
+
+# Arquivos adicionados, copiados, modificados ou renomeados (remoções passam).
+files=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -z "$files" ] && exit 0
+
+# 1. Caminhos e tipos que nunca são versionados.
+echo "$files" | while IFS= read -r f; do
+    case "$f" in
+        credentials/*|*/credentials/*)               echo "$f: pasta credentials/" ;;
+        manuscripts/*/paper/*|manuscripts/*/references/*) echo "$f: manuscrito ou PDF de terceiros" ;;
+        *.zip|*.tar|*.tar.gz|*.tgz|*.7z|*.rar|__MACOSX/*|*/__MACOSX/*) echo "$f: arquivo compactado" ;;
+        *.pdf|*.epub|*.docx)                          echo "$f: PDF/documento" ;;
+        .env|.env.*|*.pem|*.p12|*.key)                echo "$f: arquivo de chave" ;;
+    esac
+done > "${TMPDIR:-/tmp}/precommit-paths.$$"
+if [ -s "${TMPDIR:-/tmp}/precommit-paths.$$" ]; then
+    while IFS= read -r line; do fail "$line"; done < "${TMPDIR:-/tmp}/precommit-paths.$$"
+fi
+rm -f "${TMPDIR:-/tmp}/precommit-paths.$$"
+
+# 2. Conteúdo com cara de segredo (lê a versão preparada para o commit, não a do disco).
+openalex_key=""
+[ -s credentials/openalex/api_key.txt ] && openalex_key=$(tr -d '[:space:]' < credentials/openalex/api_key.txt)
+
+echo "$files" | while IFS= read -r f; do
+    content=$(git show ":$f" 2>/dev/null) || continue
+    if printf '%s' "$content" | grep -Eq '"private''_key"|-----BEGIN [A-Z ]*PRIVATE KEY-----|"type": *"service_account"'; then
+        echo "$f: contém chave de conta de serviço / chave privada"
+    fi
+    if printf '%s' "$content" | grep -Eq 'AIza[0-9A-Za-z_-]{35}'; then
+        echo "$f: contém chave de API do Google"
+    fi
+    if [ -n "$openalex_key" ] && printf '%s' "$content" | grep -Fq "$openalex_key"; then
+        echo "$f: contém a chave do OpenAlex"
+    fi
+done > "${TMPDIR:-/tmp}/precommit-content.$$"
+if [ -s "${TMPDIR:-/tmp}/precommit-content.$$" ]; then
+    while IFS= read -r line; do fail "$line"; done < "${TMPDIR:-/tmp}/precommit-content.$$"
+fi
+rm -f "${TMPDIR:-/tmp}/precommit-content.$$"
+
+if [ "$blocked" -ne 0 ]; then
+    echo "pre-commit: remova da área de preparação com: git restore --staged <arquivo>" >&2
+    exit 1
+fi
+exit 0

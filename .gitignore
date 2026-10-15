@@ -31,3 +31,21 @@ manuscripts/*/references/
 # --- Credenciais -----------------------------------------------------------
 # Chaves de API, contas de serviço e tokens OAuth: nunca vão para o repositório.
 credentials/
+.env
+.env.*
+*.pem
+*.p12
+*.key
+*service-account*.json
+*-[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].json
+
+# --- Arquivos compactados ---------------------------------------------------
+# Um zip de credentials/ ou manuscripts/ escapa das regras acima (foi assim que a
+# chave e o manuscrito vazaram no commit e9db5b6). Nenhum compactado é versionado.
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+__MACOSX/

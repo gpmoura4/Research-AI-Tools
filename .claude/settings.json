@@ -1,7 +1,16 @@
 {
   "permissions": {
     "ask": [
-      "Edit(/manuscripts/*/paper/**)"
+      "Edit(/manuscripts/*/paper/**)",
+      "Bash(git commit --no-verify:*)",
+      "Bash(git push:*)"
+    ],
+    "deny": [
+      "Bash(git add -A:*)",
+      "Bash(git add --all:*)",
+      "Bash(git add .:*)",
+      "Bash(git add -f:*)",
+      "Bash(git add --force:*)"
     ]
   }
 }

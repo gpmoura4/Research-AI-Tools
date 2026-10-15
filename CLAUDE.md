@@ -82,6 +82,14 @@ research-workspace/
   literatura, num tema de `areas/`, com aprovação humana por item (G4).
 - Os guardrails G2–G7 abaixo são do modo revisão de literatura. A forma como se
   aplicam (ou não) ao modo de manuscrito está em `manuscripts/CLAUDE.md`.
+- Commits (o repositório no GitHub já vazou uma chave e o manuscrito, no commit e9db5b6):
+  adicionar arquivos sempre pelo nome — nunca `git add -A`, `git add .` ou `git add -f`;
+  antes de commitar, conferir `git diff --cached --stat` e parar se aparecer algo de
+  `credentials/`, `manuscripts/*/paper/`, `manuscripts/*/references/`, compactado
+  (.zip etc.) ou PDF. Chaves ficam só em `credentials/` (fora do Git); o config.yaml
+  guarda apenas o caminho. O hook `.githooks/pre-commit` (ativo via
+  `git config core.hooksPath .githooks`) bloqueia esses casos; nunca usar `--no-verify`
+  sem o ok do usuário.
 
 ## Fluxo de operação — modo revisão de literatura (visão geral)
 1. Ao iniciar qualquer pesquisa/revisão, o agente resolve a LOCALIZAÇÃO do trabalho:

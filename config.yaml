@@ -41,6 +41,12 @@ openalex:
   # A chave fica FORA do Git, neste arquivo; a variável OPENALEX_API_KEY tem precedência.
   api_key_file: credentials/openalex/api_key.txt
 
+# Google Docs — conta de serviço do modo revisão de manuscrito (scripts/gdocs_apply.py).
+# Aqui fica só o CAMINHO; o JSON da chave fica FORA do Git, em credentials/.
+# --credentials e GOOGLE_APPLICATION_CREDENTIALS têm precedência sobre este arquivo.
+google_docs:
+  service_account_file: "credentials/manuscripts/paper smip/drive/api/research-workspace-511213-8177bb6a1c3e.json"
+
 # Unpaywall — fallback para localizar PDF open access quando o OpenAlex não traz.
 unpaywall:
   base_url: https://api.unpaywall.org/v2

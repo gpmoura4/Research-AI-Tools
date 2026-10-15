@@ -32,9 +32,10 @@ desdobrados usam sufixo numérico ("## T01-A8.1 — …"); --ids A8 seleciona to
 No bloco ```novo```, *itálico* e **negrito** viram formatação; linhas separadas por
 uma linha em branco viram parágrafos distintos.
 
-Credencial: conta de serviço via --credentials <json> (antes do subcomando) ou
-GOOGLE_APPLICATION_CREDENTIALS; sem ela, OAuth de usuário. O documento precisa estar
-compartilhado como Editor com o e-mail da conta de serviço.
+Credencial: conta de serviço via --credentials <json> (antes do subcomando),
+GOOGLE_APPLICATION_CREDENTIALS ou google_docs.service_account_file do config.yaml (o JSON
+fica em credentials/, fora do Git); sem nenhuma, OAuth de usuário. O documento precisa
+estar compartilhado como Editor com o e-mail da conta de serviço.
 
 Uso:
   uv run python -m scripts.gdocs_apply [--credentials <json>] check <doc-id|url>
@@ -646,15 +647,27 @@ def doc_id_from(raw: str) -> str:
     return m.group(1) if m else raw.strip()
 
 
+def service_account_file(credentials_file: Path | None = None) -> Path | None:
+    """JSON da conta de serviço: --credentials, GOOGLE_APPLICATION_CREDENTIALS ou o
+    caminho do config.yaml, nessa ordem. None = sem conta de serviço (usa OAuth)."""
+    if credentials_file:
+        return credentials_file
+    if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+        return Path(os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
+    from scripts.config import load_config
+
+    configured = load_config().google_service_account_file
+    if configured and not configured.exists():
+        sys.exit(f"Conta de serviço configurada no config.yaml, mas ausente: {configured}")
+    return configured
+
+
 def docs_service(credentials_file: Path | None = None):
-    """Cliente da API. Conta de serviço (--credentials ou GOOGLE_APPLICATION_CREDENTIALS)
-    tem precedência; sem ela, usa OAuth de usuário com token em ~/.config."""
+    """Cliente da API. Conta de serviço (ver service_account_file) tem precedência;
+    sem ela, usa OAuth de usuário com token em ~/.config."""
     from googleapiclient.discovery import build
 
-    sa_file = credentials_file or (
-        Path(os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
-        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") else None
-    )
+    sa_file = service_account_file(credentials_file)
     if sa_file:
         from google.oauth2 import service_account
 
@@ -753,7 +766,8 @@ def cmd_apply(doc_id: str, md_path: Path, ids: list[str], really: bool,
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--credentials", type=Path,
-                        help="JSON da conta de serviço (senão: GOOGLE_APPLICATION_CREDENTIALS ou OAuth)")
+                        help="JSON da conta de serviço (senão: GOOGLE_APPLICATION_CREDENTIALS, "
+                             "config.yaml ou OAuth)")
     sub = parser.add_subparsers(dest="cmd", required=True)
     p_check = sub.add_parser("check", help="testa o acesso ao documento")
     p_check.add_argument("doc")

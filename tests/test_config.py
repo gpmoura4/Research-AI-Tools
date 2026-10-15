@@ -22,3 +22,13 @@ def test_missing_key_means_free_budget(monkeypatch, tmp_path):
     monkeypatch.setattr(config, "REPO_ROOT", tmp_path)
     monkeypatch.delenv("OPENALEX_API_KEY", raising=False)
     assert config._openalex_api_key({}) is None
+
+
+def test_google_service_account_path_is_relative_to_repo(monkeypatch, tmp_path):
+    monkeypatch.setattr(config, "REPO_ROOT", tmp_path)
+    path = config._google_service_account_file({"service_account_file": "credentials/sa.json"})
+    assert path == tmp_path / "credentials" / "sa.json"
+
+
+def test_google_service_account_absent_means_none():
+    assert config._google_service_account_file({}) is None
