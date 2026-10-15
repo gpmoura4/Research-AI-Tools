@@ -229,3 +229,21 @@ Sem PDF open access acessível por API (ou correspondência insegura). Nunca hou
 | 105 | Diakopoulos, N. Automating the News: How Algorithms Are Rewriting the Media; Harvard University Press: Cambridge, MA, US | `Diakopoulos - 2019 - Automating the News- How Algorithms Are Rewriting the Media.pdf` | https://doi.org/10.4159/9780674239302 | acesso fechado (oa_status: closed) |
 | 106 | Napoli, P.M. Social Media and the Public Interest: Media Regulation in the Disinformation Age; Columbia University Press | `Napoli - 2019 - Social Media and the Public Interest- Media Regulation in the Disinformation Age.pdf` | https://doi.org/10.7312/napo18454 | acesso fechado (oa_status: closed) |
 <!-- pendentes:fim -->
+
+## Obras propostas pela T03 (ainda fora da lista do paper)
+
+Propostas como [110]–[114] em `adjustments/T03-ajustes.md` (A8). Quando o ajuste for
+incorporado pelos autores, renomear os PDFs para `[n]_Autor_Ano.pdf`.
+
+| Proposta | Obra | PDF | Situação |
+|---|---|---|---|
+| 110 | Kubin, E.; von Sikorski, C. (2021). Ann. Int. Commun. Assoc. 45, 188–206 | `Kubin et al - 2021 - The role of (social) media in political polarization- a systematic review.pdf` | ✅ lido na íntegra (T03) |
+| 111 | Lorenz-Spreen, P. et al. (2023). Nat. Hum. Behav. 7, 74–101 | `Lorenz-Spreen et al - 2022 - A systematic review of worldwide causal and correlational evidence on digital media and democracy.pdf` | ✅ lido: resumo, introdução e organização (T03) |
+| 112 | Tucker, J.A. et al. (2018). Relatório, Hewlett Foundation (SSRN 3144139) | `Tucker et al - 2018 - Social media, political polarization, and political disinformation- A review of the scientific literature.pdf` | ✅ lido: sumário e introdução (T03) |
+| 113 | Barberá, P. (2020). Capítulo em *Social Media and Democracy*, CUP, pp. 34–55 | — | ❌ sem PDF; só metadados (Crossref) |
+| 114 | Van Bavel, J.J. et al. (2021). Trends Cogn. Sci. 25, 913–916 | — | ❌ sem PDF; só metadados (Crossref) e citação no SPIR (p. 5317) |
+
+Em 2026-10-15 foram removidas duas cópias duplicadas, depositadas junto com estas: uma do
+SPIR, idêntica a `[2]_Harris_2023.pdf` (mesmo SHA-256), e uma de Tölle e Trier, que é a
+mesma versão sem a capa da AISeL. As páginas citadas nas tarefas seguem os arquivos `[2]` e `[4]`.
+
