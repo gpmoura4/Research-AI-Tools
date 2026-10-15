@@ -155,6 +155,7 @@ class OpenAlexClient:
         work_types: list[str] | None = None,
         precise: bool = False,
         languages: tuple[str, ...] | None = None,
+        source: str | None = None,
     ) -> list[Candidate]:
         """Busca trabalhos, com filtros opcionais.
 
@@ -175,6 +176,10 @@ class OpenAlexClient:
             # G7 — filtra na origem para não gastar as vagas do limite de 30 com
             # papers que o usuário não conseguiria ler.
             filters.append(f"language:{'|'.join(languages)}")
+        if source:
+            # Restringe a um periódico (ID do OpenAlex, ex.: S4210232010), para buscas
+            # dentro de uma revista específica.
+            filters.append(f"primary_location.source.id:{source}")
 
         params: dict[str, str] = {
             "per-page": str(per_page or self.config.openalex.results_per_query),

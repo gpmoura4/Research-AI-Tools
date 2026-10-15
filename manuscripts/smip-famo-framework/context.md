@@ -16,7 +16,7 @@
   `uv run python -m scripts.gdocs_apply --credentials "credentials/manuscripts/paper smip/drive/api/research-workspace-511213-3d493d71fe81.json" check 13O5Uco9-ItlpHioS_M_tsUr8UbqxppoQ2bx1fBmQ00g`
 - **Estilo de citação**: numérico (MDPI), lista com 106 referências
 - **Cobertura de referências**: ver `reference-coverage.md`
-- **Tema(s) de literatura vinculado(s)**: nenhum (a definir quando uma tarefa pedir busca)
+- **Tema(s) de literatura vinculado(s)**: `areas/mestrado/research/journalism-and-media-affordances` (T04: artigos da *Journalism and Media*, semi-sistemática)
 
 ## Proposta central
 Framework em quatro camadas (Features → Affordances → Mechanisms → Outcomes), com uma

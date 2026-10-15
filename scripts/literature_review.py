@@ -47,6 +47,7 @@ def cmd_search(
     from_year: int | None,
     to_year: int | None,
     precise: bool = False,
+    source: str | None = None,
 ) -> int:
     config = load_config()
     ensure_location(location)
@@ -61,6 +62,7 @@ def cmd_search(
                 to_year=to_year,
                 precise=precise,
                 languages=config.accepted_languages,
+                source=source,
             )
             print(f"    {len(results)} resultados", file=sys.stderr)
             collected.extend(results)
@@ -92,6 +94,7 @@ def cmd_search(
         "location": str(location),
         "review_type": review_type,
         "queries": queries,
+        "source": source,
         "candidates": [asdict(c) for c in fresh],
         "duplicates_skipped": len(duplicates),
         "over_limit_skipped": len(over_limit),
@@ -309,6 +312,10 @@ def main(argv: list[str] | None = None) -> int:
         help='Busca em título+abstract com aspas e AND/OR (ex.: \'"work breakdown '
         "structure\" AND (LLM OR \"large language model\")'). Muito mais restritiva.",
     )
+    p_search.add_argument(
+        "--source",
+        help="Restringe a um periódico pelo ID do OpenAlex (ex.: S4210232010, Journalism and Media)",
+    )
 
     p_fetch = sub.add_parser("fetch", help="Baixa apenas os candidatos aprovados")
     p_fetch.add_argument("location")
@@ -331,6 +338,7 @@ def main(argv: list[str] | None = None) -> int:
             args.from_year,
             args.to_year,
             args.precise,
+            args.source,
         )
     if args.command == "fetch":
         return cmd_fetch(location)
