@@ -253,3 +253,13 @@ al. 2025 e Nwafor et al. 2026). **[a verificar]**: conteúdo sem PDF.
 | P2 | Conteúdo de Ronzhyn, Cardenal e Batlle Rubio (2023) | Sugestão | PDF, se a referência for usada |
 | P3 | Passadas P3a (9 candidatos aguardando aprovação), P3b e P4 | Escopo | decisão do usuário sobre retomar a busca |
 | P4 | Renumeração dos mecanismos | I02 | autores fecharem a Seção 6 e propagarem os IDs |
+
+## 7. Nota posterior (2026-10-15, redação dos ajustes)
+
+Corrige o mapeamento da Seção 2.1 (linha "Introdução, § 1") e da Seção 2.2 (Fu et al., "Conexões"):
+Fu et al. (p. 2) **não** apoiam a frase da Introdução que atribui o echo chamber à associação
+social e o filter bubble à curadoria algorítmica. Para Fu et al., o echo chamber resulta da soma
+do "information cocoon" (escolha individual) e do filter bubble (algoritmo). O ajuste A2 foi
+retirado. Fu et al. seguem recomendados para a 7.3 (A8), e a relevância passa de **Média** para
+**Média-baixa**. Ajustes redigidos em [`adjustments/T04-ajustes.md`](../adjustments/T04-ajustes.md)
+(A1, A3, A4.1, A4.2, A5–A9, A10.1, A10.2, A11–A13; referências novas [115]–[121]).
