@@ -1,0 +1,79 @@
+# Lote #4 - 77 papers. Fornecido pelo usuário em 2026-10-16.
+# Um título por linha; linhas com # são ignoradas; a numeração "N. " é removida.
+1. Partisan Provocation: The Role of Partisan News Use and Emotional Responses in Political Information Sharing in Social Media
+2. Breaking the filter bubble: democracy and design
+3. Stance polarity in political debates: A diachronic perspective of network homophily and conversations on Twitter
+4. Modelling Spirals of Silence and Echo Chambers by Learning from the Feedback of Others.
+5. The preference for belief, issue polarization, and echo chambers.
+6. Social media echo chambers and satisfaction with democracy among Democrats and Republicans in the aftermath of the 2016 US elections.
+7. Spiral of Silence in an Algorithm-Driven Social Media Content Environment: Conceptual Framework and Research Propositions
+8. Cognitive-Affective Dynamics of Political Attitude Polarization: EEG-Based Behavioral Evidence from a COVID-19 Vaccine Mandate Task.
+9. Factors Associated With Nurses' Self-Reported Susceptibility to Online Health Misinformation: Evidence From Greece.
+10. Community Formation as a Byproduct of a Recommendation System: A Simulation Model for Bubble Formation in Social Media
+11. The digital transformation of news media and the rise of disinformation and fake news
+12. Undercurrents of echo chambers and flame wars: party political correlates of social media behavior
+13. Echo chambers and online radicalism: assessing the internet’s complicity in violent extremism
+14. Seven years of studying the associations between political polarization and problematic information: a literature review.
+15. Political polarization on Twitter during the COVID-19 pandemic: a case study in Brazil.
+16. The role of homophily in the emergence of opinion controversies
+17. Emotion as a cross-layer mechanism in filter bubbles: a social-psychological perspective.
+18. Impact of Repeated Exposure to Polarized Health-Related News on Explicit and Implicit Attitudes Toward Dietary Supplements: Online Experimental Study.
+19. Rational inference strategies and the genesis of polarization and extremism.
+20. Manipulation and the Affective Realm of Social Media
+21. Spreading of misinformation on mass media and digital platforms regarding vaccines. A systematic scoping review on stakeholders, policymakers, and sentiments/behavior of Italian consumers.
+22. Put your money where your mouth is: DIAL, a dialogical model for opinion dynamics
+23. Digital Echo Chambers as Phenomenon of Political Space
+24. The great divide: drivers of polarization in the US public.
+25. Opinion Polarization in Human Communities Can Emerge as a Natural Consequence of Beliefs Being Interrelated.
+26. Affective homophily as the dominant organizing principle in online conflict discourse networks.
+27. Cognitive political networks: A structural approach to measure political polarization in multiparty systems
+28. Research on risk assessment model and simulation of online group polarization in emergencies.
+29. Social Psychological Perspectives on Political Polarization: Insights and Implications for Climate Change.
+30. Assessing enactment of content regulation policies: A post hoc crowd-sourced audit of election misinformation on YouTube
+31. Physical partisan proximity outweighs online ties in predicting US voting outcomes.
+32. Disciplining the digital public: Platform mechanisms and the dynamics of emotional polarization.
+33. Differential impact from individual versus collective misinformation tagging on the diversity of Twitter (X) information engagement and mobility.
+34. Incidental Exposure to Non-Like-Minded News through Social Media: Opposing Voices in Echo-Chambers’ News Feeds
+35. How Many People Live in Politically Partisan Online News Echo Chambers in Different Countries
+36. Responses to digital disinformation as part of hybrid threats: a systematic review on the effects of disinformation and the effectiveness of fact-checking/debunking.
+37. Separating Polarization from Noise: Comparison and Normalization of Structural Polarization Measures
+38. Troll and divide: the language of online polarization.
+39. Opinion Dynamics Model Based on Cognitive Biases of Complex Agents
+40. Mechanisms of online radicalisation: how the internet affects the radicalisation of extreme-right lone actor terrorists
+41. Do Search Algorithms Endanger Democracy? An Experimental Investigation of Algorithm Effects on Political Polarization
+42. Skeptical Inertia in the Face of Polarization: News Consumption and Misinformation in Turkey
+43. Social networks affect redistribution decisions and polarization.
+44. Overcoming polarization with chatbot news? Investigating the impact of news content containing opposing views on agreement and credibility
+45. From Individual Expression to Group Polarization: A Study on Twitter's Emotional Diffusion Patterns in the German Election.
+46. Loopholes in the Echo Chambers: How the Echo Chamber Metaphor Oversimplifies the Effects of Information Gateways on Opinion Expression
+47. Echo Chambers, Filter Bubbles, and Selective Exposure: Media Use and Opinion Formation in Polarized Digital Spaces
+48. Social media feedback and extreme opinion expression.
+49. SSLE: A framework for evaluating the "Filter Bubble" effect on the news aggregator and recommenders
+50. It Doesn’t Take a Village to Fall for Misinformation: Social media use, discussion heterogeneity preference, worry of the virus, faith in scientists, and COVID-19-related misinformation beliefs
+51. Journalists' networks: Homophily and peering over the shoulder of other journalists.
+52. Blocking of counter-partisan accounts drives political assortment on Twitter.
+53. Emotionally Structured Interaction Networks and Consumer Perception of New Energy Vehicle Technology: A Behavioral Network Analysis of Online Brand Communities.
+54. Partisan selective engagement: Evidence from Facebook
+55. Partisan Blocking: Biased Responses to Shared Misinformation Contribute to Network Polarization on Social Media
+56. Understanding dynamics of polarization via multiagent social simulation.
+57. Challenging social media threats using collective well-being-aware recommendation algorithms and an educational virtual companion.
+58. Nature conservation in a digitalized world: echo chambers and filter bubbles
+59. WhatsApp, Polarization, and Non-Conventional Political Participation: Chile and Colombia Before the Social Outbursts of 2019
+60. Affective polarization in crosscutting communication networks: Offline and online evidence from Spain
+61. Deriving an Opinion Dynamics Model from Experimental Data
+62. On the impossibility of breaking the echo chamber effect in social media using regulation.
+63. Susceptibility to online misinformation: A systematic meta-analysis of demographic and psychological factors.
+64. The Relationship Between Social Media Information Sharing Characteristics and Problem Behaviors Among Chinese College Students Under Recommendation Algorithms.
+65. Dental caries misinformation on Instagram: Investigation of sharing and engagement factors.
+66. Social Media, Democracy and Fake News in Pakistan: An Analysis
+67. Social Drivers and Algorithmic Mechanisms on Digital Media.
+68. Unpacking the emotional drive: a grounded theory model of online collective action in social media.
+69. Affective Polarization and Misinformation Belief.
+70. Utilizing Structural Network Positions to Diversify People Recommendations on Twitter
+71. Bubble reachers and uncivil discourse in polarized online public sphere.
+72. Echo chamber formation sharpened by priority users.
+73. Construyendo bloques la promiscuidad política online en tiempos de polarización en España
+74. Exploring the contagion routes of digital emotion on health topics: A multidimensional configuration analysis pre-post rumor refutation.
+75. The influence of social media deepfake images on political ideology and polarization: the mediating roles of cognitive load and confirmation bias
+76. Mapping automatic social media information disorder. The role of bots and AI in spreading misleading information in society.
+77. The complex link between filter bubbles and opinion polarization

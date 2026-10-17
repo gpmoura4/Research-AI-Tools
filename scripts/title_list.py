@@ -39,14 +39,18 @@ import httpx
 from scripts import candidates as cand
 from scripts import naming, pdf_extract
 from scripts.config import load_config
-from scripts.crossref import CrossrefClient, title_similarity
+from scripts.crossref import CrossrefClient, CrossrefWork, normalize_title, title_similarity
 from scripts.locations import Location, ensure_location, parse_location
 from scripts.oa_resolver import OpenAccessResolver
 from scripts.openalex import USER_AGENT_TEMPLATE, Candidate, OpenAlexClient
 
 # Prefixo de venue no estilo DBLP ("HICSS - Título", "WWW - Título"): não faz
 # parte do título e derruba a similaridade.
-_VENUE_PREFIX_RE = re.compile(r"^[A-Z][A-Za-z0-9]{1,9}\s+-\s+")
+_VENUE_PREFIX_RE = re.compile(
+    r"^(?:[A-Z][A-Za-z0-9@]{1,15}|Conference on [A-Z][^-]{3,80}?)\s+-\s+"
+)
+# Numeração da lista ("12. Título"); "7 Fake news…" (sem ponto) não é numeração.
+_NUMBERING_RE = re.compile(r"^\d{1,4}\.\s+")
 
 # Status de cada item ao longo do pipeline.
 UNRESOLVED = "unresolved"
@@ -69,8 +73,13 @@ STATUS_LABEL = {
 
 
 def read_titles(path: Path) -> list[str]:
+    """Um título por linha; ignora comentários (#) e a numeração "12. " da lista."""
     lines = path.read_text(encoding="utf-8").splitlines()
-    return [line.strip() for line in lines if line.strip() and not line.startswith("#")]
+    return [
+        _NUMBERING_RE.sub("", line.strip())
+        for line in lines
+        if line.strip() and not line.startswith("#")
+    ]
 
 
 def clean_title(raw: str) -> str:
@@ -80,6 +89,44 @@ def clean_title(raw: str) -> str:
 def search_query(title: str) -> str:
     """Título pronto para a API: '?' e '*' são curingas no OpenAlex (HTTP 400)."""
     return re.sub(r"\s+", " ", re.sub(r"[?*]", " ", clean_title(title))).strip()
+
+
+def is_main_title_match(list_title: str, record_title: str, min_words: int = 4) -> bool:
+    """Um título é o início exato do outro: a lista traz o subtítulo e o registro não.
+
+    Ex.: "(Re)Design to Mitigate Political Polarization: Reflecting Habermas'…"
+    está registrado no Crossref só como "(Re)Design to Mitigate Political
+    Polarization". O mínimo de palavras evita aceitar prefixos genéricos.
+    """
+    a, b = normalize_title(list_title), normalize_title(record_title)
+    shorter, longer = sorted((a, b), key=len)
+    return (
+        len(shorter.split()) >= min_words
+        and shorter != longer
+        and longer.startswith(shorter + " ")
+    )
+
+
+def candidate_from_crossref(work: CrossrefWork) -> Candidate:
+    """Candidato a partir do Crossref, para obras que o OpenAlex não indexa.
+
+    Sem informação de open access: o resolvedor ainda consulta o Unpaywall pelo DOI.
+    """
+    return Candidate(
+        openalex_id=f"crossref:{work.doi}",
+        title=work.title,
+        authors=work.authors,
+        year=int(work.year) if work.year and work.year.isdigit() else None,
+        venue=work.container_title,
+        doi=work.doi.lower(),
+        abstract=None,
+        is_oa=False,
+        oa_status=None,
+        pdf_url=None,
+        landing_page_url=f"https://doi.org/{work.doi}",
+        host_platform=work.container_title,
+        work_type=work.entry_type,
+    )
 
 
 def pick_match(
@@ -92,7 +139,9 @@ def pick_match(
     somamos as URLs de PDF das demais: o preprint aberto é o mesmo paper.
     """
     scored = [(title_similarity(query_title, c.title), c) for c in results]
-    matches = [(s, c) for s, c in scored if s >= threshold]
+    matches = [
+        (s, c) for s, c in scored if s >= threshold or is_main_title_match(query_title, c.title)
+    ]
     if not matches:
         return None, max((s for s, _ in scored), default=0.0)
 
@@ -122,7 +171,8 @@ def resolve_title(
 
     Ordem: busca no título do OpenAlex, busca livre do OpenAlex e, por fim,
     Crossref por título -> DOI -> registro do OpenAlex (há trabalhos que o
-    índice de título do OpenAlex não acha, mas que ele tem pelo DOI).
+    índice de título do OpenAlex não acha, mas que ele tem pelo DOI). Obra que
+    só o Crossref tem (ex.: capítulo de livro) entra com o registro do Crossref.
     """
     query = search_query(title)
     reference = clean_title(title)
@@ -141,11 +191,15 @@ def resolve_title(
         results += client.search(query, per_page=10)
         match, score = pick_match(reference, results, threshold)
     if match is None:
-        work = crossref.search_by_title(query)
-        by_doi = client.fetch_by_doi(work.doi) if work else None
-        if by_doi:
-            match, doi_score = pick_match(reference, [by_doi], threshold)
-            score = max(score, doi_score)
+        works = crossref.search_works(query)
+        from_crossref = [candidate_from_crossref(w) for w in works]
+        found, cr_score = pick_match(reference, from_crossref, threshold)
+        score = max(score, cr_score)
+        if found is not None:
+            by_doi = client.fetch_by_doi(found.doi)
+            match = by_doi if by_doi is not None else found
+            if by_doi is not None:
+                score = title_similarity(reference, by_doi.title)
     return match, score
 
 
@@ -231,6 +285,12 @@ class StatusStore:
         )
 
 
+def papers_dir_for(store: StatusStore, location: Location) -> Path:
+    """Pasta dos PDFs do lote: papers/<lote>/ (lotes antigos, sem a chave: papers/)."""
+    subdir = store.data.get("papers_subdir")
+    return location.papers_dir / subdir if subdir else location.papers_dir
+
+
 def _candidate(item: dict) -> Candidate:
     record = item["candidate"]
     return Candidate(**{k: v for k, v in record.items() if k in Candidate.__dataclass_fields__})
@@ -276,6 +336,16 @@ def step_resolve(store: StatusStore, config) -> None:
                 item["status"] = MATCHED
                 seen_ids.add(match.openalex_id)
             item["candidate"] = asdict(match)
+            notes = []
+            if score < threshold:
+                notes.append(
+                    "Correspondência pelo título principal: o registro não traz o "
+                    "subtítulo que aparece na lista — confira."
+                )
+            if match.openalex_id.startswith("crossref:"):
+                notes.append("Registro só no Crossref (o OpenAlex não indexa esta obra).")
+            if notes:
+                item["note"] = " ".join(notes)
             print(f"  [{item['n']:02d}] ok ({score:.2f}) {match.title[:60]}", file=sys.stderr)
             store.save()
 
@@ -287,6 +357,7 @@ def step_download(store: StatusStore, location: Location, config) -> int:
     if not batch:
         return 0
     print(f"\nTentando download de {len(batch)} (G5: até {limit} por execução)…")
+    target_dir = papers_dir_for(store, location)
 
     s2_headers = {"User-Agent": USER_AGENT_TEMPLATE.format(email=config.polite_pool_email)}
     with OpenAccessResolver(config) as resolver, httpx.Client(
@@ -315,13 +386,19 @@ def step_download(store: StatusStore, location: Location, config) -> int:
                 title=candidate.title,
                 max_chars=config.title_max_chars,
             )
-            if (location.papers_dir / filename).exists():
-                item.update(status=DOWNLOADED, pdf_file=filename, source="já no corpus")
+            # Paper já baixado por outro lote: referencia, sem duplicar o arquivo.
+            existing = next(location.papers_dir.rglob(filename), None)
+            if existing is not None:
+                item.update(
+                    status=DOWNLOADED, source="já no corpus",
+                    pdf_file=existing.relative_to(location.papers_dir).as_posix(),
+                    note="PDF já existente no corpus (outro lote); não duplicado.",
+                )
                 store.save()
                 continue
 
             print(f"  [{item['n']:02d}] {candidate.title[:65]}")
-            result = resolver.resolve(candidate, location.papers_dir / filename)
+            result = resolver.resolve(candidate, target_dir / filename)
             if result.ok:
                 # G7 — terceira camada, sobre o texto real do PDF.
                 language = (pdf_extract.extract(result.pdf_path).language or "")[:2]
@@ -331,7 +408,8 @@ def step_download(store: StatusStore, location: Location, config) -> int:
                     item["reason"] = f"PDF em '{language}'"
                 else:
                     item.update(
-                        status=DOWNLOADED, pdf_file=filename,
+                        status=DOWNLOADED,
+                        pdf_file=(target_dir / filename).relative_to(location.papers_dir).as_posix(),
                         source=result.source, pdf_source_url=result.url,
                     )
                     print(f"      baixado via {result.source}")
@@ -425,7 +503,8 @@ def step_report(
         f"# {batch} — papers baixados ({len(downloaded)} de {len(items)})",
         "",
         *origin,
-        "- **PDFs**: `deliverables/papers/`",
+        f"- **PDFs**: `{papers_dir_for(store, location).relative_to(location.path).as_posix()}/` "
+        "(caminhos da lista são relativos a `deliverables/papers/`)",
         f"- **Não baixados**: ver `{missing_path.name}`",
         "",
         "## Lista",
@@ -515,7 +594,10 @@ def reset_for_retry(store: StatusStore) -> int:
     for item in store.items:
         if item["status"] == NOT_FOUND:
             item["status"] = UNRESOLVED
-        elif item["status"] in {NOT_DOWNLOADED, LANGUAGE_DISCARDED}:
+        elif item["status"] == NOT_DOWNLOADED or (
+            # Só o descarte pelo metadado pode estar errado; o do texto é definitivo.
+            item["status"] == LANGUAGE_DISCARDED and "metadado" in item.get("reason", "")
+        ):
             item["status"] = MATCHED
         else:
             continue
@@ -532,7 +614,8 @@ def cmd_fetch(location: Location, titles_file: Path, batch: str, retry: bool = F
     store = StatusStore(location.path / f".title-list-{batch}.json")
     if not store.items:
         titles = read_titles(titles_file)
-        store.data.update(batch=batch, titles_file=str(titles_file))
+        # Cada lote novo ganha a sua pasta de PDFs, para os lotes não se misturarem.
+        store.data.update(batch=batch, titles_file=str(titles_file), papers_subdir=batch)
         store.items.extend(
             {"n": n, "input_title": t, "status": UNRESOLVED}
             for n, t in enumerate(titles, start=1)

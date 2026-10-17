@@ -29,6 +29,8 @@ def sanitize(text: str) -> str:
     # e removê-las colaria as palavras vizinhas.
     text = re.sub(r"[\r\n\t\f\v]+", " ", text)
     text = re.sub(_CONTROL_CHARS, "", text)
+    # Aspas escapadas são artefato da API ("Media\'s"), não parte do título.
+    text = re.sub(r"\\(?=['\"])", "", text)
     text = re.sub(_INVALID_CHARS, "-", text)
     text = re.sub(r"\s+", " ", text)
     # Pontos e espaços no fim confundem alguns filesystems.

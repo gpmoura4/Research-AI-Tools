@@ -55,6 +55,10 @@ def test_invalid_filesystem_chars_are_replaced():
     assert not any(c in result[:-4] for c in '/\\:*?"<>|')
 
 
+def test_escaped_quote_from_api_keeps_apostrophe():
+    assert naming.sanitize("Exploring Social Media\\'s Role") == "Exploring Social Media's Role"
+
+
 def test_multiple_spaces_collapse():
     assert naming.sanitize("a    b\n\nc") == "a b c"
 

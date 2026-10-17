@@ -23,5 +23,8 @@ _A definir pelo usuário._
   O download roda com `scripts/title_list.py` e o resultado vai para
   `deliverables/batches/<lote>-baixados.md` e `<lote>-nao-baixados.md`.
   - `lote-01`: artigos #1–#200 da lista de origem; 51 elegíveis (2026-10-13).
+    PDFs na raiz de `deliverables/papers/`.
+  - `lote-02` (54), `lote-03` (44), `lote-04` (77): recebidos em 2026-10-16.
+    PDFs em `deliverables/papers/<lote>/`.
 - **Tipo de revisão**: _a confirmar pelo usuário_ (exploratória/narrativa ou
   semi-sistemática).

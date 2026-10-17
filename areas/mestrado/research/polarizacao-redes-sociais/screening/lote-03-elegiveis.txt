@@ -1,0 +1,46 @@
+# Lote #3 - 44 papers. Fornecido pelo usuário em 2026-10-16.
+# Um título por linha; linhas com # são ignoradas; a numeração "N. " é removida.
+1. Social influence and unfollowing accelerate the emergence of echo chambers
+2. Conformity, Anticonformity and Polarization of Opinions: Insights from a Mathematical Model of Opinion Dynamics
+3. “Others are more vulnerable to fake news than I Am”: Third-person effect of COVID-19 fake news on social media users
+4. The Echo Chamber Effect: Exploring Social Media's Role in Polarizing Public Opinion.
+5. Explanations of and interventions against affective polarization cannot afford to ignore the power of ingroup norm perception.
+6. Deep learning for misinformation detection on online social networks: a survey and new perspectives
+7. A potential mechanism for low tolerance feedback loops in social media flagging systems.
+8. Social Media and Microblogs Credibility: Identification, Theory Driven Framework, and Recommendation
+9. The effects of social media criticism against public health institutions on trust, emotions, and social media engagement.
+10. Polarized information ecosystems can reorganize social networks via information cascades.
+11. Becoming an Ideologue: Social Sorting and the Microfoundations of Polarization
+12. The Role of Influencers and Echo Chambers in the Diffusion of Vaccine Misinformation: Opinion Mining in a Taiwanese Online Community.
+13. Thinking Outside the Black-Box: The Case for “Algorithmic Sovereignty” in Social Media:
+14. The triple-filter bubble: Using agent-based modelling to test a meta-theoretical framework for the emergence of filter bubbles and echo chambers.
+15. Resistance or compliance? The impact of algorithmic awareness on people's attitudes toward online information browsing.
+16. Role-Aware Information Spread in Online Social Networks.
+17. An approach to sociotechnical transparency of social media algorithms using agent-based modelling.
+18. Why more social interactions lead to more polarization in societies.
+19. Echo chamber detection and analysis A topology- and content-based approach in the COVID-19 scenario
+20. The role of position in consensus dynamics of polarizable networks.
+21. Digital Siege - Fake News as a Post-factual Reproduction of the Postmodern Digital Society
+22. Recursive patterns in online echo chambers.
+23. Post-Truth, Polarization and Other Emotional Threats to Democracy
+24. Beyond network centrality: individual-level behavioral traits for predicting information superspreaders in social media.
+25. How out-group animosity can shape partisan divisions: A model of affective polarization.
+26. (How) do participants in online discussion forums create 'echo chambers'? The inclusion and exclusion of dissenting voices in an online discussion forum about climate change
+27. Understanding anti-immigration sentiment spreading on Twitter.
+28. Depolarization of echo chambers by random dynamical nudge.
+29. Dyadic Dynamic in Generalized Political Attitudes: Homophily, Relationship Satisfaction, and Convergence.
+30. Affective polarization in the digital age: Testing the direction of the relationship between social media and users’ feelings for out-group parties:
+31. The roots of polarization in the individual reward system.
+32. Echo chamber effects on short video platforms.
+33. The Hermeneutics of Polarized Ideologies. Conflict, (Ir)rationality and Dialogue
+34. The echo chamber effect of rumor rebuttal behavior of users in the early stage of COVID-19 epidemic in China.
+35. The emergence and perils of polarization.
+36. Resilience to Online Disinformation: A Framework for Cross-National Comparative Research:
+37. Analyzing the diffusion of feminist discourses on Chinese social media: A case study of the 2022 Tangshan restaurant attack.
+38. Opinion Dynamics via Search Engines (and Other Algorithmic Gatekeepers)
+39. Narratives and opinion polarization: a survey experiment.
+40. Designing for Safe, Fun and Informative Online Cross-Partisan Interactions
+41. Fake News, Immigration, and Opinion Polarization
+42. Opinion Leaders and Structural Hole Spanners Influencing Echo Chambers in Discussions About COVID-19 Vaccines on Social Media in China: Network Analysis.
+43. Ideological polarization during a pandemic: Tracking the alignment of attitudes toward COVID containment policies and left-right self-identification.
+44. Far-Right Digital Activism in Polarized Contexts: A Comparative Analysis of Engagement in Hashtag Wars

@@ -263,3 +263,15 @@ do "information cocoon" (escolha individual) e do filter bubble (algoritmo). O a
 retirado. Fu et al. seguem recomendados para a 7.3 (A8), e a relevância passa de **Média** para
 **Média-baixa**. Ajustes redigidos em [`adjustments/T04-ajustes.md`](../adjustments/T04-ajustes.md)
 (A1, A3, A4.1, A4.2, A5–A9, A10.1, A10.2, A11–A13; referências novas [115]–[121]).
+
+### Aplicação (2026-10-17)
+O usuário descartou A4.2 (Nwafor et al.), A5 (Almakaty no Algorithmic agenda-setting) e A10.2
+(Wazzan e Aldamen). Com isso, Nwafor et al. e Wazzan e Aldamen ficam fora do paper, e as
+referências novas são cinco: Voinea [115], Almakaty [116], Ronzhyn et al. [117], Fu et al. [118]
+e Nelson et al. [119]. Os outros 11 ajustes foram aplicados na cópia de revisão. Conferido depois
+da gravação: os 11 textos estão no documento com marca-texto amarelo, as cinco entradas novas são
+os itens 115 a 119 da lista numerada, e uma reexecução pulou todos. Entre 15 e 17/10 os autores
+editaram o documento (correção da numeração das citações no texto, Seção 6 com 39 mecanismos e
+sem a 6.10, 7.2 retitulada). Nenhuma âncora foi afetada, e as inserções não tocam nessas edições.
+Como a numeração do texto agora está sendo alinhada à lista pelos autores, T04-I03 tende a se
+resolver por eles.

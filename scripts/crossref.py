@@ -102,6 +102,20 @@ class CrossrefClient:
         text = response.text.strip()
         return text if text.startswith("@") else None
 
+    def search_works(self, query: str, rows: int = 5) -> list[CrossrefWork]:
+        """Busca bibliográfica crua, sem threshold: quem chama decide a correspondência."""
+        response = self._get(
+            f"{self.config.crossref.base_url}/works",
+            params={"query.bibliographic": query, "rows": str(rows)},
+        )
+        if response is None:
+            return []
+        try:
+            items = response.json()["message"]["items"]
+        except (KeyError, ValueError):
+            return []
+        return [w for w in (self._work_from_message(m) for m in items) if w]
+
     def fetch_abstract(self, doi: str) -> str | None:
         """Abstract depositado pelo editor no Crossref, sem as tags JATS."""
         response = self._get(f"{self.config.crossref.base_url}/works/{doi}")

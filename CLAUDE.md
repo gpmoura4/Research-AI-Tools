@@ -126,6 +126,9 @@ research-workspace/
    tentar os itens não obtidos). Título sem correspondência verificável no
    OpenAlex/Crossref fica como "não localizado" (G2). Saída:
    `deliverables/batches/<lote>-baixados.md`, `<lote>-nao-baixados.md` + `pending.md`.
+   Os PDFs de cada lote ficam em `deliverables/papers/<lote>/` (o lote-01 de
+   `mestrado/research/polarizacao-redes-sociais`, anterior a essa regra, ficou na raiz
+   de `papers/`). Paper já baixado em outro lote é referenciado, não duplicado.
 6. Agente processa também PDFs que o usuário depositar em `materials/` (mesmo pipeline
    de renomeação, resumo e BibTeX).
 7. Agente gera/atualiza os três diagramas em `maps/`.

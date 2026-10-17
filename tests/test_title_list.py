@@ -35,6 +35,28 @@ def test_clean_title_strips_dblp_venue_prefix():
     assert tl.clean_title("Echo chambers - a review") == "Echo chambers - a review"
 
 
+def test_clean_title_strips_long_venue_prefixes():
+    assert tl.clean_title("PLEAD@CIKM - Political polarization and popularity") == (
+        "Political polarization and popularity"
+    )
+    assert tl.clean_title(
+        "Conference on Designing Interactive Systems - Social Media Is Polarized"
+    ) == "Social Media Is Polarized"
+
+
+def test_read_titles_strips_list_numbering(tmp_path: Path):
+    path = tmp_path / "lote.txt"
+    path.write_text(
+        "# Lote 2\n1. Preventing extreme polarization.\n\n"
+        "41. 7 Fake news and the Dutch YouTube political debate space\n",
+        encoding="utf-8",
+    )
+    assert tl.read_titles(path) == [
+        "Preventing extreme polarization.",
+        "7 Fake news and the Dutch YouTube political debate space",
+    ]
+
+
 def test_search_query_removes_openalex_wildcards():
     query = tl.search_query("Augmenting polarization via social media? A comparative analysis")
     assert "?" not in query
@@ -82,10 +104,24 @@ def test_reset_for_retry_requeues_only_unobtained(tmp_path: Path):
         {"n": 1, "input_title": "a", "status": tl.DOWNLOADED},
         {"n": 2, "input_title": "b", "status": tl.NOT_DOWNLOADED, "reason": "HTTP 503"},
         {"n": 3, "input_title": "c", "status": tl.NOT_FOUND, "reason": "x"},
-        {"n": 4, "input_title": "d", "status": tl.LANGUAGE_DISCARDED, "reason": "es"},
+        {"n": 4, "input_title": "d", "status": tl.LANGUAGE_DISCARDED,
+         "reason": "idioma es (metadado)"},
+        {"n": 5, "input_title": "e", "status": tl.LANGUAGE_DISCARDED,
+         "reason": "idioma es (detectado no texto)"},
     ])
     assert tl.reset_for_retry(store) == 3
     assert [i["status"] for i in store.items] == [
-        tl.DOWNLOADED, tl.MATCHED, tl.UNRESOLVED, tl.MATCHED
+        tl.DOWNLOADED, tl.MATCHED, tl.UNRESOLVED, tl.MATCHED, tl.LANGUAGE_DISCARDED
     ]
     assert "reason" not in store.items[1]
+
+
+def test_main_title_match_accepts_missing_subtitle_only():
+    listed = "(Re)Design to Mitigate Political Polarization: Reflecting Habermas' ideal"
+    assert tl.is_main_title_match(listed, "(Re)Design to Mitigate Political Polarization")
+    # Prefixo curto demais é genérico: não serve como prova de identidade.
+    assert not tl.is_main_title_match("Echo chambers: a review of models", "Echo chambers")
+    # Palavra cortada no meio não é prefixo de título.
+    assert not tl.is_main_title_match(
+        "Political polarization and popularity online", "Political polarization and pop"
+    )

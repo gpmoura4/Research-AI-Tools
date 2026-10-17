@@ -1,0 +1,56 @@
+# Lote #2 - 54 papers. Fornecido pelo usuário em 2026-10-16.
+# Um título por linha; linhas com # são ignoradas; a numeração "N. " é removida.
+1. Patterns of partisan toxicity and engagement reveal the common structure of online political communication across countries.
+2. Conference on Designing Interactive Systems - Social Media Is Polarized, Social Media Is Polarized: Towards a New Design Agenda for Mitigating Polarization
+3. Systematic partisan content skews in TikTok during the 2024 US elections.
+4. Preventing extreme polarization of political attitudes.
+5. Narratives on migration and political polarization: How the emphasis in narratives can drive us apart
+6. Cognitive-motivational mechanisms of political polarization in social-communicative contexts.
+7. Using a mixed opinion dynamics and innovation diffusion model to explore the 'best game no one played' phenomenon.
+8. Why Follow All the Hoopla? Fake News Reporting on Social Media Platforms and Implications for Nation-State Building
+9. Self-determination through explanation: an ethical perspective on the implementation of the transparency requirements for recommender systems set by the Digital Services Act of the European Union
+10. The Online Media Landscape in the Focus of Disinformation Campaigns in the Western Balkans: Albania, Kosova, and North Macedonia
+11. Social identity bias and communication network clustering interact to shape patterns of opinion dynamics.
+12. Managing disinformation on social media platforms.
+13. Designing social media content recommendation algorithms for societal good.
+14. Systematic Literature Review on the Spread of Health-related Misinformation on Social Media
+15. Modularity of Online Social Networks and COVID-19 Misinformation Spreading in Russia: Combining Social Network Analysis and National Representative Survey.
+16. Polarized Ukraine 2014: Opinion and Territorial Split Demonstrated with the Bounded Confidence XY Model, Parameterized by Twitter Data.
+17. Polarization is the psychological foundation of collective engagement.
+18. The microdynamics of spatial polarization: A model and an application to survey data from Ukraine.
+19. (Re)Design to Mitigate Political Polarization: Reflecting Habermas' ideal communication space in the United States of America and Finland
+20. SIGIR - Understanding Echo Chambers in E-commerce Recommender Systems
+21. Infectivity enhances prediction of viral cascades in Twitter.
+22. The effect of political polarization on social distance stances in the Brazilian COVID-19 scenario
+23. The polarization of literary censorship in the U.S.
+24. Exposure to opposing views on social media can increase political polarization
+25. Party Politics, Values and the Design of Social Media Services: Implications of political elites' values and ideologies to mitigating of political polarisation through design
+26. Ideological Segregation Among Online Collaborators: Evidence from Wikipedians
+27. Social Contagion in COVID-19 Discussions Within the Belgian Reddit Community: Statistical and Modeling Study.
+28. Through the Newsfeed Glass: Rethinking Filter Bubbles and Echo Chambers.
+29. Modeling Ideological Salience and Framing in Polarized Online Groups with Graph Neural Networks and Structured Sparsity
+30. The polarized mind in context: Interdisciplinary approaches to the psychology of political polarization.
+31. Interbrain Synchrony Mitigates Extremism Within Echo Chambers.
+32. Echo Chambers and Homophily in the Diffusion of Risk Information on Social Media: The Case of Genetically Modified Organisms (GMOs).
+33. An agent based force vector model of social influence that predicts strong polarization in a connected world.
+34. Public Discourse and Social Network Echo Chambers Driven by Socio-Cognitive Biases
+35. The Origins and Consequences of Affective Polarization in the United States
+36. Users Polarization on Facebook and Youtube.
+37. EEG reveals the cognitive impact of polarized content in short video scenarios.
+38. A general model for how attributes can reduce polarization in social groups
+39. Endogenetic structure of filter bubble in social networks
+40. How digital media drive affective polarization through partisan sorting.
+41. 7 Fake news and the Dutch YouTube political debate space
+42. Contested science: Individuals with higher metacognitive insight into interpretation of evidence are less likely to polarize.
+43. Echo chambers and viral misinformation: Modeling fake news as complex contagion.
+44. Short-term exposure to filter-bubble recommendation systems has limited polarization effects: Naturalistic experiments on YouTube.
+45. (DIS)INFORMATION IN TWITTER ECHO CHAMBERS: disputes over chloroquine during the Covid-19 pandemic
+46. The interplay between conformity and anticonformity and its polarizing effect on society
+47. Testing and unpacking the effects of digital fake news: on presidential candidate evaluations and voter support
+48. A model for the influence of media on the ideology of content in online social networks
+49. Engagement modes and attitude polarization toward AI: the role of cognitive load and reliability among Chinese undergraduates.
+50. Relative engagement with sources of climate misinformation is growing across social media platforms.
+51. Polarization, diversity, and democratic robustness.
+52. PLEAD@CIKM - Political polarization and popularity in online participatory media: an integrated approach
+53. Cognitive distortions are associated with increasing political polarization.
+54. Guanxi in an age of digitalization: toward assortation and value homophily in new tie-formation.
