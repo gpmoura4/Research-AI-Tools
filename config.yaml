@@ -46,6 +46,9 @@ openalex:
 # --credentials e GOOGLE_APPLICATION_CREDENTIALS têm precedência sobre este arquivo.
 google_docs:
   service_account_file: "credentials/manuscripts/paper smip/drive/api/research-workspace-511213-8177bb6a1c3e.json"
+  # Cliente OAuth "Desktop app" para a troca de figuras (scripts/gdocs_figures.py, escopo
+  # drive.file). O token fica ao lado, em google-drive-token.json (também fora do Git).
+  oauth_client_file: "credentials/manuscripts/paper smip/drive/google cloud auth /client_secret_353622544220-tjukaa2sosa2cbmlun2h605in40qvlsj.apps.googleusercontent.com.json"
 
 # Unpaywall — fallback para localizar PDF open access quando o OpenAlex não traz.
 unpaywall:

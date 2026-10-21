@@ -24,6 +24,8 @@ __pycache__/
 # Só context.md, INDEX.md e reviews/ são versionados.
 manuscripts/*/paper/
 manuscripts/*/references/
+# Figuras geradas para o manuscrito (gerador e dados ficam versionados).
+manuscripts/*/adjustments/*/out/
 
 # Mantém a estrutura de diretórios visível mesmo sem os arquivos.
 !.gitkeep

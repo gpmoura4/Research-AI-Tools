@@ -11,7 +11,7 @@
 ## Referências novas
 
 Numeradas na ordem da primeira citação no texto, depois de [114] Van Bavel et al. (T03).
-
+xF
 | Nº | Obra | Primeira citação |
 |---|---|---|
 | [115] | Voinea 2025 | A1 (Introdução) |

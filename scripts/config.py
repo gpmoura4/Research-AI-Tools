@@ -58,11 +58,19 @@ class Config:
     download: DownloadConfig
     # JSON da conta de serviço do Google Docs (fora do Git, em credentials/). Só o caminho.
     google_service_account_file: Path | None = None
+    # JSON do cliente OAuth "Desktop app" (troca de figuras via Drive do usuário). Só o caminho.
+    google_oauth_client_file: Path | None = None
 
 
 def _google_service_account_file(google_docs_raw: dict) -> Path | None:
     """Caminho do JSON da conta de serviço, relativo à raiz do workspace (se configurado)."""
     raw_path = google_docs_raw.get("service_account_file")
+    return REPO_ROOT / str(raw_path) if raw_path else None
+
+
+def _google_oauth_client_file(google_docs_raw: dict) -> Path | None:
+    """Caminho do JSON do cliente OAuth, relativo à raiz do workspace (se configurado)."""
+    raw_path = google_docs_raw.get("oauth_client_file")
     return REPO_ROOT / str(raw_path) if raw_path else None
 
 
@@ -119,4 +127,5 @@ def load_config(path: Path | None = None) -> Config:
             max_size_mb=int(download_raw.get("max_size_mb", 80)),
         ),
         google_service_account_file=_google_service_account_file(raw.get("google_docs") or {}),
+        google_oauth_client_file=_google_oauth_client_file(raw.get("google_docs") or {}),
     )

@@ -1,0 +1,49 @@
+Comecei interagindo com gpt. Depois usei Claude, e fui conferindo pelo Google Scholar as referências, conferindo, e checando # total de papers tratando de cada termo.
+
+Acho MUITO útil que a gente traga no estudo os termos alt (alternativos)!!
+
+Análise parcial
+
+Interpersonal political tension — Pouco explorado ⇒ Verifiquei que há um único par de estudos mesmo.
+
+Negative social influence — vago demais; não encontrei como construto nomeado e distinto. Provavelmente se sobrepõe a Social proof (#25) ou Moral contagion (#12).
+
+Online community radicalization — Alt: “radicalization pipeline” (verificado, Munn, 2019, usa “alt-right pipeline”). Def.: Munn (2019). Exploração: Moderate.
+⇒ Atenção! O termo “radicalization pipeline” é bem mais usado na literatura do que o termo que estamos usando - talvez valha trocar. E “alt-right pipeline” é mais usado ainda (usado por Munn), mas neste caso, há um viés de extremismo à direita.
+
+Metric-driven content production — é mais uma prática organizacional/affordance (como nossa AF4/E4) ou comportamento de ator (criadores de conteúdo, plataformas) do que um mecanismo causal de polarização em si — ele alimenta mecanismos, não é um.
+
+Message brevity — é uma restrição de design (nossa AF7), não o mecanismo comportamental que ela produz (que seria mais próximo de “low-context communication”, já em nossa taxonomia como F3).
+
+Incivility exposure effect — provável redundância com Incivility contagion (#36); recomendo fundir ou redefinir a diferença explicitamente.
+
+Propaganda feedback loop — tal como descrito, parece nomear o próprio conceito estrutural de retroalimentação (que já formalizamos na nossa Seção 5.2), não um mecanismo específico adicional.
+
+Partisan flagging — mais próximo de ser uma instância específica de viés de confirmação (#16) aplicado à ação de moderação, do que um mecanismo novo e distinto.
+--> Verifiquei que não há papers usando o termo!!
+
++++++++++
+
+Além disso, coloquei uma observação no item abaixo:
+Illusory truth effect — Alt: “truth effect” (verificado). Def.: Hasher, Goldstein & Toppino (1977). Exploração: High.
+⇒ Não encontrei paper de Hasher, Goldstein & Toppino falando sobre o mecanismo. Verificar.
+
+Concluí a minha revisão. Seguem os outros mecanismos que critiquei (pode haver sobreposição com o feedback anterior)...
+
+*Social learning of outrage*
+Não achei esse termo na literatura. Achei "online moral outrage", definidos por Brady et al. (2021). Vamos usar esse alternativo?
+
+*Message brevity* (alt. brevity effect).
+⇒ Sugiro adotar “brevity effect”, pois acho conceitualmente mais interessante do que “message brevity” para nomear o mecanismo de polarização. Enquanto “brevity effect” sugere um efeito produzido por uma restrição da comunicação, “message brevity” descreve uma característica da mensagem.
+
+*Incivility exposure effect* — Isso se sobrepõe fortemente ao “nasty effect” de Anderson et al. (2014), que é sobre o efeito de testemunhar incivilidade (percepção do tema), distinto de #36, que é sobre contágio comportamental (passar a produzir incivilidade).
+⇒ Atenção: Não encontrei o termo “Incivility exposure effect” na literatura. Pensei em adotarmos “nasty effect”.
+
+*Gatekeeping decline* — Alt: “disintermediation” (verificado, usado alternadamente por Bennett & Livingston). Def.: Bennett & Livingston (2018). 
+⇒ Atenção: Acho que “disintermediation” é melhor que o primeiro, porque “Gatekeeping decline” aparece muito pouco na literatura, e “disintermediation” aparece muito.
+
+*Propaganda feedback loop* — essa dinâmica de retroalimentação é descrita, sem esse rótulo, por Benkler, Faris & Roberts (2018) dentro de “Network Propaganda”.
+⇒ Sugiro usarmos “Network Propaganda” - termo muito mais discutido na literatura.
+
+*Manufactured consensus* — Confirmei uso real, mas em literatura recente e de menor peso editorial (ex.: Mints, 2023, periódico ucraniano de ciência da computação); o conceito mais estabelecido e citável é “astroturfing” (Kovic, Rauchfleisch, Metag & Caspar, 2018).
+⇒ Por que não usamos o termo “online astroturfing”? É a minha sugestão.
